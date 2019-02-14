@@ -46,6 +46,6 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>system-center</module>
+		<module>product-center</module>
 	</modules>
 </project>
