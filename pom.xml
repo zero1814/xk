@@ -40,9 +40,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.zero.spring</groupId>
-			<artifactId>zero-spring-mybatis</artifactId>
+			<groupId>org.zero.commons</groupId>
+			<artifactId>zero-commons-test</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<modules>

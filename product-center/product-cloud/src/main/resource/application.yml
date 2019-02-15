@@ -1,0 +1,32 @@
+server:
+  application:
+    name: product-cloud
+  port: 8010
+spring:
+  datasource:
+    name: product
+    url: jdbc:mysql://127.0.0.1:3306/productcenter?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: null
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    filters: stat
+    initialSize: 1
+    maxWait: 60000
+    maxActive: 20
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+scheduled:
+  pool:
+    size: 10
