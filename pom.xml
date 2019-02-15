@@ -48,5 +48,7 @@
 	</dependencies>
 	<modules>
 		<module>product-center</module>
+		<module>cloud-parent</module>
+		<module>eureka-server</module>
 	</modules>
 </project>

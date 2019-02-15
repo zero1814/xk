@@ -1,8 +1,8 @@
 server:
+  port: 8020
+spring:
   application:
     name: product-cloud
-  port: 8010
-spring:
   datasource:
     name: product
     url: jdbc:mysql://127.0.0.1:3306/productcenter?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
@@ -27,6 +27,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-scheduled:
-  pool:
-    size: 10
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.itmuch.youran.persistence: ERROR
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery:8010/eureka/
+  instance:
+    preferIpAddress: true
