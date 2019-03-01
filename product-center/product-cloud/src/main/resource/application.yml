@@ -5,9 +5,9 @@ spring:
     name: product-cloud
   datasource:
     name: product
-    url: jdbc:mysql://127.0.0.1:3306/productcenter?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://192.168.99.100:3306/productcenter?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
     username: root
-    password: null
+    password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     filters: stat
@@ -37,6 +37,6 @@ logging:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery:8010/eureka/
+      defaultZone: http://192.168.99.100:8010/eureka/
   instance:
     preferIpAddress: true
