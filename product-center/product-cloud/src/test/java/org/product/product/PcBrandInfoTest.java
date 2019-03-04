@@ -1,5 +1,6 @@
 package org.product.product;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.product.ProductCloudApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SpringBootTest(classes = ProductCloudApplication.class)
 public class PcBrandInfoTest {
 
+	@Test
+	public void save() {
+		String url = "http://192.168.99.100:8010/";
+	}
 }
