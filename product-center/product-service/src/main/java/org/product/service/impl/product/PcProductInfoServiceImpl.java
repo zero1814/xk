@@ -6,10 +6,12 @@ import org.product.entity.product.PcBrandInfo;
 import org.product.entity.product.PcCategory;
 import org.product.entity.product.PcLabel;
 import org.product.entity.product.PcProductInfo;
+import org.product.entity.product.PcProductStatus;
 import org.product.repository.product.PcBrandInfoRepository;
 import org.product.repository.product.PcCategoryRepository;
 import org.product.repository.product.PcLabelRepository;
 import org.product.repository.product.PcProductInfoRepository;
+import org.product.repository.product.PcProductStatusRepository;
 import org.product.result.PcProductResult;
 import org.product.service.product.IPcProductInfoService;
 import org.slf4j.Logger;
@@ -31,6 +33,8 @@ public class PcProductInfoServiceImpl extends BaseServiceImpl<PcProductInfo, Str
 	private PcCategoryRepository categoryRepository;
 	@Autowired
 	private PcLabelRepository labelRepository;
+	@Autowired
+	private PcProductStatusRepository statusRepository;
 
 	/**
 	 * 
@@ -49,6 +53,8 @@ public class PcProductInfoServiceImpl extends BaseServiceImpl<PcProductInfo, Str
 			result.setCategoryList(categoryList);
 			List<PcLabel> labelList = labelRepository.findAll(Example.of(new PcLabel(0)));
 			result.setLabelList(labelList);
+			List<PcProductStatus> statusList = statusRepository.findAll();
+			result.setStatusList(statusList);
 			result.setCode(ResultType.SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage());

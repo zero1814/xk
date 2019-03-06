@@ -5,6 +5,7 @@ import java.util.List;
 import org.product.entity.product.PcBrandInfo;
 import org.product.entity.product.PcCategory;
 import org.product.entity.product.PcLabel;
+import org.product.entity.product.PcProductStatus;
 
 import zero.commons.basics.result.BaseResult;
 
@@ -22,6 +23,16 @@ public class PcProductResult extends BaseResult {
 	private List<PcCategory> categoryList;
 
 	private List<PcLabel> labelList;
+
+	private List<PcProductStatus> statusList;
+
+	public List<PcProductStatus> getStatusList() {
+		return statusList;
+	}
+
+	public void setStatusList(List<PcProductStatus> statusList) {
+		this.statusList = statusList;
+	}
 
 	public List<PcBrandInfo> getBrandList() {
 		return brandList;
