@@ -1,12 +1,15 @@
 package org.product.entity.sku;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.product.entity.product.PcProductInfo;
@@ -48,6 +51,19 @@ public class PcSkuInfo extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "status")
 	private PcSkuStatus status;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "pc_sku_pic", joinColumns = { @JoinColumn(name = "sku_code") }, inverseJoinColumns = {
+			@JoinColumn(name = "code") })
+	private List<PcSkuPic> pics;
+
+	public List<PcSkuPic> getPics() {
+		return pics;
+	}
+
+	public void setPics(List<PcSkuPic> pics) {
+		this.pics = pics;
+	}
 
 	public BigDecimal getCostPrice() {
 		return costPrice;

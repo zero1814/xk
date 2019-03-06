@@ -8,16 +8,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.zero.spring.jpa.BaseEntity;
 import org.zero.spring.jpa.IBaseService;
 
-import com.alibaba.fastjson.JSON;
-
 import zero.commons.basics.result.BaseResult;
 import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.PageResult;
 
 public class BaseController<T extends BaseEntity, S extends IBaseService<T, String>> {
-
-	final static org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(BaseController.class);
 
 	@Autowired
 	private S service;
@@ -29,13 +25,12 @@ public class BaseController<T extends BaseEntity, S extends IBaseService<T, Stri
 
 	@PostMapping(value = "update", consumes = "application/json")
 	public BaseResult update(T entity) {
-		return service.update(entity);
+		return service.update(entity, entity.getCode());
 	}
 
 	@GetMapping("get/{code}")
 	public EntityResult<T> select(@PathVariable("code") String code) {
 		EntityResult<T> result = service.select(code);
-		logger.info(JSON.toJSONString(result));
 		return result;
 	}
 
@@ -52,7 +47,6 @@ public class BaseController<T extends BaseEntity, S extends IBaseService<T, Stri
 	@PostMapping(value = "page", consumes = "application/json")
 	public PageResult<T> page(@RequestBody T entity) {
 		PageResult<T> result = service.page(entity);
-		logger.info(JSON.toJSONString(result));
 		return result;
 	}
 }
