@@ -24,7 +24,7 @@ public class BaseController<T extends BaseEntity, S extends IBaseService<T, Stri
 	}
 
 	@PostMapping(value = "update", consumes = "application/json")
-	public BaseResult update(T entity) {
+	public BaseResult update(@RequestBody T entity) {
 		return service.update(entity, entity.getCode());
 	}
 
