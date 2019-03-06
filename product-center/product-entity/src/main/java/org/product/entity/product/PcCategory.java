@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
+
 /**
  * 
  * 类: PcCategory <br>
@@ -13,17 +14,25 @@ import org.zero.spring.jpa.BaseEntity;
  * 时间: 2019年2月15日 上午9:48:46
  */
 @Entity
-@Table(name="pc_category")
+@Table(name = "pc_category")
 public class PcCategory extends BaseEntity {
 
 	private static final long serialVersionUID = -316067999397194462L;
 
+	public PcCategory() {
+
+	}
+
+	public PcCategory(Integer flagEnabled) {
+		this.flagEnabled = flagEnabled;
+	}
+
 	/**
 	 * 名称
 	 */
-	@Column(name="name",length=50,nullable=false)
+	@Column(name = "name", length = 50, nullable = false)
 	private String name;
-	
+
 	/**
 	 * 是否可用 0 可用 1 不可用
 	 */

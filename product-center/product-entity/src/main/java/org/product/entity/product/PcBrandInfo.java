@@ -19,6 +19,13 @@ public class PcBrandInfo extends BaseEntity {
 
 	private static final long serialVersionUID = 8328486928128907182L;
 
+	public PcBrandInfo() {
+		
+	}
+	
+	public PcBrandInfo(Integer flagEnabled) {
+		this.flagEnabled = flagEnabled;
+	}
 	/**
 	 * 名称
 	 */

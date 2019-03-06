@@ -12,6 +12,14 @@ public class PcLabel extends BaseEntity {
 
 	private static final long serialVersionUID = -5766697981029613489L;
 
+	public PcLabel() {
+
+	}
+
+	public PcLabel(Integer flagEnabled) {
+		this.flagEnabled = flagEnabled;
+	}
+
 	/**
 	 * 名称
 	 */

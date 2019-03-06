@@ -1,12 +1,16 @@
 package org.product.entity.product;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
@@ -47,7 +51,7 @@ public class PcProductInfo extends BaseEntity {
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "brand_code")
-	private PcBrandInfo brandCode;
+	private PcBrandInfo brand;
 
 	@Column(name = "min_cost_price", nullable = false)
 	private BigDecimal minCostPrice;
@@ -68,12 +72,22 @@ public class PcProductInfo extends BaseEntity {
 	private BigDecimal maxSellPrice;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "type")
-	private PcProductType type;
-
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "status")
 	private PcProductStatus status;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "pc_product_label", joinColumns = {
+			@JoinColumn(name = "product_code", referencedColumnName = "code") }, inverseJoinColumns = {
+					@JoinColumn(name = "label_code", referencedColumnName = "code") })
+	private List<PcLabel> labels;
+
+	public List<PcLabel> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(List<PcLabel> labels) {
+		this.labels = labels;
+	}
 
 	public String getStoreCode() {
 		return storeCode;
@@ -155,20 +169,12 @@ public class PcProductInfo extends BaseEntity {
 		this.category = category;
 	}
 
-	public PcBrandInfo getBrandCode() {
-		return brandCode;
+	public PcBrandInfo getBrand() {
+		return brand;
 	}
 
-	public void setBrandCode(PcBrandInfo brandCode) {
-		this.brandCode = brandCode;
-	}
-
-	public PcProductType getType() {
-		return type;
-	}
-
-	public void setType(PcProductType type) {
-		this.type = type;
+	public void setBrand(PcBrandInfo brand) {
+		this.brand = brand;
 	}
 
 	public PcProductStatus getStatus() {
