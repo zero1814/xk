@@ -21,11 +21,14 @@ public class PcStoreStatusTest {
 
 	@Test
 	public void insert() {
-		PcStoreStatus entity = new PcStoreStatus();
-		entity.setUid(CodeHelper.getUUID());
-		entity.setCode(CodeHelper.getCode("SS"));
-		entity.setName("正常");
-		entity.setCreateUser("insert");
-		service.insert(entity);
+		String [] statusList = new String[] {"正常","冻结","注销"}; 
+		for (String status : statusList) {
+			PcStoreStatus entity = new PcStoreStatus();
+			entity.setUid(CodeHelper.getUUID());
+			entity.setCode(CodeHelper.getCode("SS"));
+			entity.setName(status);
+			entity.setCreateUser("insert");
+			service.insert(entity);
+		}
 	}
 }

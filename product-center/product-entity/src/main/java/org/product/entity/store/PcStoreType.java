@@ -12,6 +12,14 @@ public class PcStoreType extends BaseEntity {
 
 	private static final long serialVersionUID = 428637253718257204L;
 
+	public PcStoreType() {
+
+	}
+
+	public PcStoreType(Integer flagEnabled) {
+		this.flagEnabled = flagEnabled;
+	}
+
 	/**
 	 * 名称
 	 */
@@ -21,7 +29,7 @@ public class PcStoreType extends BaseEntity {
 	/**
 	 * 是否可用 0 可用 1 不可用
 	 */
-	@Column(name = "flag_enabled",insertable=false, columnDefinition = "int default 0")
+	@Column(name = "flag_enabled", insertable = false, columnDefinition = "int default 0")
 	private Integer flagEnabled;
 
 	public String getName() {
@@ -32,12 +40,13 @@ public class PcStoreType extends BaseEntity {
 		this.name = name;
 	}
 
-	public int getFlagEnabled() {
+	public Integer getFlagEnabled() {
 		return flagEnabled;
 	}
 
-	public void setFlagEnabled(int flagEnabled) {
+	public void setFlagEnabled(Integer flagEnabled) {
 		this.flagEnabled = flagEnabled;
 	}
+
 
 }

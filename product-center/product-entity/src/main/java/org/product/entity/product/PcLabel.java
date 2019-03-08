@@ -30,7 +30,7 @@ public class PcLabel extends BaseEntity {
 	 * 是否可用 0 可用 1 不可用
 	 */
 	@Column(name = "flag_enabled", columnDefinition = "int default 0")
-	private Integer flagEnabled;
+	private Integer flagEnabled = 0;
 
 	public String getName() {
 		return name;

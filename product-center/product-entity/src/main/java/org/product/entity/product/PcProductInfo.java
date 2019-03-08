@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -42,40 +41,40 @@ public class PcProductInfo extends BaseEntity {
 	/**
 	 * 分类编码
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "category_code")
 	private PcCategory category;
 
 	/**
 	 * 品牌编码
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "brand_code")
 	private PcBrandInfo brand;
 
 	@Column(name = "min_cost_price", nullable = false)
-	private BigDecimal minCostPrice;
+	private BigDecimal minCostPrice = new BigDecimal(0.00);
 
 	@Column(name = "max_cost_price", nullable = false)
-	private BigDecimal maxCostPrice;
+	private BigDecimal maxCostPrice = new BigDecimal(0.00);
 
 	@Column(name = "min_market_price", nullable = false)
-	private BigDecimal minMarketPrice;
+	private BigDecimal minMarketPrice = new BigDecimal(0.00);
 
 	@Column(name = "max_market_price", nullable = false)
-	private BigDecimal maxMarketPrice;
+	private BigDecimal maxMarketPrice = new BigDecimal(0.00);
 
 	@Column(name = "min_sell_price", nullable = false)
-	private BigDecimal minSellPrice;
+	private BigDecimal minSellPrice = new BigDecimal(0.00);
 
 	@Column(name = "max_sell_price", nullable = false)
-	private BigDecimal maxSellPrice;
+	private BigDecimal maxSellPrice = new BigDecimal(0.00);
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "status")
 	private PcProductStatus status;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "pc_product_label", joinColumns = {
 			@JoinColumn(name = "product_code", referencedColumnName = "code") }, inverseJoinColumns = {
 					@JoinColumn(name = "label_code", referencedColumnName = "code") })

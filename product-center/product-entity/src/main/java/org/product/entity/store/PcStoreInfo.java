@@ -3,6 +3,7 @@ package org.product.entity.store;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -18,8 +19,8 @@ public class PcStoreInfo extends BaseEntity {
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "type")
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "type",foreignKey=@ForeignKey(name="type_fk"))
 	private PcStoreType type;
 
 	@Column(name = "principal_name", length = 50, nullable = false)
@@ -31,8 +32,8 @@ public class PcStoreInfo extends BaseEntity {
 	@Column(name = "icon_url", length = 200, nullable = false)
 	private String iconUrl;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "status")
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "status",foreignKey=@ForeignKey(name="status_fk"))
 	private PcStoreStatus status;
 
 	public String getName() {

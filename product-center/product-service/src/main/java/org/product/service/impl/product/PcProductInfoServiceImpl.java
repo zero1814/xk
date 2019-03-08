@@ -12,7 +12,7 @@ import org.product.repository.product.PcCategoryRepository;
 import org.product.repository.product.PcLabelRepository;
 import org.product.repository.product.PcProductInfoRepository;
 import org.product.repository.product.PcProductStatusRepository;
-import org.product.result.PcProductResult;
+import org.product.result.product.PcProductResult;
 import org.product.service.product.IPcProductInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,5 +63,4 @@ public class PcProductInfoServiceImpl extends BaseServiceImpl<PcProductInfo, Str
 		}
 		return result;
 	}
-
 }

@@ -1,7 +1,7 @@
 package org.product.service.product;
 
 import org.product.entity.product.PcProductInfo;
-import org.product.result.PcProductResult;
+import org.product.result.product.PcProductResult;
 import org.zero.spring.jpa.IBaseService;
 
 public interface IPcProductInfoService extends IBaseService<PcProductInfo, String> {

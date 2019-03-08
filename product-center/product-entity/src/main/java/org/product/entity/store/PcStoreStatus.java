@@ -11,6 +11,15 @@ import org.zero.spring.jpa.BaseEntity;
 public class PcStoreStatus extends BaseEntity {
 
 	private static final long serialVersionUID = 428637253718257204L;
+
+	public PcStoreStatus() {
+
+	}
+
+	public PcStoreStatus(Integer flagEnabled) {
+		this.flagEnabled = flagEnabled;
+	}
+
 	/**
 	 * 名称
 	 */
@@ -31,11 +40,11 @@ public class PcStoreStatus extends BaseEntity {
 		this.name = name;
 	}
 
-	public int getFlagEnabled() {
+	public Integer getFlagEnabled() {
 		return flagEnabled;
 	}
 
-	public void setFlagEnabled(int flagEnabled) {
+	public void setFlagEnabled(Integer flagEnabled) {
 		this.flagEnabled = flagEnabled;
 	}
 

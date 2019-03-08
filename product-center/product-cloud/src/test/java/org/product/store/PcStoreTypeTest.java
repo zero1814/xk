@@ -21,11 +21,14 @@ public class PcStoreTypeTest {
 
 	@Test
 	public void save() {
-		PcStoreType entity = new PcStoreType();
-		entity.setUid(CodeHelper.getUUID());
-		entity.setCode(CodeHelper.getCode("SS"));
-		entity.setName("普通商铺");
-		entity.setCreateUser("insert");
-		service.insert(entity);
+		String[] types = new String[] { "个人", "私营", "企业" };
+		for (String type : types) {
+			PcStoreType entity = new PcStoreType();
+			entity.setUid(CodeHelper.getUUID());
+			entity.setCode(CodeHelper.getCode("SS"));
+			entity.setName(type);
+			entity.setCreateUser("insert");
+			service.insert(entity);
+		}
 	}
 }
