@@ -20,12 +20,13 @@ public class PcBrandInfo extends BaseEntity {
 	private static final long serialVersionUID = 8328486928128907182L;
 
 	public PcBrandInfo() {
-		
+
 	}
-	
+
 	public PcBrandInfo(Integer flagEnabled) {
 		this.flagEnabled = flagEnabled;
 	}
+
 	/**
 	 * 名称
 	 */
@@ -47,8 +48,19 @@ public class PcBrandInfo extends BaseEntity {
 	/**
 	 * 是否可用 0 可用 1 不可用
 	 */
-	@Column(name = "flag_enabled", columnDefinition = "int default 0")
-	private Integer flagEnabled = 0;
+	@Column(name = "flag_enabled", columnDefinition = "int default 0", nullable = true)
+	private Integer flagEnabled;
+
+	@Column(name = "intro", length = 500)
+	private String intro;
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
 
 	public String getName() {
 		return name;
