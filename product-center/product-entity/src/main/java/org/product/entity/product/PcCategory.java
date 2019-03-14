@@ -27,10 +27,14 @@ public class PcCategory extends BaseEntity {
 		this.flagEnabled = flagEnabled;
 	}
 
+	public PcCategory(String parentCode) {
+		this.parentCode = parentCode;
+	}
+
 	/**
 	 * 父级编码
 	 */
-	@Column(name = "parent_code", length = 50, nullable = false)
+	@Column(name = "parent_code", length = 50, nullable = true, columnDefinition = "varchar(50) default '0' ")
 	private String parentCode;
 	/**
 	 * 名称
@@ -47,7 +51,7 @@ public class PcCategory extends BaseEntity {
 	/**
 	 * 分类图标
 	 */
-	@Column(name = "icon_url", length = 50, nullable = false)
+	@Column(name = "icon_url", length = 200, nullable = false)
 	private String iconUrl;
 
 	public String getParentCode() {
