@@ -28,6 +28,11 @@ public class PcCategory extends BaseEntity {
 	}
 
 	/**
+	 * 父级编码
+	 */
+	@Column(name = "parent_code", length = 50, nullable = false)
+	private String parentCode;
+	/**
 	 * 名称
 	 */
 	@Column(name = "name", length = 50, nullable = false)
@@ -36,8 +41,22 @@ public class PcCategory extends BaseEntity {
 	/**
 	 * 是否可用 0 可用 1 不可用
 	 */
-	@Column(name = "flag_enabled", columnDefinition = "int default 0")
-	private Integer flagEnabled = 0;
+	@Column(name = "flag_enabled", columnDefinition = "int default 0", nullable = true)
+	private Integer flagEnabled;
+
+	/**
+	 * 分类图标
+	 */
+	@Column(name = "icon_url", length = 50, nullable = false)
+	private String iconUrl;
+
+	public String getParentCode() {
+		return parentCode;
+	}
+
+	public void setParentCode(String parentCode) {
+		this.parentCode = parentCode;
+	}
 
 	public String getName() {
 		return name;
@@ -53,6 +72,14 @@ public class PcCategory extends BaseEntity {
 
 	public void setFlagEnabled(Integer flagEnabled) {
 		this.flagEnabled = flagEnabled;
+	}
+
+	public String getIconUrl() {
+		return iconUrl;
+	}
+
+	public void setIconUrl(String iconUrl) {
+		this.iconUrl = iconUrl;
 	}
 
 }

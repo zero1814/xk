@@ -2,7 +2,6 @@ package org.product.entity.sku;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -15,7 +14,7 @@ public class PcSkuPic extends BaseEntity {
 
 	private static final long serialVersionUID = 4226790008540386566L;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "sku_code")
 	private PcSkuInfo skuCode;
 

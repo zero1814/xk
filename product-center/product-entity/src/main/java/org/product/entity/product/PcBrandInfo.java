@@ -42,8 +42,8 @@ public class PcBrandInfo extends BaseEntity {
 	/**
 	 * 品牌图标url
 	 */
-	@Column(name = "icon_url", length = 200, nullable = false)
-	private String iconUrl;
+	@Column(name = "logo_url", length = 200, nullable = false)
+	private String logoUrl;
 
 	/**
 	 * 是否可用 0 可用 1 不可用
@@ -53,14 +53,6 @@ public class PcBrandInfo extends BaseEntity {
 
 	@Column(name = "intro", length = 500)
 	private String intro;
-
-	public String getIntro() {
-		return intro;
-	}
-
-	public void setIntro(String intro) {
-		this.intro = intro;
-	}
 
 	public String getName() {
 		return name;
@@ -78,12 +70,12 @@ public class PcBrandInfo extends BaseEntity {
 		this.enName = enName;
 	}
 
-	public String getIconUrl() {
-		return iconUrl;
+	public String getLogoUrl() {
+		return logoUrl;
 	}
 
-	public void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 	public Integer getFlagEnabled() {
@@ -92,6 +84,14 @@ public class PcBrandInfo extends BaseEntity {
 
 	public void setFlagEnabled(Integer flagEnabled) {
 		this.flagEnabled = flagEnabled;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 
 }

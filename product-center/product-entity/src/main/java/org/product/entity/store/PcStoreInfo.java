@@ -1,6 +1,7 @@
 package org.product.entity.store;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
@@ -14,13 +15,23 @@ import org.zero.spring.jpa.BaseEntity;
 @Table(name = "pc_store_info")
 public class PcStoreInfo extends BaseEntity {
 
+	public PcStoreInfo() {
+
+	}
+
+	public PcStoreInfo(String statusCode) {
+		PcStoreStatus status = new PcStoreStatus();
+		status.setCode(statusCode);
+		this.status = status;
+	}
+
 	private static final long serialVersionUID = 4489490336780416138L;
 
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "type",foreignKey=@ForeignKey(name="type_fk"))
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "type", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
 	private PcStoreType type;
 
 	@Column(name = "principal_name", length = 50, nullable = false)
@@ -32,8 +43,8 @@ public class PcStoreInfo extends BaseEntity {
 	@Column(name = "icon_url", length = 200, nullable = false)
 	private String iconUrl;
 
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "status",foreignKey=@ForeignKey(name="status_fk"))
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "status", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
 	private PcStoreStatus status;
 
 	public String getName() {

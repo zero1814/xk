@@ -2,7 +2,6 @@ package org.product.entity.product;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -25,7 +24,7 @@ public class PcProductPic extends BaseEntity {
 	/**
 	 * 商品编码
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "product_code")
 	private PcProductInfo productCode;
 

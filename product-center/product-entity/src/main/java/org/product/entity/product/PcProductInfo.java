@@ -1,17 +1,19 @@
 package org.product.entity.product;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.product.entity.store.PcStoreInfo;
 import org.zero.spring.jpa.BaseEntity;
 
 @Entity
@@ -23,8 +25,9 @@ public class PcProductInfo extends BaseEntity {
 	/**
 	 * 店铺编码
 	 */
-	@Column(name = "store_code", length = 50, nullable = false)
-	private String storeCode;
+	@ManyToOne
+	@JoinColumn(name = "store_code")
+	private PcStoreInfo store;
 
 	/**
 	 * 名称
@@ -41,44 +44,29 @@ public class PcProductInfo extends BaseEntity {
 	/**
 	 * 分类编码
 	 */
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "category_code")
 	private PcCategory category;
 
 	/**
 	 * 品牌编码
 	 */
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "brand_code")
 	private PcBrandInfo brand;
 
-	@Column(name = "min_cost_price", nullable = false)
-	private BigDecimal minCostPrice = new BigDecimal(0.00);
-
-	@Column(name = "max_cost_price", nullable = false)
-	private BigDecimal maxCostPrice = new BigDecimal(0.00);
-
-	@Column(name = "min_market_price", nullable = false)
-	private BigDecimal minMarketPrice = new BigDecimal(0.00);
-
-	@Column(name = "max_market_price", nullable = false)
-	private BigDecimal maxMarketPrice = new BigDecimal(0.00);
-
-	@Column(name = "min_sell_price", nullable = false)
-	private BigDecimal minSellPrice = new BigDecimal(0.00);
-
-	@Column(name = "max_sell_price", nullable = false)
-	private BigDecimal maxSellPrice = new BigDecimal(0.00);
-
-	@ManyToOne(cascade = CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "status")
 	private PcProductStatus status;
 
 	@OneToMany(cascade = CascadeType.REMOVE)
 	@JoinTable(name = "pc_product_label", joinColumns = {
-			@JoinColumn(name = "product_code", referencedColumnName = "code") }, inverseJoinColumns = {
-					@JoinColumn(name = "label_code", referencedColumnName = "code") })
+			@JoinColumn(name = "product_code", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT)) })
 	private List<PcLabel> labels;
+
+	@OneToMany(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "product_code")
+	private List<PcProductPic> pics;
 
 	public List<PcLabel> getLabels() {
 		return labels;
@@ -88,12 +76,12 @@ public class PcProductInfo extends BaseEntity {
 		this.labels = labels;
 	}
 
-	public String getStoreCode() {
-		return storeCode;
+	public PcStoreInfo getStore() {
+		return store;
 	}
 
-	public void setStoreCode(String storeCode) {
-		this.storeCode = storeCode;
+	public void setStore(PcStoreInfo store) {
+		this.store = store;
 	}
 
 	public String getName() {
@@ -110,54 +98,6 @@ public class PcProductInfo extends BaseEntity {
 
 	public void setEnName(String enName) {
 		this.enName = enName;
-	}
-
-	public BigDecimal getMinCostPrice() {
-		return minCostPrice;
-	}
-
-	public void setMinCostPrice(BigDecimal minCostPrice) {
-		this.minCostPrice = minCostPrice;
-	}
-
-	public BigDecimal getMaxCostPrice() {
-		return maxCostPrice;
-	}
-
-	public void setMaxCostPrice(BigDecimal maxCostPrice) {
-		this.maxCostPrice = maxCostPrice;
-	}
-
-	public BigDecimal getMinMarketPrice() {
-		return minMarketPrice;
-	}
-
-	public void setMinMarketPrice(BigDecimal minMarketPrice) {
-		this.minMarketPrice = minMarketPrice;
-	}
-
-	public BigDecimal getMaxMarketPrice() {
-		return maxMarketPrice;
-	}
-
-	public void setMaxMarketPrice(BigDecimal maxMarketPrice) {
-		this.maxMarketPrice = maxMarketPrice;
-	}
-
-	public BigDecimal getMinSellPrice() {
-		return minSellPrice;
-	}
-
-	public void setMinSellPrice(BigDecimal minSellPrice) {
-		this.minSellPrice = minSellPrice;
-	}
-
-	public BigDecimal getMaxSellPrice() {
-		return maxSellPrice;
-	}
-
-	public void setMaxSellPrice(BigDecimal maxSellPrice) {
-		this.maxSellPrice = maxSellPrice;
 	}
 
 	public PcCategory getCategory() {

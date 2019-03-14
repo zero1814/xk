@@ -6,6 +6,7 @@ import org.product.entity.product.PcBrandInfo;
 import org.product.entity.product.PcCategory;
 import org.product.entity.product.PcLabel;
 import org.product.entity.product.PcProductStatus;
+import org.product.entity.store.PcStoreInfo;
 
 import zero.commons.basics.result.BaseResult;
 
@@ -18,6 +19,8 @@ import zero.commons.basics.result.BaseResult;
  */
 public class PcProductResult extends BaseResult {
 
+	private List<PcStoreInfo> storeList;
+
 	private List<PcBrandInfo> brandList;
 
 	private List<PcCategory> categoryList;
@@ -25,6 +28,14 @@ public class PcProductResult extends BaseResult {
 	private List<PcLabel> labelList;
 
 	private List<PcProductStatus> statusList;
+
+	public List<PcStoreInfo> getStoreList() {
+		return storeList;
+	}
+
+	public void setStoreList(List<PcStoreInfo> storeList) {
+		this.storeList = storeList;
+	}
 
 	public List<PcProductStatus> getStatusList() {
 		return statusList;

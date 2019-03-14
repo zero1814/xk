@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,16 +46,15 @@ public class PcSkuInfo extends BaseEntity {
 	private String mainPic;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "type")
+	@JoinColumn(name = "type", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
 	private PcSkuType type;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "status")
+	@JoinColumn(name = "status", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
 	private PcSkuStatus status;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "pc_sku_pic", joinColumns = { @JoinColumn(name = "sku_code") }, inverseJoinColumns = {
-			@JoinColumn(name = "code") })
+	@JoinColumn(name = "sku_code")
 	private List<PcSkuPic> pics;
 
 	public List<PcSkuPic> getPics() {

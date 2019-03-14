@@ -15,7 +15,7 @@ import org.zero.spring.jpa.BaseEntity;
  */
 @Entity
 @Table(name = "pc_product_draft")
-public class PcProdutDraft extends BaseEntity {
+public class PcProductDraft extends BaseEntity {
 
 	private static final long serialVersionUID = 7082083721940584490L;
 
