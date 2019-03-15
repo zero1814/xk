@@ -1,5 +1,6 @@
 package org.system.service.impl.role;
 
+import org.springframework.stereotype.Service;
 import org.system.entity.role.ScCenterInfo;
 import org.system.repository.role.ScCenterInfoRepository;
 import org.system.service.role.IScCenterInfoService;
@@ -12,6 +13,7 @@ import org.zero.spring.jpa.BaseServiceImpl;
  * 作者: zhy<br>
  * 时间: 2019年3月15日 下午2:00:21
  */
+@Service
 public class ScCenterInfoServiceImpl extends BaseServiceImpl<ScCenterInfo, String, ScCenterInfoRepository>
 		implements IScCenterInfoService {
 
