@@ -23,6 +23,9 @@ public class ScUserInfo extends BaseEntity {
 	@Column(name = "real_name", length = 50, nullable = false)
 	private String realName;
 
+	@Column(name = "header_pic", length = 200)
+	private String headerPic;
+
 	@Column(name = "user_name", length = 50, nullable = false, unique = true)
 	private String userName;
 
@@ -97,6 +100,14 @@ public class ScUserInfo extends BaseEntity {
 
 	public void setStatus(ScUserStatus status) {
 		this.status = status;
+	}
+
+	public String getHeaderPic() {
+		return headerPic;
+	}
+
+	public void setHeaderPic(String headerPic) {
+		this.headerPic = headerPic;
 	}
 
 }
