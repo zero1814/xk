@@ -9,11 +9,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.zero.spring.jpa.BaseEntity;
+import org.system.entity.FlagEnabledEntity;
 
 @Entity
 @Table(name = "sc_role")
-public class ScRole extends BaseEntity {
+public class ScRole extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = -3569376630891554712L;
 
@@ -22,12 +22,6 @@ public class ScRole extends BaseEntity {
 	 */
 	@Column(name = "name", length = 50, nullable = false, unique = true)
 	private String name;
-
-	/**
-	 * 是否可用 0 可用 1 不可用
-	 */
-	@Column(name = "flag_enabled", columnDefinition = "int null default 0")
-	private Integer flagEnabled;
 
 	@OneToMany
 	@JoinTable(name = "sc_role_api", joinColumns = { @JoinColumn(name = "role_code") }, inverseJoinColumns = {
@@ -40,14 +34,6 @@ public class ScRole extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getFlagEnabled() {
-		return flagEnabled;
-	}
-
-	public void setFlagEnabled(Integer flagEnabled) {
-		this.flagEnabled = flagEnabled;
 	}
 
 }

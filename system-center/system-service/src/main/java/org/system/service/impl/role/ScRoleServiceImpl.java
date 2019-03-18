@@ -3,8 +3,8 @@ package org.system.service.impl.role;
 import org.springframework.stereotype.Service;
 import org.system.entity.role.ScRole;
 import org.system.repository.role.ScRoleRepository;
+import org.system.service.impl.FlagEnabledServiceImpl;
 import org.system.service.role.IScRoleService;
-import org.zero.spring.jpa.BaseServiceImpl;
 
 /**
  * 
@@ -14,6 +14,7 @@ import org.zero.spring.jpa.BaseServiceImpl;
  * 时间: 2019年3月15日 下午2:02:47
  */
 @Service
-public class ScRoleServiceImpl extends BaseServiceImpl<ScRole, String, ScRoleRepository> implements IScRoleService {
+public class ScRoleServiceImpl extends FlagEnabledServiceImpl<ScRole, String, ScRoleRepository>
+		implements IScRoleService {
 
 }

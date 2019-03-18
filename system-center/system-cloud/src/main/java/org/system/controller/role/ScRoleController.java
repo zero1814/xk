@@ -2,9 +2,10 @@ package org.system.controller.role;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.system.controller.BaseController;
+import org.system.controller.FlagEnabledController;
 import org.system.entity.role.ScRole;
 import org.system.service.role.IScRoleService;
+
 /**
  * 
  * 类: ScRoleController <br>
@@ -14,6 +15,6 @@ import org.system.service.role.IScRoleService;
  */
 @RestController
 @RequestMapping("/system/role/")
-public class ScRoleController extends BaseController<ScRole, IScRoleService> {
+public class ScRoleController extends FlagEnabledController<ScRole, IScRoleService> {
 
 }

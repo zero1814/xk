@@ -14,7 +14,7 @@ public class FlagEnabledController<T extends FlagEnabledEntity, S extends IFlagE
 	@Autowired
 	private S service;
 
-	@PostMapping(value = "update", consumes = "application/json")
+	@PostMapping(value = "update/flag_enabled", consumes = "application/json")
 	public BaseResult updateFlagEnabled(@RequestBody T entity) {
 		return service.updateFlagEnabled(entity);
 	}

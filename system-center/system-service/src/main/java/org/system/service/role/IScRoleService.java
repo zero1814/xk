@@ -1,7 +1,8 @@
 package org.system.service.role;
 
 import org.system.entity.role.ScRole;
-import org.zero.spring.jpa.IBaseService;
+import org.system.service.IFlagEnabledService;
+
 /**
  * 
  * 类: IScRoleService <br>
@@ -9,6 +10,6 @@ import org.zero.spring.jpa.IBaseService;
  * 作者: zhy<br>
  * 时间: 2019年3月15日 下午2:02:25
  */
-public interface IScRoleService extends IBaseService<ScRole, String> {
+public interface IScRoleService extends IFlagEnabledService<ScRole, String> {
 
 }
