@@ -26,7 +26,7 @@ public class ScRole extends FlagEnabledEntity {
 	@OneToMany
 	@JoinTable(name = "sc_role_permission", joinColumns = { @JoinColumn(name = "role_code") }, inverseJoinColumns = {
 			@JoinColumn(name = "permission_code") })
-	private List<ScPermission> api;
+	private List<ScPermission> permissions;
 
 	public String getName() {
 		return name;
@@ -34,6 +34,14 @@ public class ScRole extends FlagEnabledEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<ScPermission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<ScPermission> permissions) {
+		this.permissions = permissions;
 	}
 
 }

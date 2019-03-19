@@ -2,7 +2,7 @@ package org.system.controller.role;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.system.controller.BaseController;
+import org.system.controller.FlagEnabledController;
 import org.system.entity.role.ScPermission;
 import org.system.service.role.IScPermissionService;
 
@@ -15,6 +15,6 @@ import org.system.service.role.IScPermissionService;
  */
 @RestController
 @RequestMapping("/system/role/permission/")
-public class ScPermissionController extends BaseController<ScPermission, IScPermissionService> {
+public class ScPermissionController extends FlagEnabledController<ScPermission, IScPermissionService> {
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.UniqueConstraint;
 import org.system.entity.FlagEnabledEntity;
 
 @Entity
-@Table(name = "sc_permission", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "url", "center" }) })
+@Table(name = "sc_permission", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "url", "system_center" }) })
 public class ScPermission extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = -8444890942860733346L;
