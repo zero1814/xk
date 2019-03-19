@@ -14,7 +14,7 @@ import org.system.service.role.IScPermissionService;
  * 时间: 2019年3月15日 下午2:53:13
  */
 @RestController
-@RequestMapping("/system/api/")
+@RequestMapping("/system/role/permission/")
 public class ScPermissionController extends BaseController<ScPermission, IScPermissionService> {
 
 }

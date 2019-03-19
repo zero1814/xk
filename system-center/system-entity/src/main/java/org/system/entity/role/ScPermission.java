@@ -2,6 +2,8 @@ package org.system.entity.role;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -14,6 +16,11 @@ public class ScPermission extends FlagEnabledEntity {
 	private static final long serialVersionUID = -8444890942860733346L;
 
 	/**
+	 * 名称
+	 */
+	@Column(name = "name", length = 50, nullable = false)
+	private String name;
+	/**
 	 * 访问url
 	 */
 	@Column(name = "url", length = 50, nullable = false)
@@ -22,11 +29,20 @@ public class ScPermission extends FlagEnabledEntity {
 	/**
 	 * 系统中心简称
 	 */
-	@Column(name = "url", length = 20, nullable = false)
-	private String center;
+	@ManyToOne
+	@JoinColumn(name = "system_center")
+	private ScSystemInfo systemCenter;
 
-	@Column(name = "url", length = 500)
+	@Column(name = "intro", length = 500)
 	private String intro;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public String getIntro() {
 		return intro;
@@ -44,12 +60,12 @@ public class ScPermission extends FlagEnabledEntity {
 		this.url = url;
 	}
 
-	public String getCenter() {
-		return center;
+	public ScSystemInfo getSystemCenter() {
+		return systemCenter;
 	}
 
-	public void setCenter(String center) {
-		this.center = center;
+	public void setSystemCenter(ScSystemInfo systemCenter) {
+		this.systemCenter = systemCenter;
 	}
 
 }
