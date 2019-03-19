@@ -1,7 +1,7 @@
 package org.system.service.role;
 
-import org.system.entity.role.ScApiInfo;
-import org.zero.spring.jpa.IBaseService;
+import org.system.entity.role.ScPermission;
+import org.system.service.IFlagEnabledService;
 
 /**
  * 
@@ -10,6 +10,6 @@ import org.zero.spring.jpa.IBaseService;
  * 作者: zhy<br>
  * 时间: 2019年3月15日 下午1:59:58
  */
-public interface IScApiInfoService extends IBaseService<ScApiInfo, String> {
+public interface IScPermissionService extends IFlagEnabledService<ScPermission, String> {
 
 }

@@ -24,9 +24,9 @@ public class ScRole extends FlagEnabledEntity {
 	private String name;
 
 	@OneToMany
-	@JoinTable(name = "sc_role_api", joinColumns = { @JoinColumn(name = "role_code") }, inverseJoinColumns = {
-			@JoinColumn(name = "api_code") })
-	private List<ScApiInfo> api;
+	@JoinTable(name = "sc_role_permission", joinColumns = { @JoinColumn(name = "role_code") }, inverseJoinColumns = {
+			@JoinColumn(name = "permission_code") })
+	private List<ScPermission> api;
 
 	public String getName() {
 		return name;

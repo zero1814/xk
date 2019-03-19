@@ -3,8 +3,8 @@ package org.system.controller.role;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.system.controller.BaseController;
-import org.system.entity.role.ScApiInfo;
-import org.system.service.role.IScApiInfoService;
+import org.system.entity.role.ScPermission;
+import org.system.service.role.IScPermissionService;
 
 /**
  * 
@@ -15,6 +15,6 @@ import org.system.service.role.IScApiInfoService;
  */
 @RestController
 @RequestMapping("/system/api/")
-public class ScApiInfoController extends BaseController<ScApiInfo, IScApiInfoService> {
+public class ScPermissionController extends BaseController<ScPermission, IScPermissionService> {
 
 }
