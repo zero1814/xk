@@ -1,11 +1,16 @@
 package org.system.entity.user;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.system.entity.role.ScRole;
 import org.zero.spring.jpa.BaseEntity;
 
 /**
@@ -45,6 +50,19 @@ public class ScUserInfo extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private ScUserStatus status;
+
+	@OneToMany
+	@JoinTable(name = "sc_user_role", joinColumns = { @JoinColumn(name = "user_code") }, inverseJoinColumns = {
+			@JoinColumn(name = "role_code") })
+	private List<ScRole> roles;
+
+	public List<ScRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<ScRole> roles) {
+		this.roles = roles;
+	}
 
 	public String getRealName() {
 		return realName;
