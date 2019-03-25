@@ -13,8 +13,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-  <modules>
-    <module>product-entity</module>
+	<modules>
+		<module>product-entity</module>
     <module>product-service</module>
     <module>product-cloud</module>
   </modules>

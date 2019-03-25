@@ -1,66 +1,37 @@
 package org.product.entity.product;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.zero.spring.jpa.BaseEntity;
+import org.product.entity.FlagEnabledEntity;
 
 /**
  * 
  * 类: PcCategory <br>
  * 描述: 商品分类 <br>
  * 作者: zhy<br>
- * 时间: 2019年2月15日 上午9:48:46
+ * 时间: 2019年3月25日 上午11:26:23
  */
 @Entity
 @Table(name = "pc_category")
-public class PcCategory extends BaseEntity {
+public class PcCategory extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = -316067999397194462L;
 
-	public PcCategory() {
-
-	}
-
-	public PcCategory(Integer flagEnabled) {
-		this.flagEnabled = flagEnabled;
-	}
-
-	public PcCategory(String parentCode) {
-		this.parentCode = parentCode;
-	}
-
-	/**
-	 * 父级编码
-	 */
-	@Column(name = "parent_code", length = 50, nullable = true, columnDefinition = "varchar(50) default '0' ")
-	private String parentCode;
 	/**
 	 * 名称
 	 */
-	@Column(name = "name", length = 50, nullable = false)
+	@Column(name = "name", unique = true, length = 50, nullable = false)
 	private String name;
 
-	/**
-	 * 是否可用 0 可用 1 不可用
-	 */
-	@Column(name = "flag_enabled", columnDefinition = "int default 0", nullable = true)
-	private Integer flagEnabled;
-
-	/**
-	 * 分类图标
-	 */
-	@Column(name = "icon_url", length = 200, nullable = false)
-	private String iconUrl;
-
-	public String getParentCode() {
-		return parentCode;
-	}
-
-	public void setParentCode(String parentCode) {
-		this.parentCode = parentCode;
-	}
+	@OneToMany
+	@JoinColumn(name = "category_code")
+	private List<PcCategoryAttribute> attributes;
 
 	public String getName() {
 		return name;
@@ -68,22 +39,6 @@ public class PcCategory extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getFlagEnabled() {
-		return flagEnabled;
-	}
-
-	public void setFlagEnabled(Integer flagEnabled) {
-		this.flagEnabled = flagEnabled;
-	}
-
-	public String getIconUrl() {
-		return iconUrl;
-	}
-
-	public void setIconUrl(String iconUrl) {
-		this.iconUrl = iconUrl;
 	}
 
 }

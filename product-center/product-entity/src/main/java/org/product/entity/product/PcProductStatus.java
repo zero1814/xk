@@ -4,25 +4,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.zero.spring.jpa.BaseEntity;
+import org.product.entity.FlagEnabledEntity;
 
+/**
+ * 
+ * 类: PcProductStatus <br>
+ * 描述: 商品状态表 <br>
+ * 作者: zhy<br>
+ * 时间: 2019年3月25日 上午11:51:08
+ */
 @Entity
 @Table(name = "pc_product_status")
-public class PcProductStatus extends BaseEntity {
+public class PcProductStatus extends FlagEnabledEntity {
 
-	private static final long serialVersionUID = -6330335877354066179L;
-
-	/**
-	 * 名称
-	 */
+	private static final long serialVersionUID = -1382764944182869324L;
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
-
-	/**
-	 * 是否可用 0 可用 1 不可用
-	 */
-	@Column(name = "flag_enabled", columnDefinition = "int default 0")
-	private Integer flagEnabled;
 
 	public String getName() {
 		return name;
@@ -30,14 +27,6 @@ public class PcProductStatus extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getFlagEnabled() {
-		return flagEnabled;
-	}
-
-	public void setFlagEnabled(Integer flagEnabled) {
-		this.flagEnabled = flagEnabled;
 	}
 
 }

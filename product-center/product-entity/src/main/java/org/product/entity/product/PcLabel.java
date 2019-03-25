@@ -4,21 +4,20 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.zero.spring.jpa.BaseEntity;
+import org.product.entity.FlagEnabledEntity;
 
+/**
+ * 
+ * 类: PcLabel <br>
+ * 描述: 商品标签 <br>
+ * 作者: zhy<br>
+ * 时间: 2019年3月25日 上午11:45:19
+ */
 @Entity
 @Table(name = "pc_label")
-public class PcLabel extends BaseEntity {
+public class PcLabel extends FlagEnabledEntity {
 
-	private static final long serialVersionUID = -5766697981029613489L;
-
-	public PcLabel() {
-
-	}
-
-	public PcLabel(Integer flagEnabled) {
-		this.flagEnabled = flagEnabled;
-	}
+	private static final long serialVersionUID = -4182567408756072781L;
 
 	/**
 	 * 名称
@@ -26,26 +25,12 @@ public class PcLabel extends BaseEntity {
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
 
-	/**
-	 * 是否可用 0 可用 1 不可用
-	 */
-	@Column(name = "flag_enabled", columnDefinition = "int default 0", nullable = true)
-	private Integer flagEnabled;
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Integer getFlagEnabled() {
-		return flagEnabled;
-	}
-
-	public void setFlagEnabled(Integer flagEnabled) {
-		this.flagEnabled = flagEnabled;
 	}
 
 }

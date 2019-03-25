@@ -1,8 +1,8 @@
 package org.product.service.store;
 
 import org.product.entity.store.PcStoreStatus;
-import org.zero.spring.jpa.IBaseService;
+import org.product.service.IFlagEnabledService;
 
-public interface IPcStoreStatusService extends IBaseService<PcStoreStatus, String> {
+public interface IPcStoreStatusService extends IFlagEnabledService<PcStoreStatus, String> {
 
 }

@@ -49,4 +49,6 @@ public class BaseController<T extends BaseEntity, S extends IBaseService<T, Stri
 		PageResult<T> result = service.page(entity);
 		return result;
 	}
+
+
 }
