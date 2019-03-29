@@ -49,5 +49,6 @@
 		<module>product-center</module>
 		<module>eureka-server</module>
     <module>system-center</module>
+    <module>api-gateway-server</module>
   </modules>
 </project>

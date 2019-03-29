@@ -9,6 +9,8 @@ import org.system.entity.user.ScUserInfo;
 import org.system.result.user.ScUserPropertyResult;
 import org.system.service.user.IScUserInfoService;
 
+import io.swagger.annotations.Api;
+
 /**
  * 
  * 类: ScUserInfoController <br>
@@ -16,6 +18,7 @@ import org.system.service.user.IScUserInfoService;
  * 作者: zhy<br>
  * 时间: 2019年3月15日 下午2:52:16
  */
+@Api(tags="系统用户管理")
 @RestController
 @RequestMapping("/system/user/")
 public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfoService> {

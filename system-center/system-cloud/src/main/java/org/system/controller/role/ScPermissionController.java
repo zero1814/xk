@@ -6,6 +6,8 @@ import org.system.controller.FlagEnabledController;
 import org.system.entity.role.ScPermission;
 import org.system.service.role.IScPermissionService;
 
+import io.swagger.annotations.Api;
+
 /**
  * 
  * 类: ScApiInfoController <br>
@@ -13,6 +15,7 @@ import org.system.service.role.IScPermissionService;
  * 作者: zhy<br>
  * 时间: 2019年3月15日 下午2:53:13
  */
+@Api(tags="系统权限管理")
 @RestController
 @RequestMapping("/system/permission/")
 public class ScPermissionController extends FlagEnabledController<ScPermission, IScPermissionService> {

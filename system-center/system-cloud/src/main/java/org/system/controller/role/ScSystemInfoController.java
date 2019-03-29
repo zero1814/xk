@@ -6,12 +6,15 @@ import org.system.controller.FlagEnabledController;
 import org.system.entity.role.ScSystemInfo;
 import org.system.service.role.IScSystemInfoService;
 
+import io.swagger.annotations.Api;
+
 /**
  * 
  * 类: ScSystemInfoController <br>
  * 描述: 系统中心接口 作者: zhy<br>
  * 时间: 2019年3月19日 下午3:47:47
  */
+@Api(tags = "系统中心管理")
 @RestController
 @RequestMapping("/system/permission/system/")
 public class ScSystemInfoController extends FlagEnabledController<ScSystemInfo, IScSystemInfoService> {
