@@ -20,5 +20,10 @@
 			<artifactId>system-entity</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.zero.spring</groupId>
+			<artifactId>zero-spring-cache</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

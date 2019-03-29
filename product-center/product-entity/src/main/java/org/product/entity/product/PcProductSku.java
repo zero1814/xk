@@ -9,6 +9,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
+
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 类: PcProductSku <br>
@@ -16,6 +20,8 @@ import org.zero.spring.jpa.BaseEntity;
  * 作者: zhy<br>
  * 时间: 2019年3月25日 上午11:57:12
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "pc_product_sku")
 public class PcProductSku extends BaseEntity {
@@ -64,61 +70,5 @@ public class PcProductSku extends BaseEntity {
 	 */
 	@Column(name = "alarm_stock", nullable = false)
 	private Long alarmStock;
-
-	public PcProduct getProduct() {
-		return product;
-	}
-
-	public void setProduct(PcProduct product) {
-		this.product = product;
-	}
-
-	public String getMainPic() {
-		return mainPic;
-	}
-
-	public void setMainPic(String mainPic) {
-		this.mainPic = mainPic;
-	}
-
-	public BigDecimal getCostPrice() {
-		return costPrice;
-	}
-
-	public void setCostPrice(BigDecimal costPrice) {
-		this.costPrice = costPrice;
-	}
-
-	public BigDecimal getMarketPrice() {
-		return marketPrice;
-	}
-
-	public void setMarketPrice(BigDecimal marketPrice) {
-		this.marketPrice = marketPrice;
-	}
-
-	public BigDecimal getSellPrice() {
-		return sellPrice;
-	}
-
-	public void setSellPrice(BigDecimal sellPrice) {
-		this.sellPrice = sellPrice;
-	}
-
-	public Long getStock() {
-		return stock;
-	}
-
-	public void setStock(Long stock) {
-		this.stock = stock;
-	}
-
-	public Long getAlarmStock() {
-		return alarmStock;
-	}
-
-	public void setAlarmStock(Long alarmStock) {
-		this.alarmStock = alarmStock;
-	}
 
 }

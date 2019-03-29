@@ -8,6 +8,11 @@ import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "pc_category_attribute")
 public class PcCategoryAttribute extends FlagEnabledEntity {
@@ -32,29 +37,5 @@ public class PcCategoryAttribute extends FlagEnabledEntity {
 	 */
 	@Column(name = "sort", columnDefinition = "int default 0")
 	private int sort;
-
-	public PcCategory getCategoryCode() {
-		return categoryCode;
-	}
-
-	public void setCategoryCode(PcCategory categoryCode) {
-		this.categoryCode = categoryCode;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getSort() {
-		return sort;
-	}
-
-	public void setSort(int sort) {
-		this.sort = sort;
-	}
 
 }

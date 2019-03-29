@@ -6,6 +6,9 @@ import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 类: PcBrand <br>
@@ -13,6 +16,8 @@ import org.product.entity.FlagEnabledEntity;
  * 作者: zhy<br>
  * 时间: 2019年3月25日 上午11:26:11
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "pc_brand")
 public class PcBrand extends FlagEnabledEntity {
@@ -42,37 +47,5 @@ public class PcBrand extends FlagEnabledEntity {
 	 */
 	@Column(name = "intro", length = 500)
 	private String intro;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEnName() {
-		return enName;
-	}
-
-	public void setEnName(String enName) {
-		this.enName = enName;
-	}
-
-	public String getLogoUrl() {
-		return logoUrl;
-	}
-
-	public void setLogoUrl(String logoUrl) {
-		this.logoUrl = logoUrl;
-	}
-
-	public String getIntro() {
-		return intro;
-	}
-
-	public void setIntro(String intro) {
-		this.intro = intro;
-	}
 
 }

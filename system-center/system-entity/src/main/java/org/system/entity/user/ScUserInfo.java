@@ -13,6 +13,9 @@ import javax.persistence.Table;
 import org.system.entity.role.ScRole;
 import org.zero.spring.jpa.BaseEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 类: ScUserInfo <br>
@@ -20,6 +23,8 @@ import org.zero.spring.jpa.BaseEntity;
  * 作者: zhy<br>
  * 时间: 2019年3月15日 上午11:07:39
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "sc_user_info")
 public class ScUserInfo extends BaseEntity {
@@ -55,77 +60,5 @@ public class ScUserInfo extends BaseEntity {
 	@JoinTable(name = "sc_user_role", joinColumns = { @JoinColumn(name = "user_code") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_code") })
 	private List<ScRole> roles;
-
-	public List<ScRole> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<ScRole> roles) {
-		this.roles = roles;
-	}
-
-	public String getRealName() {
-		return realName;
-	}
-
-	public void setRealName(String realName) {
-		this.realName = realName;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String geteMail() {
-		return eMail;
-	}
-
-	public void seteMail(String eMail) {
-		this.eMail = eMail;
-	}
-
-	public ScUserType getType() {
-		return type;
-	}
-
-	public void setType(ScUserType type) {
-		this.type = type;
-	}
-
-	public ScUserStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(ScUserStatus status) {
-		this.status = status;
-	}
-
-	public String getHeaderPic() {
-		return headerPic;
-	}
-
-	public void setHeaderPic(String headerPic) {
-		this.headerPic = headerPic;
-	}
 
 }

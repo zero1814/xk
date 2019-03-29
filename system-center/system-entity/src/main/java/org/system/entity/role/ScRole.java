@@ -11,6 +11,11 @@ import javax.persistence.Table;
 
 import org.system.entity.FlagEnabledEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "sc_role")
 public class ScRole extends FlagEnabledEntity {
@@ -27,21 +32,5 @@ public class ScRole extends FlagEnabledEntity {
 	@JoinTable(name = "sc_role_permission", joinColumns = { @JoinColumn(name = "role_code") }, inverseJoinColumns = {
 			@JoinColumn(name = "permission_code") })
 	private List<ScPermission> permissions;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<ScPermission> getPermissions() {
-		return permissions;
-	}
-
-	public void setPermissions(List<ScPermission> permissions) {
-		this.permissions = permissions;
-	}
 
 }

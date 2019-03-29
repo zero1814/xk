@@ -10,6 +10,9 @@ import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 类: PcCategory <br>
@@ -17,6 +20,8 @@ import org.product.entity.FlagEnabledEntity;
  * 作者: zhy<br>
  * 时间: 2019年3月25日 上午11:26:23
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "pc_category")
 public class PcCategory extends FlagEnabledEntity {
@@ -32,13 +37,5 @@ public class PcCategory extends FlagEnabledEntity {
 	@OneToMany
 	@JoinColumn(name = "category_code")
 	private List<PcCategoryAttribute> attributes;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 }

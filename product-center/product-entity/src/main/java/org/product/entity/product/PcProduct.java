@@ -14,6 +14,9 @@ import javax.persistence.Table;
 import org.product.entity.store.PcStore;
 import org.zero.spring.jpa.BaseEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 类: PcProduct <br>
@@ -21,6 +24,8 @@ import org.zero.spring.jpa.BaseEntity;
  * 作者: zhy<br>
  * 时间: 2019年3月25日 上午11:51:22
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "pc_product")
 public class PcProduct extends BaseEntity {
@@ -87,77 +92,4 @@ public class PcProduct extends BaseEntity {
 	@OneToMany
 	@JoinColumn(name = "product_code")
 	private List<PcProductAlbum> album;
-
-	public List<PcProductAlbum> getAlbum() {
-		return album;
-	}
-
-	public void setAlbum(List<PcProductAlbum> album) {
-		this.album = album;
-	}
-
-	public String getMainPic() {
-		return mainPic;
-	}
-
-	public void setMainPic(String mainPic) {
-		this.mainPic = mainPic;
-	}
-
-	public PcBrand getBrand() {
-		return brand;
-	}
-
-	public void setBrand(PcBrand brand) {
-		this.brand = brand;
-	}
-
-	public PcStore getStore() {
-		return store;
-	}
-
-	public void setStore(PcStore store) {
-		this.store = store;
-	}
-
-	public BigDecimal getMinSellPrice() {
-		return minSellPrice;
-	}
-
-	public void setMinSellPrice(BigDecimal minSellPrice) {
-		this.minSellPrice = minSellPrice;
-	}
-
-	public BigDecimal getMaxSellPrice() {
-		return maxSellPrice;
-	}
-
-	public void setMaxSellPrice(BigDecimal maxSellPrice) {
-		this.maxSellPrice = maxSellPrice;
-	}
-
-	public PcProductStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(PcProductStatus status) {
-		this.status = status;
-	}
-
-	public List<PcLabel> getLabels() {
-		return labels;
-	}
-
-	public void setLabels(List<PcLabel> labels) {
-		this.labels = labels;
-	}
-
-	public List<PcProductSku> getSku() {
-		return sku;
-	}
-
-	public void setSku(List<PcProductSku> sku) {
-		this.sku = sku;
-	}
-
 }

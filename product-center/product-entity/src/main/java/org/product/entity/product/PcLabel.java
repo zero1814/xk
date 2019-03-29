@@ -6,6 +6,9 @@ import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 类: PcLabel <br>
@@ -13,6 +16,8 @@ import org.product.entity.FlagEnabledEntity;
  * 作者: zhy<br>
  * 时间: 2019年3月25日 上午11:45:19
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "pc_label")
 public class PcLabel extends FlagEnabledEntity {
@@ -24,13 +29,4 @@ public class PcLabel extends FlagEnabledEntity {
 	 */
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 }

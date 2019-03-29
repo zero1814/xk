@@ -6,6 +6,9 @@ import javax.persistence.Table;
 
 import org.system.entity.FlagEnabledEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 类: ScUserType <br>
@@ -13,6 +16,8 @@ import org.system.entity.FlagEnabledEntity;
  * 作者: zhy<br>
  * 时间: 2019年3月15日 上午11:12:36
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "sc_user_type")
 public class ScUserType extends FlagEnabledEntity {
@@ -24,13 +29,5 @@ public class ScUserType extends FlagEnabledEntity {
 	 */
 	@Column(name = "name", length = 50, nullable = false, unique = true)
 	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 }

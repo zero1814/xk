@@ -9,10 +9,19 @@ import org.zero.spring.jpa.BaseEntity;
 public class FlagEnabledEntity extends BaseEntity {
 
 	private static final long serialVersionUID = -8347045613257565292L;
+
+	public FlagEnabledEntity() {
+
+	}
+
+	public FlagEnabledEntity(int flagEnabled) {
+		this.flagEnabled = flagEnabled;
+	}
+
 	/**
 	 * 是否可用 0 可用 1 不可用
 	 */
-	@Column(name = "flag_enabled", columnDefinition = "int null default 0")
+	@Column(name = "flag_enabled", columnDefinition = "int default 0")
 	private Integer flagEnabled;
 
 	public Integer getFlagEnabled() {

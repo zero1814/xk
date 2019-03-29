@@ -6,6 +6,9 @@ import javax.persistence.Table;
 
 import org.system.entity.FlagEnabledEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 
  * 类: ScSystemInfo <br>
@@ -13,6 +16,8 @@ import org.system.entity.FlagEnabledEntity;
  * 作者: zhy<br>
  * 时间: 2019年3月19日 下午2:54:10
  */
+@Getter
+@Setter
 @Entity
 @Table(name = "sc_system_info")
 public class ScSystemInfo extends FlagEnabledEntity {
@@ -27,29 +32,5 @@ public class ScSystemInfo extends FlagEnabledEntity {
 
 	@Column(name = "intro", length = 500)
 	private String intro;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getShortName() {
-		return shortName;
-	}
-
-	public void setShortName(String shortName) {
-		this.shortName = shortName;
-	}
-
-	public String getIntro() {
-		return intro;
-	}
-
-	public void setIntro(String intro) {
-		this.intro = intro;
-	}
 
 }

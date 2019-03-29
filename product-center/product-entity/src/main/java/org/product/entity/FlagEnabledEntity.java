@@ -5,6 +5,11 @@ import javax.persistence.MappedSuperclass;
 
 import org.zero.spring.jpa.BaseEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @MappedSuperclass
 public class FlagEnabledEntity extends BaseEntity {
 
@@ -12,13 +17,5 @@ public class FlagEnabledEntity extends BaseEntity {
 
 	@Column(name = "flag_enabled", columnDefinition = "int default 0")
 	private int flagEnabled;
-
-	public int getFlagEnabled() {
-		return flagEnabled;
-	}
-
-	public void setFlagEnabled(int flagEnabled) {
-		this.flagEnabled = flagEnabled;
-	}
 
 }

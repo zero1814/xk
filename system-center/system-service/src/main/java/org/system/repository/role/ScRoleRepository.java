@@ -1,5 +1,8 @@
 package org.system.repository.role;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.system.entity.role.ScRole;
 import org.zero.spring.jpa.BaseRepository;
 
@@ -12,4 +15,6 @@ import org.zero.spring.jpa.BaseRepository;
  */
 public interface ScRoleRepository extends BaseRepository<ScRole, String> {
 
+	@Query(value = "select code,name from ScRole where flagEnabled = 0")
+	List<ScRole> selRols();
 }
