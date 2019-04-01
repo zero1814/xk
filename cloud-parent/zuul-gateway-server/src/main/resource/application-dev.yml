@@ -1,6 +1,9 @@
 eureka:
   instance:
     hostname: gateway
+    lease-renewal-interval-in-seconds: 60 #没过60秒给注册中心发送心跳
+    lease-expiration-duration-in-seconds: 120 #超过120秒没发送心跳，让注册中心删除实例
+    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: http://192.168.99.100:8010/eureka/
