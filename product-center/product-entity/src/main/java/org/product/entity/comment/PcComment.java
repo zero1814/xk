@@ -1,4 +1,4 @@
-package org.product.entity.product.comment;
+package org.product.entity.comment;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.product.entity.label.PcLabel;
 import org.product.entity.product.PcProduct;
-import org.product.entity.product.label.PcLabel;
 import org.zero.spring.jpa.BaseEntity;
 
 import lombok.Getter;
@@ -56,7 +56,7 @@ public class PcComment extends BaseEntity {
 	 * 评论相册
 	 */
 	@OneToOne
-	@JoinColumn(name="album")
+	@JoinColumn(name = "album")
 	private PcCommentAlbum album;
 
 	/**
@@ -66,4 +66,11 @@ public class PcComment extends BaseEntity {
 	@JoinTable(name = "pc_comment_label", joinColumns = { @JoinColumn(name = "comment_code") }, inverseJoinColumns = {
 			@JoinColumn(name = "label_code") })
 	private List<PcLabel> labels;
+
+	/**
+	 * 评价回复列表
+	 */
+	@OneToMany
+	@JoinTable(name = "comment_code")
+	private List<PcCommentReplay> replays;
 }

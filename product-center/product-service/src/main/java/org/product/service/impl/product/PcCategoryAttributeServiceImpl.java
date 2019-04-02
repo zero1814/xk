@@ -1,6 +1,6 @@
 package org.product.service.impl.product;
 
-import org.product.entity.product.category.PcCategoryAttribute;
+import org.product.entity.category.PcCategoryAttribute;
 import org.product.repository.product.PcCategoryAttributeRepository;
 import org.product.service.impl.FlagEnabledServiceImpl;
 import org.product.service.product.IPcCategoryAttributeService;

@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.product.entity.product.label.PcLabel;
-import org.product.entity.product.sku.PcProductSku;
+import org.product.entity.label.PcLabel;
+import org.product.entity.sku.PcSku;
 import org.product.entity.store.PcStore;
 import org.zero.spring.jpa.BaseEntity;
 
@@ -86,7 +86,7 @@ public class PcProduct extends BaseEntity {
 	 */
 	@OneToMany
 	@JoinColumn(name = "product_code")
-	private List<PcProductSku> sku;
+	private List<PcSku> sku;
 
 	/**
 	 * 商品相册集

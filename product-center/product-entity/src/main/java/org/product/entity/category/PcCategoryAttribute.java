@@ -1,4 +1,4 @@
-package org.product.entity.product.category;
+package org.product.entity.category;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

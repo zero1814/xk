@@ -1,4 +1,4 @@
-package org.product.entity.product.label;
+package org.product.entity.label;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

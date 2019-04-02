@@ -1,4 +1,4 @@
-package org.product.entity.product.comment;
+package org.product.entity.comment;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,17 +1,14 @@
-package org.product.entity.product.sku;
+package org.product.entity.sku;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.product.entity.product.PcProductAlbum;
 import org.product.entity.product.PcProduct;
 import org.zero.spring.jpa.BaseEntity;
 
@@ -29,7 +26,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "pc_product_sku")
-public class PcProductSku extends BaseEntity {
+public class PcSku extends BaseEntity {
 
 	private static final long serialVersionUID = 470823651739567059L;
 
@@ -79,8 +76,7 @@ public class PcProductSku extends BaseEntity {
 	/**
 	 * sku相册集
 	 */
-	@OneToMany
-	@JoinTable(name = "pc_sku_album", joinColumns = { @JoinColumn(name = "sku_code") }, inverseJoinColumns = {
-			@JoinColumn(name = "album_code") })
-	private List<PcProductAlbum> album;
+	@OneToOne
+	@JoinColumn(name = "album")
+	private PcSkuAlbum album;
 }

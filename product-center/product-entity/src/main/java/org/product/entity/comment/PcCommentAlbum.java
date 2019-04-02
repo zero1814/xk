@@ -1,4 +1,4 @@
-package org.product.entity.product.comment;
+package org.product.entity.comment;
 
 import java.util.List;
 
