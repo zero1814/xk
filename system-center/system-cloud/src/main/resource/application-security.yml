@@ -1,0 +1,6 @@
+security:
+  login:
+    page: ''
+    process: ''
+  auth:
+    ant_patterns: ''
