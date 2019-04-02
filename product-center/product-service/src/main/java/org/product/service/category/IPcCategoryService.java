@@ -1,4 +1,4 @@
-package org.product.service.product;
+package org.product.service.category;
 
 import org.product.entity.category.PcCategory;
 import org.product.service.IFlagEnabledService;

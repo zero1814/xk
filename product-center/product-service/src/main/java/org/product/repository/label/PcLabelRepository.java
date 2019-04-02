@@ -1,4 +1,4 @@
-package org.product.repository.product;
+package org.product.repository.label;
 
 import org.product.entity.label.PcLabel;
 import org.zero.spring.jpa.BaseRepository;

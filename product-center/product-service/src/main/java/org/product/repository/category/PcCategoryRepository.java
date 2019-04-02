@@ -1,4 +1,4 @@
-package org.product.repository.product;
+package org.product.repository.category;
 
 import org.product.entity.category.PcCategory;
 import org.zero.spring.jpa.BaseRepository;

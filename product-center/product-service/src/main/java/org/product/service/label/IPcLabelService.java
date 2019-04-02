@@ -1,4 +1,4 @@
-package org.product.service.product;
+package org.product.service.label;
 
 import org.product.entity.label.PcLabel;
 import org.product.service.IFlagEnabledService;

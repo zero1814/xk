@@ -1,9 +1,9 @@
-package org.product.service.impl.product;
+package org.product.service.impl.category;
 
 import org.product.entity.category.PcCategoryAttribute;
-import org.product.repository.product.PcCategoryAttributeRepository;
+import org.product.repository.category.PcCategoryAttributeRepository;
+import org.product.service.category.IPcCategoryAttributeService;
 import org.product.service.impl.FlagEnabledServiceImpl;
-import org.product.service.product.IPcCategoryAttributeService;
 import org.springframework.stereotype.Service;
 
 @Service

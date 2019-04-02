@@ -25,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_product_sku")
+@Table(name = "pc_sku")
 public class PcSku extends BaseEntity {
 
 	private static final long serialVersionUID = 470823651739567059L;

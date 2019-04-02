@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.zero.spring.jpa.BaseEntity;
+import org.product.entity.FlagEnabledEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "pc_label")
-public class PcLabelType extends BaseEntity {
+public class PcLabelType extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = -5556770138096561546L;
 
