@@ -1,6 +1,6 @@
 package org.product.service.impl.product;
 
-import org.product.entity.product.PcProductSku;
+import org.product.entity.product.sku.PcProductSku;
 import org.product.repository.product.PcProductSkuRepository;
 import org.product.service.product.IPcProductSkuService;
 import org.springframework.stereotype.Service;

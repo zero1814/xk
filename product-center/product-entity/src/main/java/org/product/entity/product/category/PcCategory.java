@@ -1,4 +1,4 @@
-package org.product.entity.product;
+package org.product.entity.product.category;
 
 import java.util.List;
 

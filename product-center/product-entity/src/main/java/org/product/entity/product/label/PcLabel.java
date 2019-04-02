@@ -1,7 +1,9 @@
-package org.product.entity.product;
+package org.product.entity.product.label;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
@@ -29,4 +31,11 @@ public class PcLabel extends FlagEnabledEntity {
 	 */
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
+
+	/**
+	 * 标签类型
+	 */
+	@ManyToOne
+	@JoinColumn(name = "type")
+	private PcLabelType type;
 }

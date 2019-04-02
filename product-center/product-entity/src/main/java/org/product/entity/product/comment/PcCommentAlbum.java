@@ -1,4 +1,4 @@
-package org.product.entity.product;
+package org.product.entity.product.comment;
 
 import java.util.List;
 
@@ -15,18 +15,18 @@ import lombok.Setter;
 
 /**
  * 
- * 类: PcAlbum <br>
- * 描述: 商品相册 <br>
+ * 类: PcCommentAlbum <br>
+ * 描述: 商品评论相册集 <br>
  * 作者: zhy<br>
- * 时间: 2019年4月2日 下午2:46:50
+ * 时间: 2019年4月2日 下午2:40:55
  */
-@Getter
 @Setter
+@Getter
 @Entity
-@Table(name = "pc_product_album")
-public class PcProductAlbum extends BaseEntity {
+@Table(name = "pc_comment_album")
+public class PcCommentAlbum extends BaseEntity {
 
-	private static final long serialVersionUID = 7031960359384227311L;
+	private static final long serialVersionUID = -2531463391699341245L;
 
 	/**
 	 * 相册封面
@@ -39,9 +39,8 @@ public class PcProductAlbum extends BaseEntity {
 	 */
 	@Column(name = "total", nullable = false)
 	private Long total;
-	
+
 	@OneToMany
 	@JoinColumn(name = "album_code")
-	private List<PcAlbumPic> pic;
-
+	private List<PcCommentAlbumPic> pic;
 }

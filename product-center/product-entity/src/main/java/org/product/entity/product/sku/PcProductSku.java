@@ -1,13 +1,18 @@
-package org.product.entity.product;
+package org.product.entity.product.sku;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.product.entity.product.PcProductAlbum;
+import org.product.entity.product.PcProduct;
 import org.zero.spring.jpa.BaseEntity;
 
 import lombok.Getter;
@@ -71,4 +76,11 @@ public class PcProductSku extends BaseEntity {
 	@Column(name = "alarm_stock", nullable = false)
 	private Long alarmStock;
 
+	/**
+	 * sku相册集
+	 */
+	@OneToMany
+	@JoinTable(name = "pc_sku_album", joinColumns = { @JoinColumn(name = "sku_code") }, inverseJoinColumns = {
+			@JoinColumn(name = "album_code") })
+	private List<PcProductAlbum> album;
 }
