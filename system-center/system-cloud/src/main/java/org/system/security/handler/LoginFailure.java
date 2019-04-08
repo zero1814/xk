@@ -1,4 +1,4 @@
-package org.system.security;
+package org.system.security.handler;
 
 import java.io.IOException;
 import java.util.Map;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
-public class FailureHandler implements AuthenticationFailureHandler {
+public class LoginFailure implements AuthenticationFailureHandler {
 
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
@@ -26,7 +26,7 @@ public class FailureHandler implements AuthenticationFailureHandler {
 		 * 请求参数数组
 		 */
 		Map<String, String[]> map = request.getParameterMap();
-		log.info("请求参数：" + JSON.toJSONString(map));
+		log.info("Security.Failure 请求参数：" + JSON.toJSONString(map));
 		
 	}
 

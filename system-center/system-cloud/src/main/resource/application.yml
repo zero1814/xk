@@ -2,4 +2,5 @@ server:
   port: 8030
 spring:
   profiles:
-    active: beta
+    active: dev
+    include: security

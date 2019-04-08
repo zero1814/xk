@@ -1,6 +1,8 @@
 security:
   login:
-    page: ''
-    process: ''
+    page: "/login"
+    process: "/user/login"
   auth:
-    ant_patterns: ''
+    ant_patterns: "/user/login,/user/logout,"
+  logout:
+    url: "/user/logout"

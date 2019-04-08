@@ -4,6 +4,9 @@ import org.system.entity.user.ScUserInfo;
 import org.system.result.user.ScUserPropertyResult;
 import org.zero.spring.jpa.IBaseService;
 
+import zero.commons.basics.result.BaseResult;
+import zero.commons.basics.result.EntityResult;
+
 /**
  * 
  * 类: IScUserInfoService <br>
@@ -23,4 +26,28 @@ public interface IScUserInfoService extends IBaseService<ScUserInfo, String> {
 	 * @return
 	 */
 	ScUserPropertyResult initProperty();
+
+	/**
+	 * 
+	 * 方法: login <br>
+	 * 描述: 用户登录 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年4月8日 上午11:48:25
+	 * 
+	 * @param entity
+	 * @return
+	 */
+	EntityResult<ScUserInfo> login(ScUserInfo entity);
+
+	/**
+	 * 
+	 * 方法: logout <br>
+	 * 描述: 用户登出 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年4月8日 上午9:54:12
+	 * 
+	 * @param userCode
+	 * @return
+	 */
+	BaseResult logout(String userCode);
 }

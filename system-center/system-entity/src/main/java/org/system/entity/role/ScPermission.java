@@ -1,9 +1,12 @@
 package org.system.entity.role;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -33,13 +36,22 @@ public class ScPermission extends FlagEnabledEntity {
 	private String url;
 
 	/**
-	 * 系统中心简称
+	 * 权限描述
+	 */
+	@Column(name = "permission", length = 200, nullable = false)
+	private String permission;
+
+	/**
+	 * 父级编码
 	 */
 	@ManyToOne
-	@JoinColumn(name = "system_center")
-	private ScSystemInfo systemCenter;
+	@JoinColumn(name = "parent_code")
+	private ScPermission parent;
 
-	@Column(name = "intro", length = 500)
-	private String intro;
-
+	/**
+	 * 子权限列表
+	 */
+	@OneToMany
+	@JoinColumn(name = "parent_code")
+	private List<ScPermission> children;
 }
