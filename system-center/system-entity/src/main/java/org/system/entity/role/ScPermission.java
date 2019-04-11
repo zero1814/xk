@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.system.entity.FlagEnabledEntity;
 
@@ -18,8 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "sc_permission", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "name", "url", "system_center" }) })
+@Table(name = "sc_permission")
 public class ScPermission extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = -8444890942860733346L;
@@ -32,7 +30,7 @@ public class ScPermission extends FlagEnabledEntity {
 	/**
 	 * 访问url
 	 */
-	@Column(name = "url", length = 50, nullable = false)
+	@Column(name = "url", length = 50, nullable = false, unique = true)
 	private String url;
 
 	/**

@@ -1,93 +1,49 @@
 package org.system.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.system.security.handler.LogOutSuccess;
-import org.system.security.handler.LoginFailure;
-import org.system.security.handler.LoginSuccess;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.system.security.handler.RestAccessDenied;
+import org.system.security.handler.RestAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	/**
-	 * 登录页
-	 */
-	@Value("${security.login.page}")
-	private String loginPage;
-
-	/**
-	 * 登录验证接口
-	 */
-	@Value("${security.login.process}")
-	private String loginProcess;
-	
-	/**
-	 * 登出验证接口
-	 */
-	@Value("${security.logout.url}")
-	private String logout;
-	/**
-	 * 不需要权限认证的url数组
-	 */
-	@Value("${security.auth.ant_patterns}")
-	private String antPatterns;
-
-	/**
-	 * 用户成功登陆处理类
-	 */
 	@Autowired
-	private LoginSuccess sucessHandler;
-
-	/**
-	 * 用户失败登陆处理类
-	 */
+	private RestAccessDenied accessDenied;
 	@Autowired
-	private LoginFailure failureHander;
-	
-
-	/**
-	 * 用户登出处理类
-	 */
+	private RestAuthenticationEntryPoint authenticationEntryPoint;
 	@Autowired
-	private LogOutSuccess logOutSuccessHandler;
-
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
-	}
+	private UserDetailsService userDetailsService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// 表单登录
-		http.formLogin()
-				// 登录页面
-//				.loginPage(loginPage)
-				// 登录需要经过的url请求
-				.loginProcessingUrl(loginProcess)
-				.successHandler(sucessHandler)
-				.failureHandler(failureHander)
-				.and()
-				.authorizeRequests()
-				// 不需要权限认证的url
-				.antMatchers(antPatterns).permitAll()
-				// 任何请求
-				.anyRequest()
-				// 需要身份认证
-				.authenticated()
-				.and()
-				.logout()
-				.logoutSuccessUrl(logout)
-				.logoutSuccessHandler(logOutSuccessHandler)
-				// 关闭跨站请求防护
-				.and()
-				.csrf()
-				.disable();
+		http.authorizeRequests().antMatchers("/login", "/register")// 对登录注册要允许匿名访问
+				.permitAll().antMatchers(HttpMethod.OPTIONS)// 跨域请求会先进行一次options请求
+				.permitAll().anyRequest()// 除上面外的所有请求全部需要鉴权认证
+				.authenticated();
+		// 禁用缓存
+		http.headers().cacheControl();
+		// 添加自定义未授权和未登录结果返回
+		http.exceptionHandling().accessDeniedHandler(accessDenied).authenticationEntryPoint(authenticationEntryPoint);
 	}
 
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }

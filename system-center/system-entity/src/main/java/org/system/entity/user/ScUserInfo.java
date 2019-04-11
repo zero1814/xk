@@ -49,10 +49,6 @@ public class ScUserInfo extends BaseEntity {
 	private String eMail;
 
 	@ManyToOne
-	@JoinColumn(name = "type")
-	private ScUserType type;
-
-	@ManyToOne
 	@JoinColumn(name = "status")
 	private ScUserStatus status;
 

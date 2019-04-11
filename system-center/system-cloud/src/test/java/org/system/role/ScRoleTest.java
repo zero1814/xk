@@ -18,11 +18,14 @@ public class ScRoleTest {
 	public IScRoleService service;
 
 	@Test
-	public void getOne() {
-		ScRole entity = new ScRole();
-		entity.setName("超级管理员");
-		entity.setCreateUser("insert");
-		entity.setFlagEnabled(1);
-		service.insert(entity);
+	public void insert() {
+		String[] type = new String[] { "管理员", "超级管理员", "系统管理员" };
+		for (String str : type) {
+			ScRole entity = new ScRole();
+			entity.setName(str);
+			entity.setFlagEnabled(0);
+			entity.setCreateUser("insert");
+			service.insert(entity);
+		}
 	}
 }

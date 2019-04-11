@@ -19,9 +19,12 @@ public class ScUserStatusTest {
 
 	@Test
 	public void insert() {
-		ScUserStatus entity = new ScUserStatus();
-		entity.setName("正常");
-		entity.setCreateUser("insert");
-		service.insert(entity);
+		String[] status = new String[] { "正常", "已注销", "已删除", "已冻结", "已过期", "未验证" };
+		for (String str : status) {
+			ScUserStatus entity = new ScUserStatus();
+			entity.setName(str);
+			entity.setCreateUser("insert");
+			service.insert(entity);
+		}
 	}
 }
