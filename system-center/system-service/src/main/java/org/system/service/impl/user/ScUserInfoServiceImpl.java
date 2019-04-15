@@ -85,14 +85,14 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 	@Override
 	public BaseResult logout(String userCode) {
 		BaseResult result = new BaseResult();
-		String key = UserInfo.User.toString() + userCode;
-		Object obj = template.opsForHash().get(UserInfo.UserGroup.toString(), key);
-		if (obj == null) {
-			result.setCode(ResultType.NULL);
-			result.setMessage("用户信息不存在");
-			return result;
-		}
-		template.opsForHash().delete(UserInfo.UserGroup.toString(), key);
+//		String key = UserInfo.User.toString() + userCode;
+//		Object obj = template.opsForHash().get(UserInfo.UserGroup.toString(), key);
+//		if (obj == null) {
+//			result.setCode(ResultType.NULL);
+//			result.setMessage("用户信息不存在");
+//			return result;
+//		}
+//		template.opsForHash().delete(UserInfo.UserGroup.toString(), key);
 		result.setCode(ResultType.SUCCESS);
 		result.setMessage("已登出");
 		return result;

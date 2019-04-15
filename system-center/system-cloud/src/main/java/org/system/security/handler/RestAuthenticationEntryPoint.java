@@ -10,6 +10,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
+
 import zero.commons.basics.result.BaseResult;
 import zero.commons.basics.result.ResultType;
 
@@ -31,7 +33,7 @@ public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		result.setMessage("对不起，您尚未登录，请登录后重试");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json");
-		response.getWriter().println(result);
+		response.getWriter().println(JSON.toJSONString(result));
 		response.getWriter().flush();
 	}
 
