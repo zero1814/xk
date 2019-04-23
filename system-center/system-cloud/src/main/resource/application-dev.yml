@@ -26,6 +26,26 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  # 缓存配置
+  redis:
+    host: 192.168.99.100
+    port: 6379
+    #clusterNodes: 
+    #        - 127.0.0.1:7000
+    #        - 127.0.0.1:7001
+    #        - 127.0.0.1:7002
+    #        - 127.0.0.1:7003
+    #        - 127.0.0.1:7004
+    #        - 127.0.0.1:7005
+    expireSeconds: 120 
+    #redis操作的超时时间
+    commandTimeout: 10000
+    pool: 
+      maxActive: 5000 #最大连接数
+      maxIdle: 30 #最大空闲连接数
+      minIdle: 5 #最小空闲连接数
+      maxWait: 3000  #获取连接最大等待时间 ms  #default -1
+    
 logging:
   level:
     root: INFO

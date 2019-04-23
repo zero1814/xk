@@ -10,6 +10,7 @@ import org.system.result.user.ScUserPropertyResult;
 import org.system.service.user.IScUserInfoService;
 
 import io.swagger.annotations.Api;
+import zero.commons.basics.result.EntityResult;
 
 /**
  * 
@@ -20,7 +21,7 @@ import io.swagger.annotations.Api;
  */
 @Api(tags="系统用户管理")
 @RestController
-@RequestMapping("/system/user/")
+@RequestMapping("/user/")
 public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfoService> {
 	@Autowired
 	private IScUserInfoService service;

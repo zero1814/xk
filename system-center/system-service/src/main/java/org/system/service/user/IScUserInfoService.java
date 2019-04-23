@@ -41,6 +41,18 @@ public interface IScUserInfoService extends IBaseService<ScUserInfo, String> {
 
 	/**
 	 * 
+	 * 方法: get <br>
+	 * 描述: 根据token查询缓存用户信息 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年4月16日 下午5:28:33
+	 * 
+	 * @param token
+	 * @return
+	 */
+	EntityResult<ScUserInfo> get(String token);
+
+	/**
+	 * 
 	 * 方法: logout <br>
 	 * 描述: 用户登出 <br>
 	 * 作者: zhy<br>
@@ -49,5 +61,5 @@ public interface IScUserInfoService extends IBaseService<ScUserInfo, String> {
 	 * @param userCode
 	 * @return
 	 */
-	BaseResult logout(String userCode);
+	BaseResult logout(String token);
 }

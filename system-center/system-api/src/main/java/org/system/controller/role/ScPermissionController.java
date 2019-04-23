@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
  */
 @Api(tags="系统权限管理")
 @RestController
-@RequestMapping("/system/permission/")
+@RequestMapping("/permission/")
 public class ScPermissionController extends FlagEnabledController<ScPermission, IScPermissionService> {
 
 }

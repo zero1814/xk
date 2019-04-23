@@ -17,5 +17,6 @@
     <module>log-entity</module>
     <module>log-service</module>
     <module>log-cloud</module>
+    <module>log-api</module>
   </modules>
 </project>

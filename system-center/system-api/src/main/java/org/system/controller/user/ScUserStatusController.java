@@ -10,7 +10,7 @@ import io.swagger.annotations.Api;
 
 @Api(tags="系统用户状态管理")
 @RestController
-@RequestMapping("/system/user/status/")
+@RequestMapping("/user/status/")
 public class ScUserStatusController extends BaseController<ScUserStatus, IScUserStatusService> {
 
 }

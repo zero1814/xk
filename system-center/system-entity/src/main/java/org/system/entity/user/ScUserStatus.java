@@ -3,6 +3,7 @@ package org.system.entity.user;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.system.entity.FlagEnabledEntity;
 
@@ -28,6 +29,7 @@ public class ScUserStatus extends FlagEnabledEntity {
 	 * 名称
 	 */
 	@Column(name = "name", length = 50, nullable = false, unique = true)
+	@NotBlank(message="名称不能为空")
 	private String name;
 
 }

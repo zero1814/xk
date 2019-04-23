@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
  */
 @Api(tags="系统角色管理")
 @RestController
-@RequestMapping("/system/role/")
+@RequestMapping("/role/")
 public class ScRoleController extends FlagEnabledController<ScRole, IScRoleService> {
 
 }

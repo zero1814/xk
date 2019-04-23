@@ -25,6 +25,7 @@ public class ScUserStatusTest {
 	@Autowired
 	private ScUserStatusController controller;
 	
+	@Test
 	public void insert() {
 		String[] status = new String[] { "正常", "已注销", "已删除", "已冻结", "已过期", "未验证" };
 		for (String str : status) {
