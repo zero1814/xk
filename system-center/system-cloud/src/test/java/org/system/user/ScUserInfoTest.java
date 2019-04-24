@@ -1,5 +1,7 @@
 package org.system.user;
 
+import java.lang.reflect.Field;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,16 @@ import org.system.entity.user.ScUserStatus;
 import org.system.service.role.IScRoleService;
 import org.system.service.user.IScUserInfoService;
 
+import com.alibaba.fastjson.JSON;
+
+import lombok.Getter;
 import zero.commons.basics.MD5Util;
 import zero.commons.basics.result.DataResult;
+import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.ResultType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-//这是Spring Boot注解，为了进行集成测试，需要通过这个注解加载和配置Spring应用上下
+// 这是Spring Boot注解，为了进行集成测试，需要通过这个注解加载和配置Spring应用上下
 @SpringBootTest(classes = SystemCloudApplication.class)
 public class ScUserInfoTest {
 
@@ -25,8 +31,7 @@ public class ScUserInfoTest {
 	private IScUserInfoService service;
 	@Autowired
 	private IScRoleService roleService;
-	
-	@Test
+
 	public void insert() {
 		ScUserInfo entity = new ScUserInfo();
 		entity.setCreateUser("test");
@@ -40,9 +45,35 @@ public class ScUserInfoTest {
 		status.setCode("SUS1117692605543477248");
 		entity.setStatus(status);
 		DataResult<ScRole> roleResult = roleService.selectAll(null);
-		if(roleResult.getCode() == ResultType.SUCCESS) {
+		if (roleResult.getCode() == ResultType.SUCCESS) {
 			entity.setRoles(roleResult.getData());
 		}
 		service.insert(entity);
+	}
+
+	public void login() {
+		ScUserInfo entity = new ScUserInfo();
+		entity.setPhone("13422293382");
+		entity.setPassword("000000");
+		EntityResult<ScUserInfo> result = service.login(entity);
+		System.out.println(JSON.toJSON(result));
+	}
+	
+	@Test
+	public void object() {
+		ScUserInfo entity = new ScUserInfo();
+		entity.setPhone("13422293382");
+		entity.setPassword("000000");
+		System.out.println("flag = "+entity.getClass().isAnnotationPresent(Getter.class));
+		if(entity.getClass().isAnnotationPresent(Getter.class)) {
+			Getter getter = entity.getClass().getAnnotation(Getter.class);
+			Field[] fields = entity.getClass().getDeclaredFields();
+			for (Field field : fields) {
+				System.out.println("----------");
+				System.out.println(field.getName());
+				System.out.println(getter.onMethod());
+				System.out.println("--------------");
+			}
+		}
 	}
 }

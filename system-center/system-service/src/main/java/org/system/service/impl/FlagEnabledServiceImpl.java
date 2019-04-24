@@ -32,5 +32,4 @@ public class FlagEnabledServiceImpl<T extends FlagEnabledEntity, ID, R extends B
 		}
 		return result;
 	}
-
 }

@@ -15,9 +15,13 @@ import org.system.entity.role.ScRole;
 import org.system.entity.user.ScUserInfo;
 import org.system.service.user.IScUserInfoService;
 
+import com.alibaba.fastjson.JSON;
+
+import lombok.extern.slf4j.Slf4j;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.ResultType;
 
+@Slf4j
 @Component
 public class UserDetailServiceImpl implements UserDetailsService {
 
@@ -36,9 +40,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+		log.info("根据username'" + userName + "'获取用户信息--------->");
 		ScUserInfo param = new ScUserInfo();
 		param.setUserName(userName);
 		EntityResult<ScUserInfo> result = service.select(param);
+		log.info("查询结果：\n" + JSON.toJSONString(result));
 		if (result.getCode() == ResultType.SUCCESS) {
 			ScUserInfo entity = result.getEntity();
 			List<ScRole> roles = entity.getRoles();

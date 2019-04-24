@@ -19,14 +19,14 @@ import zero.commons.basics.result.ResultType;
 
 /**
  * 
- * 类: RestAccessDenied <br>
+ * 类: CustomAccessDenied <br>
  * 描述: 当访问接口没有权限时，自定义的返回结果 <br>
  * 作者: zhy<br>
  * 时间: 2019年4月9日 上午10:21:55
  */
 @Slf4j
 @Component
-public class RestAccessDenied implements AccessDeniedHandler {
+public class CustomAccessDenied implements AccessDeniedHandler {
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e)

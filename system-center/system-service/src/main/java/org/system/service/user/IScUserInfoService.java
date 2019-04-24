@@ -62,4 +62,5 @@ public interface IScUserInfoService extends IBaseService<ScUserInfo, String> {
 	 * @return
 	 */
 	BaseResult logout(String token);
+	
 }

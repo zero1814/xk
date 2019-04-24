@@ -17,13 +17,13 @@ import zero.commons.basics.result.ResultType;
 
 /**
  * 
- * 类: RestAuthenticationEntryPoint <br>
+ * 类: CustomAuthenticationEntryPoint <br>
  * 描述: 当未登录或者token失效访问接口时，自定义的返回结果 <br>
  * 作者: zhy<br>
  * 时间: 2019年4月9日 上午10:24:39
  */
 @Component
-public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,

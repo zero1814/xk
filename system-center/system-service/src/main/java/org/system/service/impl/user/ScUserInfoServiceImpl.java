@@ -3,6 +3,8 @@ package org.system.service.impl.user;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -10,7 +12,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.system.cache.prefix.UserInfo;
 import org.system.entity.user.ScUserInfo;
 import org.system.entity.user.ScUserStatus;
 import org.system.repository.user.ScUserInfoRepository;
@@ -20,6 +21,7 @@ import org.system.service.user.IScUserInfoService;
 import org.zero.spring.jpa.BaseServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
+import zero.commons.basics.MD5Util;
 import zero.commons.basics.helper.CodeHelper;
 import zero.commons.basics.result.BaseResult;
 import zero.commons.basics.result.EntityResult;
@@ -37,7 +39,7 @@ import zero.commons.basics.result.ResultType;
 public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, ScUserInfoRepository>
 		implements IScUserInfoService {
 
-	@Autowired
+	@Resource
 	private RedisTemplate<String, Object> template;
 	@Autowired
 	private ScUserInfoRepository repository;
@@ -48,6 +50,7 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 	public EntityResult<ScUserInfo> insert(ScUserInfo entity) {
 		EntityResult<ScUserInfo> result = new EntityResult<ScUserInfo>();
 		try {
+			entity.setPassword(MD5Util.md5Hex(entity.getPassword()));
 			ExampleMatcher matcher = ExampleMatcher.matching();
 			matcher.withMatcher("userName", GenericPropertyMatchers.exact())
 					.withMatcher("phone", GenericPropertyMatchers.exact())
@@ -84,9 +87,9 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 	public EntityResult<ScUserInfo> login(ScUserInfo entity) {
 		EntityResult<ScUserInfo> result = new EntityResult<ScUserInfo>();
 		String userName = entity.getUserName();
-		String password = entity.getPassword();
+		String password = MD5Util.md5Hex(entity.getPassword());
 		String phone = entity.getPhone();
-		if (StringUtils.isBlank(userName) || StringUtils.isBlank(phone)) {
+		if (StringUtils.isBlank(userName) && StringUtils.isBlank(phone)) {
 			result.setCode(ResultType.NULL);
 			result.setMessage("用户名/手机号 不能为空");
 			return result;
