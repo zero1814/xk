@@ -11,13 +11,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 
-import org.hibernate.validator.constraints.Length;
 import org.system.entity.role.ScRole;
 import org.zero.spring.jpa.BaseEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,43 +31,43 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "sc_user_info")
+@ApiModel(value = "系统用户", parent = BaseEntity.class)
 public class ScUserInfo extends BaseEntity {
 	private static final long serialVersionUID = 4039559291617099759L;
 
+	@ApiModelProperty("真实姓名")
 	@Column(name = "real_name", length = 50, nullable = false)
-	@NotBlank(message = "真实姓名不能为空")
 	private String realName;
 
+	@ApiModelProperty("头像")
 	@Column(name = "header_pic", length = 200)
-	@NotBlank(message = "头像不能为空")
 	private String headerPic;
 
+	@ApiModelProperty("用户名")
 	@Column(name = "user_name", length = 50, nullable = false, unique = true)
-	@NotBlank(message = "用户名不能为空")
 	private String userName;
 
+	@ApiModelProperty("密码")
 	@Column(name = "password", length = 50, nullable = false)
-	@NotBlank(message = "密码不能为空")
-	@Length(min = 6, max = 10, message = "密码长度为6-10位")
 	private String password;
 
+	@ApiModelProperty("手机号")
 	@Column(name = "phone", length = 50, nullable = false, unique = true)
-	@NotBlank(message = "手机号不能为空")
 	private String phone;
 
 	@Column(name = "e_mail", length = 50, nullable = false, unique = true)
-	@NotBlank(message = "电子邮箱不能为空")
 	@Email(message = "电子邮箱格式不正确")
 	private String eMail;
 
+	@ApiModelProperty("用户状态")
 	@ManyToOne
 	@JoinColumn(name = "status")
-	@NotEmpty(message = "用户状态不能为空")
 	private ScUserStatus status;
 
 	/**
 	 * 用户角色关系表
 	 */
+	@ApiModelProperty("用户角色列表")
 	@OneToMany
 	@JoinTable(name = "sc_user_role", joinColumns = { @JoinColumn(name = "user_code") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_code") })
@@ -77,6 +76,7 @@ public class ScUserInfo extends BaseEntity {
 	/**
 	 * 用户token
 	 */
+	@ApiModelProperty("用户token")
 	@Transient
 	private String token;
 

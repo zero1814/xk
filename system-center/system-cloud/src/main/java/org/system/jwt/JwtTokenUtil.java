@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.system.entity.user.ScUserInfo;
@@ -27,6 +29,9 @@ public class JwtTokenUtil implements Serializable {
 	private static final long serialVersionUID = -2663159526884930245L;
 	private static final String CLAIM_KEY_USERNAME = "sub";
 	private static final String CLAIM_KEY_CREATED = "created";
+
+	@Autowired
+	private RedisTemplate<String, String> template;
 	/**
 	 * 密钥
 	 */
@@ -54,7 +59,6 @@ public class JwtTokenUtil implements Serializable {
 		return Jwts.builder().setClaims(claims).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, secret)
 				.compact();
 	}
-	
 
 	/**
 	 * 
@@ -77,7 +81,6 @@ public class JwtTokenUtil implements Serializable {
 		return claims;
 	}
 
-
 	/**
 	 * 
 	 * 方法: generateToken <br>
@@ -88,9 +91,9 @@ public class JwtTokenUtil implements Serializable {
 	 * @param userDetails
 	 * @return
 	 */
-	public String generateToken(UserDetails userDetails) {
+	public String generateToken(ScUserInfo user) {
 		Map<String, Object> claims = new HashMap<>(2);
-		claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+		claims.put(CLAIM_KEY_USERNAME, user.getUserName());
 		claims.put(CLAIM_KEY_CREATED, new Date());
 		return generateToken(claims);
 	}
@@ -101,36 +104,42 @@ public class JwtTokenUtil implements Serializable {
 	 * 描述: 将token存储到redis <br>
 	 * 作者: zhy<br>
 	 * 时间: 2019年4月24日 下午3:21:04
+	 * 
 	 * @param key
 	 * @param val
 	 * @param time
 	 */
-    public void setExpire(String key, String val, long time) {
-    }
+	public void setExpire(String key, String val, long time) {
+		template.opsForValue().set(key, val, time);
+	}
 
-    /**
-     * 
-     * 方法: del <br>
-     * 描述: 移除 <br>
-     * 作者: zhy<br>
-     * 时间: 2019年4月24日 下午3:20:57
-     * @param key
-     */
-    public void del(String key) {
-    }
- 
-    /**
-     * 
-     * 方法: validateToken <br>
-     * 描述: 判断是否有效 <br>
-     * 作者: zhy<br>
-     * 时间: 2019年4月24日 下午3:20:49
-     * @param authToken
-     * @return
-     */
-    public Boolean validateToken(String authToken) {
-        return true;
-    }
+	/**
+	 * 
+	 * 方法: del <br>
+	 * 描述: 移除 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年4月24日 下午3:20:57
+	 * 
+	 * @param key
+	 */
+	public void del(String key) {
+		template.delete(key);
+	}
+
+	/**
+	 * 
+	 * 方法: validateToken <br>
+	 * 描述: 判断是否有效 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年4月24日 下午3:20:49
+	 * 
+	 * @param authToken
+	 * @return
+	 */
+	public Boolean validateToken(String authToken) {
+		return template.hasKey(authToken);
+	}
+
 	/**
 	 * 
 	 * 方法: getUsernameFromToken <br>
@@ -173,6 +182,7 @@ public class JwtTokenUtil implements Serializable {
 			return false;
 		}
 	}
+
 	/**
 	 * 
 	 * 方法: refreshToken <br>

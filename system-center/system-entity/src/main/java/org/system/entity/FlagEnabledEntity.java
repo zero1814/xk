@@ -5,7 +5,11 @@ import javax.persistence.MappedSuperclass;
 
 import org.zero.spring.jpa.BaseEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 @MappedSuperclass
+@ApiModel(parent = BaseEntity.class)
 public class FlagEnabledEntity extends BaseEntity {
 
 	private static final long serialVersionUID = -8347045613257565292L;
@@ -22,6 +26,7 @@ public class FlagEnabledEntity extends BaseEntity {
 	 * 是否可用 0 可用 1 不可用
 	 */
 	@Column(name = "flag_enabled", columnDefinition = "int default 0")
+	@ApiModelProperty(value="可用状态")
 	private Integer flagEnabled;
 
 	public Integer getFlagEnabled() {

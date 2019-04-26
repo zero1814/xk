@@ -1,7 +1,6 @@
 package org.system.service.impl.user;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
@@ -12,6 +11,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.system.dto.LoginParam;
 import org.system.entity.user.ScUserInfo;
 import org.system.entity.user.ScUserStatus;
 import org.system.repository.user.ScUserInfoRepository;
@@ -22,7 +22,6 @@ import org.zero.spring.jpa.BaseServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 import zero.commons.basics.MD5Util;
-import zero.commons.basics.helper.CodeHelper;
 import zero.commons.basics.result.BaseResult;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.ResultType;
@@ -84,14 +83,13 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 	}
 
 	@Override
-	public EntityResult<ScUserInfo> login(ScUserInfo entity) {
+	public EntityResult<ScUserInfo> login(LoginParam param) {
 		EntityResult<ScUserInfo> result = new EntityResult<ScUserInfo>();
-		String userName = entity.getUserName();
-		String password = MD5Util.md5Hex(entity.getPassword());
-		String phone = entity.getPhone();
-		if (StringUtils.isBlank(userName) && StringUtils.isBlank(phone)) {
+		String userName = param.getUsername();
+		String password = MD5Util.md5Hex(param.getPassword());
+		if (StringUtils.isBlank(userName)) {
 			result.setCode(ResultType.NULL);
-			result.setMessage("用户名/手机号 不能为空");
+			result.setMessage("用户名不能为空");
 			return result;
 		}
 
@@ -100,15 +98,10 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 			result.setMessage("密码 不能为空");
 			return result;
 		}
-		result = select(entity);
-		if (result.getCode() == ResultType.SUCCESS) {
-			String token = CodeHelper.getUUID();
-			/**
-			 * 设置30分钟后过期
-			 */
-			template.opsForValue().set(token, result.getEntity(), 30, TimeUnit.MINUTES);
-		}
-		return result;
+		ScUserInfo entity = new ScUserInfo();
+		entity.setUserName(userName);
+		entity.setPassword(password);
+		return select(entity);
 	}
 
 	/**

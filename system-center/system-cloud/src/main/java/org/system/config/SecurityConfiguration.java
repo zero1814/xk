@@ -92,7 +92,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			"/swagger-resources/**",
 			"/v2/api-docs/**")
 			.permitAll()
-			.antMatchers("/logout", "/login", "/register").permitAll()
+			.antMatchers("/user/logout", "/user/login", "/user/register").permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()// 跨域请求会先进行一次options请求
 			.anyRequest()// 除上面外的所有请求全部需要鉴权认证
 			.authenticated()
@@ -106,7 +106,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// 禁用缓存
 		http.headers().cacheControl();
 		//记住我
-		http.rememberMe().rememberMeParameter("remember-me").userDetailsService(userDetailsService).tokenValiditySeconds(300);
+//		http.rememberMe().rememberMeParameter("remember-me").userDetailsService(userDetailsService).tokenValiditySeconds(300);
 		// 添加自定义未授权和未登录结果返回
 		http.exceptionHandling().accessDeniedHandler(customAccessDenied())
 				.authenticationEntryPoint(customAuthenticationEntryPoint());
@@ -192,6 +192,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new CustomAuthenticationFailureHandler();
 	}
 	
+	@Bean
 	public CustomLogoutSuccessHandler logoutSuccessHandler() {
 		return new CustomLogoutSuccessHandler();
 	}

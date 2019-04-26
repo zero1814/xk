@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.system.entity.user.ScUserInfo;
 import org.system.jwt.JwtTokenUtil;
 
 import com.alibaba.fastjson.JSON;
@@ -35,9 +35,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		ScUserInfo userDetails = (ScUserInfo) authentication.getPrincipal();
 		String jwtToken = jwtTokenUtil.generateToken(userDetails);
-		jwtTokenUtil.setExpire(jwtToken, userDetails.getUsername(), expiration + 100000);
+		jwtTokenUtil.setExpire(jwtToken, userDetails.getUserName(), expiration + 100000);
 		BaseResult result = new BaseResult();
 		result.setCode(ResultType.SUCCESS);
 		result.setMessage("登录成功");

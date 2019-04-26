@@ -39,10 +39,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
 	 */
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		log.info("根据username'" + userName + "'获取用户信息--------->");
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.info("根据username='" + username + "'获取用户信息--------->");
 		ScUserInfo param = new ScUserInfo();
-		param.setUserName(userName);
+		param.setUserName(username);
 		EntityResult<ScUserInfo> result = service.select(param);
 		log.info("查询结果：\n" + JSON.toJSONString(result));
 		if (result.getCode() == ResultType.SUCCESS) {
@@ -61,7 +61,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 			}
 			return new User(entity.getUserName(), entity.getPassword(), authorities);
 		} else {
-			throw new UsernameNotFoundException(userName);
+			throw new UsernameNotFoundException(username);
 		}
 	}
 

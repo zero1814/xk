@@ -13,7 +13,13 @@ import com.alibaba.fastjson.JSON;
 
 import zero.commons.basics.result.BaseResult;
 import zero.commons.basics.result.ResultType;
-
+/**
+ * 
+ * 类: CustomLogoutSuccessHandler <br>
+ * 描述: 成功登出 <br>
+ * 作者: zhy<br>
+ * 时间: 2019年4月25日 上午9:59:27
+ */
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
 	@Override

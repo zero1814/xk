@@ -9,10 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 import org.system.entity.FlagEnabledEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "sc_role")
+@ApiModel(value = "系统角色", parent = FlagEnabledEntity.class)
 public class ScRole extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = -3569376630891554712L;
@@ -27,11 +29,12 @@ public class ScRole extends FlagEnabledEntity {
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = false, unique = true)
-	@NotBlank(message="访问url不能为空")
 	private String name;
 
-	@OneToMany(fetch=FetchType.EAGER)
+	@ApiModelProperty("角色权限列表")
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "sc_role_permission", joinColumns = { @JoinColumn(name = "role_code") }, inverseJoinColumns = {
 			@JoinColumn(name = "permission_code") })
 	private List<ScPermission> permissions;

@@ -19,8 +19,13 @@
 	<dependencies>
 		<dependency>
 			<groupId>cn.com</groupId>
-			<artifactId>system-api</artifactId>
+			<artifactId>system-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>swagger-bootstrap-ui</artifactId>
+			<version>1.9.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>

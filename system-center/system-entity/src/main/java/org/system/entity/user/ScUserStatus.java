@@ -7,6 +7,8 @@ import javax.validation.constraints.NotBlank;
 
 import org.system.entity.FlagEnabledEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +23,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "sc_user_status")
+@ApiModel(value="用户状态",parent = FlagEnabledEntity.class)
 public class ScUserStatus extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = 6072090065005059927L;
@@ -28,6 +31,7 @@ public class ScUserStatus extends FlagEnabledEntity {
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = false, unique = true)
 	@NotBlank(message="名称不能为空")
 	private String name;

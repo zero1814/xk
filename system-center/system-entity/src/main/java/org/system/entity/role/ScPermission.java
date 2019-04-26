@@ -13,6 +13,8 @@ import javax.validation.constraints.Pattern;
 
 import org.system.entity.FlagEnabledEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +22,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "sc_permission")
+@ApiModel(value = "角色权限", parent = FlagEnabledEntity.class)
 public class ScPermission extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = -8444890942860733346L;
@@ -27,15 +30,16 @@ public class ScPermission extends FlagEnabledEntity {
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = false)
-	@NotBlank(message="名称不能为空")
+	@NotBlank(message = "名称不能为空")
 	private String name;
 	/**
 	 * 访问url
 	 */
 	@Column(name = "url", length = 50, nullable = false, unique = true)
-	@NotBlank(message="访问url不能为空")
-	@Pattern(regexp="/^(?:([A-Za-z]+):)?(\\/{0,3})([0-9.\\-A-Za-z]+)(?::(\\d+))?(?:\\/([^?#]*))?(?:\\?([^#]*))?(?:#(.*))?$/",message="请输入合法的url地址")
+	@NotBlank(message = "访问url不能为空")
+	@Pattern(regexp = "/^(?:([A-Za-z]+):)?(\\/{0,3})([0-9.\\-A-Za-z]+)(?::(\\d+))?(?:\\/([^?#]*))?(?:\\?([^#]*))?(?:#(.*))?$/", message = "请输入合法的url地址")
 	private String url;
 
 	/**

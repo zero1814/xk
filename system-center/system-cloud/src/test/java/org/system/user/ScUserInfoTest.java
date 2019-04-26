@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.system.SystemCloudApplication;
+import org.system.controller.user.ScUserInfoController;
+import org.system.dto.LoginParam;
 import org.system.entity.role.ScRole;
 import org.system.entity.user.ScUserInfo;
 import org.system.entity.user.ScUserStatus;
+import org.system.result.user.LoginResult;
 import org.system.service.role.IScRoleService;
 import org.system.service.user.IScUserInfoService;
 
@@ -19,7 +22,6 @@ import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import zero.commons.basics.MD5Util;
 import zero.commons.basics.result.DataResult;
-import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.ResultType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,6 +33,8 @@ public class ScUserInfoTest {
 	private IScUserInfoService service;
 	@Autowired
 	private IScRoleService roleService;
+	@Autowired
+	private ScUserInfoController controller;
 
 	public void insert() {
 		ScUserInfo entity = new ScUserInfo();
@@ -51,21 +55,12 @@ public class ScUserInfoTest {
 		service.insert(entity);
 	}
 
-	public void login() {
-		ScUserInfo entity = new ScUserInfo();
-		entity.setPhone("13422293382");
-		entity.setPassword("000000");
-		EntityResult<ScUserInfo> result = service.login(entity);
-		System.out.println(JSON.toJSON(result));
-	}
-	
-	@Test
 	public void object() {
 		ScUserInfo entity = new ScUserInfo();
 		entity.setPhone("13422293382");
 		entity.setPassword("000000");
-		System.out.println("flag = "+entity.getClass().isAnnotationPresent(Getter.class));
-		if(entity.getClass().isAnnotationPresent(Getter.class)) {
+		System.out.println("flag = " + entity.getClass().isAnnotationPresent(Getter.class));
+		if (entity.getClass().isAnnotationPresent(Getter.class)) {
 			Getter getter = entity.getClass().getAnnotation(Getter.class);
 			Field[] fields = entity.getClass().getDeclaredFields();
 			for (Field field : fields) {
@@ -75,5 +70,14 @@ public class ScUserInfoTest {
 				System.out.println("--------------");
 			}
 		}
+	}
+
+	@Test
+	public void login() {
+		LoginParam param = new LoginParam();
+		param.setUsername("admin");
+		param.setPassword("000000");
+		LoginResult result = controller.login(param);
+		System.out.println(JSON.toJSON(result));
 	}
 }

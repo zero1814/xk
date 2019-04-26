@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 
@@ -25,7 +24,6 @@ import zero.commons.basics.result.ResultType;
  * 时间: 2019年4月9日 上午10:21:55
  */
 @Slf4j
-@Component
 public class CustomAccessDenied implements AccessDeniedHandler {
 
 	@Override

@@ -1,5 +1,6 @@
 package org.system.service.user;
 
+import org.system.dto.LoginParam;
 import org.system.entity.user.ScUserInfo;
 import org.system.result.user.ScUserPropertyResult;
 import org.zero.spring.jpa.IBaseService;
@@ -37,7 +38,7 @@ public interface IScUserInfoService extends IBaseService<ScUserInfo, String> {
 	 * @param entity
 	 * @return
 	 */
-	EntityResult<ScUserInfo> login(ScUserInfo entity);
+	EntityResult<ScUserInfo> login(LoginParam param);
 
 	/**
 	 * 
@@ -62,5 +63,5 @@ public interface IScUserInfoService extends IBaseService<ScUserInfo, String> {
 	 * @return
 	 */
 	BaseResult logout(String token);
-	
+
 }
