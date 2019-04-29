@@ -3,6 +3,7 @@ package org.system.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -19,15 +20,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfiguration {
 
+	@Bean
 	public Docket createRestApi() {
-		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-				.apis(RequestHandlerSelectors.basePackage("org.system.controller")).paths(PathSelectors.any()).build()
+		return new Docket(DocumentationType.SWAGGER_2)
+				.apiInfo(apiInfo()).select()
+				.apis(RequestHandlerSelectors.basePackage("org.system.controller"))
+				.paths(PathSelectors.any()).build()
 				.securitySchemes(securitySchemes());
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("系统中心接口说明").description("系统中心接口说明").version("1.0")
-				.contact(new Contact("zero", "", "zero1814@126.com")).build();
+		return new ApiInfoBuilder()
+				.title("系统中心相关接口")
+				.description("系统中心相关接口")
+				.version("1.0")
+				.contact(new Contact("zero", "", "zero1814@126.com"))
+				.build();
 	}
 
 	private List<ApiKey> securitySchemes() {

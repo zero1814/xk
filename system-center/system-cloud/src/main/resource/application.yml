@@ -3,3 +3,7 @@ server:
 spring:
   profiles:
     active: dev
+logging:
+  level: 
+    root: info
+  config: classpath:logback.xml

@@ -1,5 +1,8 @@
 package org.system.config;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,22 +12,35 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.system.entity.role.ScPermission;
+import org.system.entity.role.ScRole;
+import org.system.entity.user.ScUserInfo;
 import org.system.security.handler.CustomAccessDenied;
 import org.system.security.handler.CustomAuthenticationEntryPoint;
 import org.system.security.handler.CustomAuthenticationFailureHandler;
 import org.system.security.handler.CustomAuthenticationSuccessHandler;
 import org.system.security.handler.CustomLogoutSuccessHandler;
+import org.system.service.user.IScUserInfoService;
 
+import com.alibaba.fastjson.JSON;
+
+import lombok.extern.slf4j.Slf4j;
+import zero.commons.basics.result.EntityResult;
+import zero.commons.basics.result.ResultType;
+
+@Slf4j
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private UserDetailsService userDetailsService;
-
+	private IScUserInfoService service;
 	/**
 	 * 
 	 * 方法: configure <br>
@@ -94,6 +110,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			.antMatchers("/user/logout", "/user/login", "/user/register").permitAll()
 			.antMatchers(HttpMethod.OPTIONS).permitAll()// 跨域请求会先进行一次options请求
+			.antMatchers("/**").permitAll()
 			.anyRequest()// 除上面外的所有请求全部需要鉴权认证
 			.authenticated()
 			.and()
@@ -114,7 +131,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+		log.info("设置用户信息获取接口及密码规则完成");
 	}
 
 	/**
@@ -195,5 +213,35 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CustomLogoutSuccessHandler logoutSuccessHandler() {
 		return new CustomLogoutSuccessHandler();
+	}
+	
+	@Bean
+	public UserDetailsService userDetailsService() {
+		//获取登录信息
+		return username -> {
+			log.info("根据username='" + username + "'获取用户信息--------->");
+			ScUserInfo param = new ScUserInfo();
+			param.setUserName(username);
+			EntityResult<ScUserInfo> result = service.select(param);
+			log.info("查询结果：\n" + JSON.toJSONString(result));
+			if (result.getCode() == ResultType.SUCCESS) {
+				ScUserInfo entity = result.getEntity();
+				List<ScRole> roles = entity.getRoles();
+				List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+				if (roles != null && roles.size() > 0) {
+					for (ScRole role : roles) {
+						List<ScPermission> permissions = role.getPermissions();
+						if (permissions != null && permissions.size() > 0) {
+							for (ScPermission permission : permissions) {
+								authorities.add(new SimpleGrantedAuthority(permission.getCode()));
+							}
+						}
+					}
+				}
+				return new User(entity.getUserName(), entity.getPassword(), authorities);
+			} else {
+				throw new UsernameNotFoundException(username);
+			}
+		};
 	}
 }

@@ -1,6 +1,9 @@
 package org.system.controller.user;
 
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +18,7 @@ import org.system.result.user.LoginResult;
 import org.system.result.user.ScUserPropertyResult;
 import org.system.service.user.IScUserInfoService;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,6 +39,8 @@ import zero.commons.basics.result.ResultType;
 public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfoService> {
 	@Autowired
 	private IScUserInfoService service;
+	@Autowired
+	private RedisTemplate<String, String> template;
 	@Autowired
 	private JwtTokenUtil jwtUtil;
 
@@ -61,7 +66,8 @@ public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfo
 		EntityResult<ScUserInfo> _result = service.login(param);
 		if (_result.getCode() == ResultType.SUCCESS) {
 			String token = jwtUtil.generateToken(_result.getEntity());
-			jwtUtil.setExpire(token, JSON.toJSONString(_result.getEntity()), 30 * 60);
+			JSONObject obj = (JSONObject) JSONObject.toJSON(_result.getEntity());
+			template.opsForValue().set(token, obj.toJSONString(), Duration.ofDays(30));
 			result.setCode(ResultType.SUCCESS);
 			result.setMessage("登录成功");
 			result.setToken(token);
