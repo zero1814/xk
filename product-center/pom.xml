@@ -15,5 +15,6 @@
 		</properties>
   <modules>
     <module>product-entity</module>
+    <module>product-service</module>
   </modules>
 </project>
