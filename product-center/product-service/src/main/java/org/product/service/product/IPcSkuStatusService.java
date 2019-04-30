@@ -1,7 +1,7 @@
 package org.product.service.product;
 
 import org.product.entity.product.PcSkuStatus;
-import org.zero.spring.jpa.IBaseService;
+import org.product.service.IFlagEnabledService;
 
 /**
  * 
@@ -10,6 +10,6 @@ import org.zero.spring.jpa.IBaseService;
  * 作者: zhy<br>
  * 时间: 2019年4月29日 下午4:48:13
  */
-public interface IPcSkuStatusService extends IBaseService<PcSkuStatus, String> {
+public interface IPcSkuStatusService extends IFlagEnabledService<PcSkuStatus, String> {
 
 }

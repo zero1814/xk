@@ -16,5 +16,6 @@
   <modules>
     <module>product-entity</module>
     <module>product-service</module>
+    <module>product-cloud</module>
   </modules>
 </project>

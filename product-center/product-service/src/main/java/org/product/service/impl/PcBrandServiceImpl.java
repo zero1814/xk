@@ -4,7 +4,6 @@ import org.product.entity.PcBrand;
 import org.product.repository.PcBrandRepository;
 import org.product.service.IPcBrandService;
 import org.springframework.stereotype.Service;
-import org.zero.spring.jpa.BaseServiceImpl;
 
 /**
  * 
@@ -14,6 +13,7 @@ import org.zero.spring.jpa.BaseServiceImpl;
  * 时间: 2019年4月29日 下午5:23:43
  */
 @Service
-public class PcBrandServiceImpl extends BaseServiceImpl<PcBrand, String, PcBrandRepository> implements IPcBrandService {
+public class PcBrandServiceImpl extends FlagEnabledServiceImpl<PcBrand, String, PcBrandRepository>
+		implements IPcBrandService {
 
 }

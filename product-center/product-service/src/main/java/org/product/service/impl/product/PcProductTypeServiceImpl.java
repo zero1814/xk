@@ -2,9 +2,9 @@ package org.product.service.impl.product;
 
 import org.product.entity.product.PcProductType;
 import org.product.repository.product.PcProductTypeRepository;
+import org.product.service.impl.FlagEnabledServiceImpl;
 import org.product.service.product.IPcProductTypeService;
 import org.springframework.stereotype.Service;
-import org.zero.spring.jpa.BaseServiceImpl;
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.zero.spring.jpa.BaseServiceImpl;
  * 时间: 2019年4月29日 下午5:22:44
  */
 @Service
-public class PcProductTypeServiceImpl extends BaseServiceImpl<PcProductType, String, PcProductTypeRepository>
+public class PcProductTypeServiceImpl extends FlagEnabledServiceImpl<PcProductType, String, PcProductTypeRepository>
 		implements IPcProductTypeService {
 
 }

@@ -1,7 +1,7 @@
 package org.product.service.activity;
 
 import org.product.entity.activity.PcActivityStatus;
-import org.zero.spring.jpa.IBaseService;
+import org.product.service.IFlagEnabledService;
 
 /**
  * 
@@ -10,6 +10,6 @@ import org.zero.spring.jpa.IBaseService;
  * 作者: zhy<br>
  * 时间: 2019年4月29日 下午4:45:49
  */
-public interface IPcActivityStatusService extends IBaseService<PcActivityStatus, String> {
+public interface IPcActivityStatusService extends IFlagEnabledService<PcActivityStatus, String> {
 
 }

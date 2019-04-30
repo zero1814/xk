@@ -1,7 +1,7 @@
 package org.product.service.product;
 
 import org.product.entity.product.PcProductType;
-import org.zero.spring.jpa.IBaseService;
+import org.product.service.IFlagEnabledService;
 
 /**
  * 
@@ -10,6 +10,6 @@ import org.zero.spring.jpa.IBaseService;
  * 作者: zhy<br>
  * 时间: 2019年4月29日 下午4:47:57
  */
-public interface IPcProductTypeService extends IBaseService<PcProductType, String> {
+public interface IPcProductTypeService extends IFlagEnabledService<PcProductType, String> {
 
 }

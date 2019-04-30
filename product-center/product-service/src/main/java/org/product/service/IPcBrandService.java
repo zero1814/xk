@@ -1,7 +1,6 @@
 package org.product.service;
 
 import org.product.entity.PcBrand;
-import org.zero.spring.jpa.IBaseService;
 
 /**
  * 
@@ -10,6 +9,6 @@ import org.zero.spring.jpa.IBaseService;
  * 作者: zhy<br>
  * 时间: 2019年4月29日 下午4:48:55
  */
-public interface IPcBrandService extends IBaseService<PcBrand, String> {
+public interface IPcBrandService extends IFlagEnabledService<PcBrand, String> {
 
 }

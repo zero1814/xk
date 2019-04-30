@@ -3,8 +3,8 @@ package org.product.service.impl.activity;
 import org.product.entity.activity.PcActivityStatus;
 import org.product.repository.activity.PcActivityStatusRepository;
 import org.product.service.activity.IPcActivityStatusService;
+import org.product.service.impl.FlagEnabledServiceImpl;
 import org.springframework.stereotype.Service;
-import org.zero.spring.jpa.BaseServiceImpl;
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.zero.spring.jpa.BaseServiceImpl;
  * 时间: 2019年4月29日 下午5:05:31
  */
 @Service
-public class PcActivityStatusServiceImpl extends BaseServiceImpl<PcActivityStatus, String, PcActivityStatusRepository>
+public class PcActivityStatusServiceImpl extends FlagEnabledServiceImpl<PcActivityStatus, String, PcActivityStatusRepository>
 		implements IPcActivityStatusService {
 
 }
