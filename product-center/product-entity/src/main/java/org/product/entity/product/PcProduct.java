@@ -1,16 +1,21 @@
 package org.product.entity.product;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.product.entity.PcBrand;
 import org.product.entity.album.PcAlbum;
+import org.product.entity.comment.PcProductComment;
+import org.product.entity.label.PcLabel;
 import org.zero.spring.jpa.BaseEntity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -97,4 +102,37 @@ public class PcProduct extends BaseEntity {
 	 */
 	@Column(name = "sort", nullable = false)
 	private Long sort;
+
+	/**
+	 * 商品标签
+	 */
+	@OneToMany
+	@JoinTable(name = "pc_product_label", joinColumns = { @JoinColumn(name = "product") }, inverseJoinColumns = {
+			@JoinColumn(name = "label") })
+	private List<PcLabel> labels;
+
+	/**
+	 * 商品评价
+	 */
+	@OneToMany
+	@JoinColumn(name = "product")
+	private List<PcProductComment> comments;
+
+	/**
+	 * 商品关键字
+	 */
+	@OneToMany
+	@JoinColumn(name = "product")
+	private List<PcProductKeywords> keywords;
+
+	/**
+	 * 商品规格
+	 */
+	@OneToMany
+	@JoinColumn(name = "product")
+	private List<PcProductSpec> spec;
+
+	@OneToMany
+	@JoinColumn(name = "product")
+	private List<PcSku> skuList;
 }

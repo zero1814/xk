@@ -48,7 +48,7 @@ public class PcActivityProduct extends BaseEntity {
 	 * 商品编码
 	 */
 	@ManyToOne
-	@JoinColumn(name = "store")
+	@JoinColumn(name = "product")
 	private PcProduct product;
 
 	/**

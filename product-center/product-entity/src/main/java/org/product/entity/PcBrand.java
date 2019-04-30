@@ -1,10 +1,15 @@
 package org.product.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.product.entity.product.PcProduct;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -54,4 +59,8 @@ public class PcBrand extends FlagEnabledEntity {
 	 */
 	@Column(name = "sort", columnDefinition = " bigint default 0 ")
 	private Long sort;
+
+	@OneToMany
+	@JoinColumn(name = "brand")
+	private List<PcProduct> productList;
 }

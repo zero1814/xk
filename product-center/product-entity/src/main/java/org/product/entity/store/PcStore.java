@@ -1,11 +1,15 @@
 package org.product.entity.store;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.product.entity.product.PcProduct;
 import org.zero.spring.jpa.BaseEntity;
 
 import lombok.Getter;
@@ -64,4 +68,8 @@ public class PcStore extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private PcStoreStatus status;
+
+	@OneToMany
+	@JoinColumn(name = "store")
+	private List<PcProduct> productList;
 }

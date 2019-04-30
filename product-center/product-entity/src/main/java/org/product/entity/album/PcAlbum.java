@@ -1,7 +1,11 @@
 package org.product.entity.album;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
@@ -35,5 +39,12 @@ public class PcAlbum extends BaseEntity {
 	 */
 	@Column(name = "total", length = 500, nullable = false)
 	private Long total;
+
+	/**
+	 * 相册图集列表
+	 */
+	@OneToMany
+	@JoinColumn(name = "album")
+	private List<PcAlbumPics> pics;
 
 }
