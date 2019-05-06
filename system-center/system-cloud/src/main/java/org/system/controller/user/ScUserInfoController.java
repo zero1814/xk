@@ -91,7 +91,7 @@ public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfo
 	@ApiOperation("用户注册")
 	@PostMapping(value = "register", consumes = "application/json")
 	public EntityResult<ScUserInfo> register(@RequestBody ScUserInfo entity) {
-		return service.insert(entity);
+		return service.create(entity);
 	}
 
 	/**
@@ -105,8 +105,8 @@ public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfo
 	 * @return
 	 */
 	@ApiOperation("用户注销")
-	@GetMapping("logout/{userCode}")
-	public BaseResult logout(@PathVariable("userCode") String userCode) {
+	@GetMapping("logout/{code}")
+	public BaseResult logout(@PathVariable("code") String userCode) {
 		return service.logout(userCode);
 	}
 }

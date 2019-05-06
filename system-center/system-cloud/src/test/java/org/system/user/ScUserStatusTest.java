@@ -32,7 +32,7 @@ public class ScUserStatusTest {
 			ScUserStatus entity = new ScUserStatus();
 			entity.setName(str);
 			entity.setCreateUser("insert");
-			service.insert(entity);
+			service.create(entity);
 		}
 	}
 

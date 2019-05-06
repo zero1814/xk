@@ -88,6 +88,5 @@
 		<module>system-center</module>
 		<module>cloud-parent</module>
 		<module>product-center</module>
-		<module>common-cloud</module>
 	</modules>
 </project>

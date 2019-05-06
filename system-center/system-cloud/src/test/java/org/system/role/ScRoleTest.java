@@ -25,7 +25,7 @@ public class ScRoleTest {
 			entity.setName(str);
 			entity.setFlagEnabled(0);
 			entity.setCreateUser("insert");
-			service.insert(entity);
+			service.create(entity);
 		}
 	}
 }

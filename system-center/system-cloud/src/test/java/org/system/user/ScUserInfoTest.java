@@ -52,7 +52,7 @@ public class ScUserInfoTest {
 		if (roleResult.getCode() == ResultType.SUCCESS) {
 			entity.setRoles(roleResult.getData());
 		}
-		service.insert(entity);
+		service.create(entity);
 	}
 
 	public void object() {

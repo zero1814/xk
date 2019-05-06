@@ -46,7 +46,7 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 	private ScUserStatusRepository statusRepository;
 
 	@Override
-	public EntityResult<ScUserInfo> insert(ScUserInfo entity) {
+	public EntityResult<ScUserInfo> create(ScUserInfo entity) {
 		EntityResult<ScUserInfo> result = new EntityResult<ScUserInfo>();
 		try {
 			entity.setPassword(MD5Util.md5Hex(entity.getPassword()));
@@ -63,7 +63,7 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 		} catch (Exception e) {
 			log.error("添加用户报错，错误原因：" + e.getMessage());
 		}
-		return super.insert(entity);
+		return super.create(entity);
 	}
 
 	@Override

@@ -20,9 +20,9 @@ public class BaseController<T extends BaseEntity, S extends IBaseService<T, Stri
 	private S service;
 
 	@ApiOperation("添加数据")
-	@PostMapping(value = "insert", consumes = "application/json")
-	public BaseResult insert(@RequestBody T entity) {
-		return service.insert(entity);
+	@PostMapping(value = "create", consumes = "application/json")
+	public BaseResult create(@RequestBody T entity) {
+		return service.create(entity);
 	}
 
 	@ApiOperation("编辑现有数据")
@@ -56,6 +56,5 @@ public class BaseController<T extends BaseEntity, S extends IBaseService<T, Stri
 		PageResult<T> result = service.page(entity);
 		return result;
 	}
-
 
 }
