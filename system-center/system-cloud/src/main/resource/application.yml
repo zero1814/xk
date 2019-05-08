@@ -2,7 +2,12 @@ server:
   port: 8030
 spring:
   profiles:
-    active: dev
+    active: beta
+jwt:
+  secret: systemcloudsecret
+  header: Authorization
+  expiration: 604800
+  tokenHead: Bearer 
 logging:
   level: 
     root: info

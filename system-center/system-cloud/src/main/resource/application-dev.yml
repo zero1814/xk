@@ -46,11 +46,6 @@ spring:
       minIdle: 5 #最小空闲连接数
       maxWait: 3000  #获取连接最大等待时间 ms  #default -1
 #header:凭证(校验的变量名), expire:有效期1天(单位:s), secret:秘钥(普通字符串)
-jwt:
-  secret: systemcloudsecret
-  header: Authorization
-  expiration: 604800
-  tokenHead: Bearer 
 logging:
   level:
     root: INFO
