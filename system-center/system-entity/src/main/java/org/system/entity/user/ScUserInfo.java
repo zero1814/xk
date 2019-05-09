@@ -79,5 +79,12 @@ public class ScUserInfo extends BaseEntity {
 	@ApiModelProperty("用户token")
 	@Transient
 	private String token;
+	
+	/**
+	 * 新密码
+	 */
+	@ApiModelProperty("新密码")
+	@Transient
+	private String newPassword;
 
 }

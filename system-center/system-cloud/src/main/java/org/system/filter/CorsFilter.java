@@ -29,20 +29,15 @@ public class CorsFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-		Map<String, String[]> map = req.getParameterMap();
-		logger.info("*********************************request 参数列表 start **************************");
-		for (Entry<String, String[]> entry : map.entrySet()) {
-			logger.info(JSON.toJSON(entry).toString());
-		}
-		logger.info("*********************************request 参数列表 end **************************");
-		
 		HttpServletResponse response = (HttpServletResponse) res;
+		// 允许来自所有域名请求
 		response.setHeader("Access-Control-Allow-Origin", "*");
+		// 设置所允许的HTTP请求方法
 		response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
 		response.setHeader("Access-Control-Max-Age", "3600");
+		// 服务器支持的所有头信息字段，多个字段用逗号分隔
 		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
 		logger.info("*********************************过滤器被使用**************************");
-		
 		chain.doFilter(req, res);
 	}
 

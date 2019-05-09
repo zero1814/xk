@@ -22,6 +22,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import zero.commons.basics.MD5Util;
 import zero.commons.basics.result.DataResult;
+import zero.commons.basics.result.PageResult;
 import zero.commons.basics.result.ResultType;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -73,11 +74,14 @@ public class ScUserInfoTest {
 	}
 
 	@Test
-	public void login() {
-		LoginParam param = new LoginParam();
-		param.setUsername("admin");
-		param.setPassword("000000");
-		LoginResult result = controller.login(param);
+	public void page() {
+		ScUserInfo param = new ScUserInfo();
+		param.setPhone("");
+		param.setRealName("测试");
+		param.setStatus(new ScUserStatus());
+		param.setPage(1);
+		param.setSize(10);
+		PageResult<ScUserInfo> result = controller.page(param);
 		System.out.println(JSON.toJSON(result));
 	}
 }

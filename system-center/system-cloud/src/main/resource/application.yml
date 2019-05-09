@@ -2,12 +2,26 @@ server:
   port: 8030
 spring:
   profiles:
-    active: beta
+    active: dev
 jwt:
   secret: systemcloudsecret
   header: Authorization
   expiration: 604800
   tokenHead: Bearer 
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    # 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，
+    # 请登录 https://ram.console.aliyun.com 创建RAM账号
+    accessKeyId: LTAIb5HLChMHbnkK
+    accessKeySecret: meBe3ranucLYvIGPQVKo950bo93W4A
+    bucketName: xk-mall
+    policy:
+      expire: 300
+    maxSize: 10
+    callback: http://localhost:8030/aliyun/oss/callback
+    dir:
+      prefix: xk-mall
 logging:
   level: 
     root: info
