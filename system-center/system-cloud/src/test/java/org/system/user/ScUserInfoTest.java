@@ -9,11 +9,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.system.SystemCloudApplication;
 import org.system.controller.user.ScUserInfoController;
-import org.system.dto.LoginParam;
 import org.system.entity.role.ScRole;
 import org.system.entity.user.ScUserInfo;
 import org.system.entity.user.ScUserStatus;
-import org.system.result.user.LoginResult;
 import org.system.service.role.IScRoleService;
 import org.system.service.user.IScUserInfoService;
 
@@ -22,8 +20,8 @@ import com.alibaba.fastjson.JSON;
 import lombok.Getter;
 import zero.commons.basics.MD5Util;
 import zero.commons.basics.result.DataResult;
-import zero.commons.basics.result.PageResult;
 import zero.commons.basics.result.ResultType;
+import zero.commons.basics.result.WebResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // 这是Spring Boot注解，为了进行集成测试，需要通过这个注解加载和配置Spring应用上下
@@ -43,7 +41,7 @@ public class ScUserInfoTest {
 		entity.setUserName("admin");
 		entity.setPassword(MD5Util.md5Hex("000000"));
 		entity.setPhone("13422293372");
-		entity.setEMail("12321@1321312.com");
+		entity.setMail("12321@1321312.com");
 		entity.setRealName("管理用户");
 		entity.setHeaderPic("dddd");
 		ScUserStatus status = new ScUserStatus();
@@ -81,7 +79,7 @@ public class ScUserInfoTest {
 		param.setStatus(new ScUserStatus());
 		param.setPage(1);
 		param.setSize(10);
-		PageResult<ScUserInfo> result = controller.page(param);
+		WebResult result = controller.page(param);
 		System.out.println(JSON.toJSON(result));
 	}
 }

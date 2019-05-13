@@ -14,8 +14,6 @@ import org.system.controller.BaseController;
 import org.system.dto.LoginParam;
 import org.system.entity.user.ScUserInfo;
 import org.system.jwt.JwtTokenUtil;
-import org.system.result.user.LoginResult;
-import org.system.result.user.ScUserPropertyResult;
 import org.system.service.user.IScUserInfoService;
 
 import com.alibaba.fastjson.JSONObject;
@@ -25,6 +23,7 @@ import io.swagger.annotations.ApiOperation;
 import zero.commons.basics.result.BaseResult;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.ResultType;
+import zero.commons.basics.result.WebResult;
 
 /**
  * 
@@ -44,11 +43,6 @@ public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfo
 	@Autowired
 	private JwtTokenUtil jwtUtil;
 
-	@GetMapping(value = "init/params")
-	public ScUserPropertyResult property() {
-		return service.initProperty();
-	}
-
 	/**
 	 * 
 	 * 方法: login <br>
@@ -61,21 +55,16 @@ public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfo
 	 */
 	@ApiOperation("用户登录")
 	@PostMapping(value = "login", consumes = "application/json")
-	public LoginResult login(@RequestBody LoginParam param) {
-		LoginResult result = new LoginResult();
+	public WebResult login(@RequestBody LoginParam param) {
 		EntityResult<ScUserInfo> _result = service.login(param);
 		if (_result.getCode() == ResultType.SUCCESS) {
 			String token = jwtUtil.generateToken(_result.getEntity());
 			JSONObject obj = (JSONObject) JSONObject.toJSON(_result.getEntity());
 			template.opsForValue().set(token, obj.toJSONString(), Duration.ofDays(30));
-			result.setCode(ResultType.SUCCESS);
-			result.setMessage("登录成功");
-			result.setToken(token);
+			return WebResult.success("登录成功");
 		} else {
-			result.setCode(ResultType.ERROR);
-			result.setMessage("登录失败");
+			return WebResult.error("登录成功");
 		}
-		return result;
 	}
 
 	/**
@@ -90,8 +79,9 @@ public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfo
 	 */
 	@ApiOperation("用户注册")
 	@PostMapping(value = "register", consumes = "application/json")
-	public EntityResult<ScUserInfo> register(@RequestBody ScUserInfo entity) {
-		return service.create(entity);
+	public WebResult register(@RequestBody ScUserInfo entity) {
+		EntityResult<ScUserInfo> result = service.create(entity);
+		return WebResult.obj(result);
 	}
 
 	/**
@@ -106,7 +96,8 @@ public class ScUserInfoController extends BaseController<ScUserInfo, IScUserInfo
 	 */
 	@ApiOperation("用户注销")
 	@GetMapping("logout/{code}")
-	public BaseResult logout(@PathVariable("code") String userCode) {
-		return service.logout(userCode);
+	public WebResult logout(@PathVariable("code") String userCode) {
+		BaseResult result = service.logout(userCode);
+		return WebResult.result(result);
 	}
 }

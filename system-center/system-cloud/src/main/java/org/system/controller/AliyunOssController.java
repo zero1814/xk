@@ -14,6 +14,7 @@ import org.system.entity.extend.OssPolicy;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import zero.commons.basics.result.EntityResult;
+import zero.commons.basics.result.WebResult;
 
 @Api(tags = "阿里云操作接口")
 @RestController
@@ -25,14 +26,16 @@ public class AliyunOssController {
 
 	@ApiOperation(value = "oss上传签名生成")
 	@GetMapping("policy")
-	public EntityResult<OssPolicy> policy() {
+	public WebResult policy() {
 		String path = "/system/";
-		return component.policy(path);
+		EntityResult<OssPolicy> result = component.policy(path);
+		return WebResult.obj(result);
 	}
 
 	@ApiOperation(value = "oss上传成功回调")
 	@PostMapping("callback")
-	public EntityResult<OssCallback> callback(HttpServletRequest request) {
-		return component.callback(request);
+	public WebResult callback(HttpServletRequest request) {
+		EntityResult<OssCallback> result = component.callback(request);
+		return WebResult.obj(result);
 	}
 }

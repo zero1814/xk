@@ -13,6 +13,7 @@ import zero.commons.basics.result.BaseResult;
 import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.PageResult;
+import zero.commons.basics.result.WebResult;
 
 public class BaseController<T extends BaseEntity, S extends IBaseService<T, String>> {
 
@@ -21,41 +22,44 @@ public class BaseController<T extends BaseEntity, S extends IBaseService<T, Stri
 
 	@ApiOperation("添加数据")
 	@PostMapping(value = "create", consumes = "application/json")
-	public BaseResult create(@RequestBody T entity) {
-		return service.create(entity);
+	public WebResult create(@RequestBody T entity) {
+		BaseResult result = service.create(entity);
+		return WebResult.result(result);
 	}
 
 	@ApiOperation("编辑现有数据")
 	@PostMapping(value = "update", consumes = "application/json")
-	public BaseResult update(@RequestBody T entity) {
-		return service.update(entity, entity.getCode());
+	public WebResult update(@RequestBody T entity) {
+		BaseResult result = service.update(entity, entity.getCode());
+		return WebResult.result(result);
 	}
 
 	@ApiOperation("根据编码查询数据信息")
 	@GetMapping("get/{code}")
-	public EntityResult<T> select(@PathVariable("code") String code) {
+	public WebResult select(@PathVariable("code") String code) {
 		EntityResult<T> result = service.select(code);
-		return result;
+		return WebResult.obj(result);
 	}
 
 	@ApiOperation("根据编码删除数据信息")
 	@GetMapping("del/{code}")
-	public BaseResult delete(@PathVariable("code") String code) {
-		return service.delete(code);
+	public WebResult delete(@PathVariable("code") String code) {
+		BaseResult result = service.delete(code);
+		return WebResult.result(result);
 	}
 
 	@ApiOperation("获取所有数据信息")
 	@PostMapping(value = "all", consumes = "application/json")
-	public DataResult<T> selectAll(@RequestBody T entity) {
-		return service.selectAll(entity);
+	public WebResult selectAll(@RequestBody T entity) {
+		DataResult<T> result = service.selectAll(entity);
+		return WebResult.data(result);
 	}
 
 	@ApiOperation("分页显示数据列表")
 	@PostMapping(value = "page", consumes = "application/json")
-	public PageResult<T> page(@RequestBody T entity) {
+	public WebResult page(@RequestBody T entity) {
 		PageResult<T> result = service.page(entity);
-		return result;
+		return WebResult.page(result);
 	}
-
 
 }

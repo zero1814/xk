@@ -1,7 +1,5 @@
 package org.system.service.impl.user;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
@@ -13,10 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.system.dto.LoginParam;
 import org.system.entity.user.ScUserInfo;
-import org.system.entity.user.ScUserStatus;
 import org.system.repository.user.ScUserInfoRepository;
-import org.system.repository.user.ScUserStatusRepository;
-import org.system.result.user.ScUserPropertyResult;
 import org.system.service.user.IScUserInfoService;
 import org.zero.spring.jpa.BaseServiceImpl;
 
@@ -42,8 +37,6 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 	private RedisTemplate<String, Object> template;
 	@Autowired
 	private ScUserInfoRepository repository;
-	@Autowired
-	private ScUserStatusRepository statusRepository;
 
 	@Override
 	public EntityResult<ScUserInfo> create(ScUserInfo entity) {
@@ -64,22 +57,6 @@ public class ScUserInfoServiceImpl extends BaseServiceImpl<ScUserInfo, String, S
 			log.error("添加用户报错，错误原因：" + e.getMessage());
 		}
 		return super.create(entity);
-	}
-
-	@Override
-	public ScUserPropertyResult initProperty() {
-		ScUserPropertyResult result = new ScUserPropertyResult();
-		try {
-			List<ScUserStatus> statusList = statusRepository.findAll();
-			result.setStatusList(statusList);
-			result.setCode(ResultType.SUCCESS);
-			result.setMessage("加载成功");
-		} catch (Exception e) {
-			log.error(e.getMessage());
-			result.setCode(ResultType.ERROR);
-			result.setMessage("用户初始化参数加载失败");
-		}
-		return result;
 	}
 
 	@Override

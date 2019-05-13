@@ -8,6 +8,7 @@ import org.system.service.IFlagEnabledService;
 
 import io.swagger.annotations.ApiOperation;
 import zero.commons.basics.result.BaseResult;
+import zero.commons.basics.result.WebResult;
 
 public class FlagEnabledController<T extends FlagEnabledEntity, S extends IFlagEnabledService<T, String>>
 		extends BaseController<T, S> {
@@ -17,7 +18,8 @@ public class FlagEnabledController<T extends FlagEnabledEntity, S extends IFlagE
 
 	@ApiOperation("修改可用状态")
 	@PostMapping(value = "update/flag_enabled", consumes = "application/json")
-	public BaseResult updateFlagEnabled(@RequestBody T entity) {
-		return service.updateFlagEnabled(entity);
+	public WebResult updateFlagEnabled(@RequestBody T entity) {
+		BaseResult result = service.updateFlagEnabled(entity);
+		return WebResult.result(result);
 	}
 }

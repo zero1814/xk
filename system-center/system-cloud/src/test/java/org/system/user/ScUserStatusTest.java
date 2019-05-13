@@ -12,7 +12,7 @@ import org.system.service.user.IScUserStatusService;
 
 import com.alibaba.fastjson.JSON;
 
-import zero.commons.basics.result.DataResult;
+import zero.commons.basics.result.WebResult;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 // 这是Spring Boot注解，为了进行集成测试，需要通过这个注解加载和配置Spring应用上下
@@ -24,7 +24,7 @@ public class ScUserStatusTest {
 
 	@Autowired
 	private ScUserStatusController controller;
-	
+
 	@Test
 	public void insert() {
 		String[] status = new String[] { "正常", "已注销", "已删除", "已冻结", "已过期", "未验证" };
@@ -38,8 +38,8 @@ public class ScUserStatusTest {
 
 	@Test
 	public void all() {
-//		DataResult<ScUserStatus> result = controller.selectAll(new ScUserStatus());
-		DataResult<ScUserStatus> result = controller.selectAll(null);
+		// DataResult<ScUserStatus> result = controller.selectAll(new ScUserStatus());
+		WebResult result = controller.selectAll(null);
 		System.out.println(JSON.toJSONString(result));
 	}
 }

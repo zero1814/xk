@@ -10,7 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.Email;
 
 import org.system.entity.role.ScRole;
 import org.zero.spring.jpa.BaseEntity;
@@ -56,8 +55,7 @@ public class ScUserInfo extends BaseEntity {
 	private String phone;
 
 	@Column(name = "e_mail", length = 50, nullable = false, unique = true)
-	@Email(message = "电子邮箱格式不正确")
-	private String eMail;
+	private String mail;
 
 	@ApiModelProperty("用户状态")
 	@ManyToOne
@@ -79,7 +77,7 @@ public class ScUserInfo extends BaseEntity {
 	@ApiModelProperty("用户token")
 	@Transient
 	private String token;
-	
+
 	/**
 	 * 新密码
 	 */
