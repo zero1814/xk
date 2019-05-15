@@ -16,8 +16,6 @@ import javax.persistence.TemporalType;
 import org.product.entity.album.PcAlbum;
 import org.zero.spring.jpa.BaseEntity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,7 +49,6 @@ public class PcActivity extends BaseEntity {
 	/**
 	 * 主图
 	 */
-	@JsonProperty(value = "main_pic")
 	@Column(name = "main_pic", length = 100, nullable = false)
 	private String mainPic;
 
@@ -95,9 +92,9 @@ public class PcActivity extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private PcActivityStatus status;
-	
+
 	@OneToMany
-	@JoinColumn(name="activity")
+	@JoinColumn(name = "activity")
 	private List<PcActivityProduct> products;
 
 }

@@ -2,8 +2,6 @@ package org.product.entity.category;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
@@ -18,13 +16,6 @@ import lombok.Setter;
 public class PcCategoryAttribute extends BaseEntity {
 
 	private static final long serialVersionUID = 3334564301410737003L;
-
-	/**
-	 * 分类编码
-	 */
-	@ManyToOne
-	@JoinColumn(name = "category")
-	private PcCategory category;
 
 	/**
 	 * 名称

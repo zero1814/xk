@@ -33,12 +33,6 @@ public class PcSku extends BaseEntity {
 	private static final long serialVersionUID = -9059563854277341590L;
 
 	/**
-	 * 商品编码
-	 */
-	@ManyToOne
-	@JoinColumn(name = "product")
-	private PcProduct product;
-	/**
 	 * 名称
 	 */
 	@Column(name = "name", length = 50, nullable = false, unique = true)

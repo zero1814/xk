@@ -2,8 +2,6 @@ package org.product.entity.product;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
@@ -26,12 +24,6 @@ public class PcProductKeywords extends BaseEntity {
 
 	private static final long serialVersionUID = -102423774925906824L;
 
-	/**
-	 * 商品编码
-	 */
-	@ManyToOne
-	@JoinColumn(name = "product")
-	private PcProduct product;
 
 	/**
 	 * 关键字

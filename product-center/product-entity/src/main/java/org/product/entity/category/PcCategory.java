@@ -2,6 +2,7 @@ package org.product.entity.category;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
-import org.product.entity.product.PcProduct;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -58,11 +58,7 @@ public class PcCategory extends FlagEnabledEntity {
 	/**
 	 * 分类属性集合
 	 */
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "category")
 	private List<PcCategoryAttribute> attributes;
-
-	@OneToMany
-	@JoinColumn(name = "category")
-	private List<PcProduct> produtList;
 }

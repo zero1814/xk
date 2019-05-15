@@ -2,8 +2,6 @@ package org.product.entity.comment;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
@@ -19,9 +17,6 @@ public class PcProductCommentReply extends BaseEntity {
 
 	private static final long serialVersionUID = 312898658746706404L;
 
-	@ManyToOne
-	@JoinColumn(name = "comment")
-	private PcProductComment comment;
 
 	@Column(name = "content", length = 500, nullable = false)
 	private String content;
