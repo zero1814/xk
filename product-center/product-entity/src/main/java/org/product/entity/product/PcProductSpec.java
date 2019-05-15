@@ -24,10 +24,10 @@ public class PcProductSpec extends BaseEntity {
 	@JoinColumn(name = "product")
 	private PcProduct product;
 
-	@Column(name = "key", length = 50, nullable = false, unique = true)
+	@Column(name = "spec_key", length = 50, nullable = false, unique = true)
 	@NotNull(message = "规格名称不能为空")
 	private String key;
-	@Column(name = "value", length = 500, nullable = false)
+	@Column(name = "spec_value", length = 500, nullable = false)
 	@NotNull(message = "规格参数值不能为空")
 	private String value;
 	@Column(name = "sort", nullable = false)

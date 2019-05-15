@@ -1,5 +1,6 @@
 package org.product.test;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.product.ProductCloudApplication;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,4 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = ProductCloudApplication.class)
 public class PcProductSpecTest {
 
+	@Test
+	public void test() {
+		
+	}
 }

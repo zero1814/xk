@@ -51,7 +51,7 @@ public class BaseController<T extends BaseEntity, S extends IBaseService<T, Stri
 	@ApiOperation("获取所有数据信息")
 	@PostMapping(value = "all", consumes = "application/json")
 	public WebResult selectAll(@RequestBody T entity) {
-		DataResult<T> result = new DataResult<T>();
+		DataResult<T> result = service.selectAll(entity);
 		return WebResult.data(result);
 	}
 

@@ -61,8 +61,7 @@ public class PcCategory extends FlagEnabledEntity {
 	@OneToMany
 	@JoinColumn(name = "category")
 	private List<PcCategoryAttribute> attributes;
-	
-	
+
 	@OneToMany
 	@JoinColumn(name = "category")
 	private List<PcProduct> produtList;

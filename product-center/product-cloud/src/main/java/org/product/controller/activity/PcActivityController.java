@@ -6,8 +6,11 @@ import org.product.service.activity.IPcActivityService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/activity/")
-public class PcActivityController extends BaseController<PcActivity, IPcActivityService>{
+@Api(tags = "活动相关")
+public class PcActivityController extends BaseController<PcActivity, IPcActivityService> {
 
 }
