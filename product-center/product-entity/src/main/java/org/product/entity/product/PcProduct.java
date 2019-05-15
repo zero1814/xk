@@ -85,12 +85,6 @@ public class PcProduct extends BaseEntity {
 	private BigDecimal maxSellPrice;
 
 	/**
-	 * 类型
-	 */
-	@ManyToOne
-	@JoinColumn(name = "type")
-	private PcProductType type;
-	/**
 	 * 状态
 	 */
 	@ManyToOne
