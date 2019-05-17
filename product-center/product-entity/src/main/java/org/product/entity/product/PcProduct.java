@@ -98,6 +98,11 @@ public class PcProduct extends BaseEntity {
 	private Long sort;
 
 	/**
+	 * 商品详情
+	 */
+	@Column(name = "intro")
+	private String intro;
+	/**
 	 * 商品标签
 	 */
 	@OneToMany
@@ -129,4 +134,5 @@ public class PcProduct extends BaseEntity {
 	@OneToMany
 	@JoinColumn(name = "product")
 	private List<PcSku> skuList;
+
 }
