@@ -2,7 +2,6 @@ package org.product.entity.category;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
@@ -24,10 +23,6 @@ import lombok.Setter;
 public class PcCategoryParam extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = 6934669182849240472L;
-
-	@Id
-	@Column(name = "code", length = 50)
-	private String code;
 	/**
 	 * 名称
 	 */

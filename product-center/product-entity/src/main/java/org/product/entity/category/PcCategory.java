@@ -61,4 +61,8 @@ public class PcCategory extends FlagEnabledEntity {
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "category")
 	private List<PcCategoryAttribute> attributes;
+	
+	@OneToMany(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "category")
+	private List<PcCategoryParam> params;
 }
