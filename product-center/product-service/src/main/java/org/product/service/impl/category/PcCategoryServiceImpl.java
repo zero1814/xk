@@ -1,11 +1,16 @@
 package org.product.service.impl.category;
 
+import java.lang.reflect.Field;
 
 import org.product.entity.category.PcCategory;
 import org.product.repository.category.PcCategoryRepository;
 import org.product.service.category.IPcCategoryService;
 import org.product.service.impl.FlagEnabledServiceImpl;
 import org.springframework.stereotype.Service;
+
+import com.alibaba.fastjson.JSON;
+
+import zero.commons.basics.helper.CodeHelper;
 
 /**
  * 
@@ -18,4 +23,20 @@ import org.springframework.stereotype.Service;
 public class PcCategoryServiceImpl extends FlagEnabledServiceImpl<PcCategory, String, PcCategoryRepository>
 		implements IPcCategoryService {
 
+	public static void main(String[] args) {
+		try {
+			PcCategory entity = new PcCategory();
+			entity.setUid(CodeHelper.getCode(PcCategory.class));
+			Field[] fields = entity.getClass().getDeclaredFields();
+			for (Field field : fields) {
+				field.setAccessible(true);
+				if (field.getName().equals("name")) {
+					field.set(entity, "测试");
+				}
+			}
+			System.out.println(JSON.toJSONString(entity));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

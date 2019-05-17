@@ -17,5 +17,4 @@ import org.zero.spring.jpa.BaseServiceImpl;
 public class PcCategoryAttributeServiceImpl
 		extends BaseServiceImpl<PcCategoryAttribute, String, PcCategoryAttributeRepository>
 		implements IPcCategoryAttributeService {
-
 }
