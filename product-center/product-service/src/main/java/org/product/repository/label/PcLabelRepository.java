@@ -1,6 +1,6 @@
 package org.product.repository.label;
 
-import org.product.entity.label.PcLabel;
+import org.product.entity.product.PcLabel;
 import org.zero.spring.jpa.BaseRepository;
 
 /**

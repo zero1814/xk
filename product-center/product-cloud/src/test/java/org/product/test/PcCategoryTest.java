@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.product.ProductCloudApplication;
 import org.product.entity.category.PcCategory;
-import org.product.entity.category.PcCategoryAttribute;
 import org.product.entity.category.PcCategoryParam;
 import org.product.service.category.IPcCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

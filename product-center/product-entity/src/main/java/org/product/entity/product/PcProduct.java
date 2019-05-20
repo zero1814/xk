@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import org.product.entity.PcBrand;
 import org.product.entity.album.PcAlbum;
 import org.product.entity.comment.PcProductComment;
-import org.product.entity.label.PcLabel;
 import org.zero.spring.jpa.BaseEntity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
