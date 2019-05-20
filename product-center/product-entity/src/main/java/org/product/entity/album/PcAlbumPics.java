@@ -6,6 +6,8 @@ import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +22,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "pc_album_pics")
+@ApiModel("相册图集")
 public class PcAlbumPics extends BaseEntity {
 
 	private static final long serialVersionUID = -5537534091981158285L;
@@ -27,6 +30,7 @@ public class PcAlbumPics extends BaseEntity {
 	/**
 	 * 图片访问地址
 	 */
+	@ApiModelProperty("图片访问地址")
 	@Column(name = "pic_url", length = 500, nullable = false)
 	private String picUrl;
 }

@@ -13,12 +13,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.product.entity.PcBrand;
+import org.product.entity.PcLabel;
 import org.product.entity.album.PcAlbum;
 import org.product.entity.comment.PcProductComment;
 import org.zero.spring.jpa.BaseEntity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,6 +36,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "pc_product")
+@ApiModel(value="商品管理")
 public class PcProduct extends BaseEntity {
 
 	private static final long serialVersionUID = 7234968266790089305L;
@@ -40,6 +44,7 @@ public class PcProduct extends BaseEntity {
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = false, unique = true)
 	private String name;
 
@@ -60,6 +65,7 @@ public class PcProduct extends BaseEntity {
 	/**
 	 * 相册
 	 */
+	@ApiModelProperty("相册")
 	@OneToOne
 	@JoinColumn(name = "album")
 	private PcAlbum album;
@@ -74,18 +80,21 @@ public class PcProduct extends BaseEntity {
 	/**
 	 * 最低销售价
 	 */
+	@ApiModelProperty("最低销售价")
 	@Column(name = "min_sell_price", nullable = false)
 	private BigDecimal minSellPrice;
 
 	/**
 	 * 最高销售价
 	 */
+	@ApiModelProperty("最高销售价")
 	@Column(name = "max_sell_price", nullable = false)
 	private BigDecimal maxSellPrice;
 
 	/**
 	 * 状态
 	 */
+	@ApiModelProperty("商品状态")
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private PcProductStatus status;
@@ -93,17 +102,20 @@ public class PcProduct extends BaseEntity {
 	/**
 	 * 排序
 	 */
+	@ApiModelProperty("排序")
 	@Column(name = "sort", nullable = false)
 	private Long sort;
 
 	/**
 	 * 商品详情
 	 */
+	@ApiModelProperty("商品详情")
 	@Column(name = "intro")
 	private String intro;
 	/**
 	 * 商品标签
 	 */
+	@ApiModelProperty("商品标签")
 	@OneToMany
 	@JoinTable(name = "pc_product_label", joinColumns = { @JoinColumn(name = "product") }, inverseJoinColumns = {
 			@JoinColumn(name = "label") })
@@ -112,6 +124,7 @@ public class PcProduct extends BaseEntity {
 	/**
 	 * 商品评价
 	 */
+	@ApiModelProperty("商品评价")
 	@OneToMany
 	@JoinColumn(name = "product")
 	private List<PcProductComment> comments;
@@ -119,6 +132,7 @@ public class PcProduct extends BaseEntity {
 	/**
 	 * 商品关键字
 	 */
+	@ApiModelProperty("商品关键字")
 	@OneToMany
 	@JoinColumn(name = "product")
 	private List<PcProductKeywords> keywords;
@@ -126,10 +140,12 @@ public class PcProduct extends BaseEntity {
 	/**
 	 * 商品规格
 	 */
+	@ApiModelProperty("商品规格")
 	@OneToMany
 	@JoinColumn(name = "product")
 	private List<PcProductSpec> spec;
 
+	@ApiModelProperty("商品sku列表")
 	@OneToMany
 	@JoinColumn(name = "product")
 	private List<PcSku> skuList;

@@ -5,13 +5,13 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.product.entity.product.PcProduct;
 import org.zero.spring.jpa.BaseEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,29 +19,30 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "ps_product_comment")
+@ApiModel(value = "商品评价管理")
 public class PcProductComment extends BaseEntity {
 
 	private static final long serialVersionUID = 3085737393297633529L;
 
-	@ManyToOne
-	@JoinColumn(name = "product")
-	private PcProduct product;
-
+	@ApiModelProperty("内容")
 	@Column(name = "content", length = 500, nullable = false)
 	private String content;
 
+	@ApiModelProperty("评价星级")
 	@Column(name = "starts", nullable = false)
 	private Integer starts;
 
 	/**
 	 * 是否已删除 0 未删除 1 已删除
 	 */
+	@ApiModelProperty("是否已删除 0 未删除 1 已删除")
 	@Column(name = "flag_deleted", columnDefinition = "int default 0 ")
 	private Integer flagDeleted;
 
 	/**
 	 * 回复列表
 	 */
+	@ApiModelProperty("回复列表")
 	@OneToMany
 	@JoinColumn(name = "comment")
 	private List<PcProductCommentReply> reply;

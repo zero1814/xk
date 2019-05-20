@@ -1,6 +1,6 @@
 package org.product.service.impl.label;
 
-import org.product.entity.product.PcLabel;
+import org.product.entity.PcLabel;
 import org.product.repository.label.PcLabelRepository;
 import org.product.service.impl.FlagEnabledServiceImpl;
 import org.product.service.label.IPcLabelService;

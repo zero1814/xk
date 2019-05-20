@@ -12,6 +12,8 @@ import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,6 +28,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "pc_category")
+@ApiModel("商品分类管理")
 public class PcCategory extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = 142846225528469454L;
@@ -33,6 +36,7 @@ public class PcCategory extends FlagEnabledEntity {
 	/**
 	 * 父级编码
 	 */
+	@ApiModelProperty("父级编码")
 	@ManyToOne
 	@JoinColumn(name = "parent")
 	private PcCategory parent;
@@ -40,28 +44,33 @@ public class PcCategory extends FlagEnabledEntity {
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
 	/**
 	 * 图标
 	 */
+	@ApiModelProperty("图标")
 	@Column(name = "icon", length = 100, nullable = false)
 	private String icon;
 
 	/**
 	 * 排序
 	 */
+	@ApiModelProperty("排序")
 	@Column(name = "sort", columnDefinition = "bigint default 0")
 	private Long sort;
 
 	/**
 	 * 分类属性集合
 	 */
+	@ApiModelProperty("分类属性集合")
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "category")
 	private List<PcCategoryAttribute> attributes;
-	
+
+	@ApiModelProperty("分类参数集合")
 	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "category")
 	private List<PcCategoryParam> params;

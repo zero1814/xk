@@ -16,6 +16,8 @@ import javax.persistence.TemporalType;
 import org.product.entity.album.PcAlbum;
 import org.zero.spring.jpa.BaseEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +32,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "pc_activity")
+@ApiModel("活动管理")
 public class PcActivity extends BaseEntity {
 
 	private static final long serialVersionUID = 5035818803827796670L;
@@ -37,12 +40,14 @@ public class PcActivity extends BaseEntity {
 	/**
 	 * 标题
 	 */
+	@ApiModelProperty("活动标题")
 	@Column(name = "title", length = 100, nullable = false)
 	private String title;
 
 	/**
 	 * 副标题
 	 */
+	@ApiModelProperty("活动副标题")
 	@Column(name = "subheading", length = 100, nullable = false)
 	private String subheading;
 
@@ -55,6 +60,7 @@ public class PcActivity extends BaseEntity {
 	/**
 	 * 开始时间
 	 */
+	@ApiModelProperty("开始时间")
 	@Column(name = "start_time", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date startTime;
@@ -62,6 +68,7 @@ public class PcActivity extends BaseEntity {
 	/**
 	 * 结束时间
 	 */
+	@ApiModelProperty("结束时间")
 	@Column(name = "end_time", nullable = false)
 	@Temporal(TemporalType.TIME)
 	private Date endTime;
@@ -69,12 +76,14 @@ public class PcActivity extends BaseEntity {
 	/**
 	 * 简介
 	 */
+	@ApiModelProperty("简介")
 	@Column(name = "intro", nullable = false)
 	private String intro;
 
 	/**
 	 * 类型
 	 */
+	@ApiModelProperty("类型")
 	@ManyToOne
 	@JoinColumn(name = "type")
 	private PcActivityType type;
@@ -82,6 +91,7 @@ public class PcActivity extends BaseEntity {
 	/**
 	 * 相册
 	 */
+	@ApiModelProperty("相册")
 	@OneToOne
 	@JoinColumn(name = "album")
 	private PcAlbum album;
@@ -89,10 +99,12 @@ public class PcActivity extends BaseEntity {
 	/**
 	 * 状态
 	 */
+	@ApiModelProperty("状态")
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private PcActivityStatus status;
 
+	@ApiModelProperty("活动商品列表")
 	@OneToMany
 	@JoinColumn(name = "activity")
 	private List<PcActivityProduct> products;

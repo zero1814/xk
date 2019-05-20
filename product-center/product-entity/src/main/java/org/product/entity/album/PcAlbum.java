@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,7 +25,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_album_pics")
+@Table(name = "pc_album")
+@ApiModel("相册管理")
 public class PcAlbum extends BaseEntity {
 
 	private static final long serialVersionUID = 289119311778403903L;
@@ -31,18 +34,21 @@ public class PcAlbum extends BaseEntity {
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 500, nullable = false)
 	private String name;
 
 	/**
 	 * 图集总数
 	 */
+	@ApiModelProperty("图集总数")
 	@Column(name = "total", length = 500, nullable = false)
 	private Long total;
 
 	/**
 	 * 相册图集列表
 	 */
+	@ApiModelProperty("相册图集列表")
 	@OneToMany
 	@JoinColumn(name = "album")
 	private List<PcAlbumPics> pics;

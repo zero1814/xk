@@ -6,6 +6,8 @@ import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Setter;
 
 import lombok.Getter;
@@ -21,6 +23,7 @@ import lombok.Getter;
 @Setter
 @Entity
 @Table(name = "pc_keywords")
+@ApiModel(value = "关键字管理")
 public class PcKeywords extends BaseEntity {
 
 	private static final long serialVersionUID = 4282498594161743388L;
@@ -28,6 +31,7 @@ public class PcKeywords extends BaseEntity {
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
 }

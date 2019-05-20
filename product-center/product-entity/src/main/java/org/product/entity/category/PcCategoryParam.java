@@ -6,6 +6,8 @@ import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,18 +22,21 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "pc_category_param")
+@ApiModel(value = "商品分类参数管理")
 public class PcCategoryParam extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = 6934669182849240472L;
 	/**
 	 * 名称
 	 */
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
 	/**
 	 * 排序 正序
 	 */
+	@ApiModelProperty("排序 正序")
 	@Column(name = "sort", nullable = false)
 	private Long sort;
 }

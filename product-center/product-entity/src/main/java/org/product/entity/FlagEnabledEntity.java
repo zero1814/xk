@@ -26,7 +26,7 @@ public class FlagEnabledEntity extends BaseEntity {
 	 * 是否可用 0 可用 1 不可用
 	 */
 	@Column(name = "flag_enabled", columnDefinition = "int default 0")
-	@ApiModelProperty(value="可用状态")
+	@ApiModelProperty(value="可用状态, 0 可用 1 不可用")
 	private Integer flagEnabled;
 
 	public Integer getFlagEnabled() {

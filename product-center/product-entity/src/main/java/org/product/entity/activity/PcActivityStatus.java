@@ -6,6 +6,8 @@ import javax.persistence.Table;
 
 import org.product.entity.FlagEnabledEntity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,11 +21,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_activity_product")
+@Table(name = "pc_activity_status")
+@ApiModel("活动状态")
 public class PcActivityStatus extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = 5254869214130216041L;
-
+	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
 }
