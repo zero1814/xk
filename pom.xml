@@ -55,6 +55,11 @@
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.zero.commons</groupId>
+				<artifactId>commons-basics</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 			<!-- swagger2配置 -->
 			<dependency>
 				<groupId>io.springfox</groupId>
@@ -100,5 +105,6 @@
 		<module>system-center</module>
 		<module>cloud-parent</module>
 		<module>product-center</module>
+		<module>file-center</module>
 	</modules>
 </project>

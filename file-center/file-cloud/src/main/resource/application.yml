@@ -1,13 +1,10 @@
 server:
   port: 8030
 spring:
+  application:
+    name: file-cloud
   profiles:
     active: beta
-jwt:
-  secret: systemcloudsecret
-  header: Authorization
-  expiration: 604800
-  tokenHead: Bearer 
 logging:
   level: 
     root: info

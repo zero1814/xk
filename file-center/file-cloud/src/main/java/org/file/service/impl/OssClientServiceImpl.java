@@ -1,15 +1,14 @@
-package org.system.component.impl;
+package org.file.service.impl;
 
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.file.entity.OssCallback;
+import org.file.entity.OssPolicy;
+import org.file.service.IOssClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-import org.system.component.IOssClientComponent;
-import org.system.entity.extend.OssCallback;
-import org.system.entity.extend.OssPolicy;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
@@ -20,8 +19,7 @@ import com.aliyun.oss.model.PolicyConditions;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.ResultType;
 
-@Component
-public class OssClientComponent implements IOssClientComponent {
+public class OssClientServiceImpl implements IOssClientService {
 
 	@Value("${aliyun.oss.policy.expire}")
 	private int ALIYUN_OSS_EXPIRE;
@@ -115,14 +113,13 @@ public class OssClientComponent implements IOssClientComponent {
 	/**
 	 * 
 	 * 方法: callback <br>
-	 * 描述: TODO
 	 * 
 	 * @param request
 	 * @return
 	 * @see org.system.component.IOssClientComponent#callback(javax.servlet.http.HttpServletRequest)
 	 */
 	@Override
-	public EntityResult<OssCallback> callback(HttpServletRequest request) {
+	public EntityResult<org.file.entity.OssCallback> callback(HttpServletRequest request) {
 		OssCallback callback = new OssCallback();
 		String filename = request.getParameter("filename");
 		filename = "http://".concat(ALIYUN_OSS_BUCKET_NAME).concat(".").concat(ALIYUN_OSS_ENDPOINT).concat("/")

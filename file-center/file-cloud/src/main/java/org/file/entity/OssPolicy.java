@@ -1,4 +1,4 @@
-package org.system.entity.extend;
+package org.file.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ public class OssPolicy {
 	 * 密钥
 	 */
 	private String accessKeyId;
-	
+
 	private String accessKeySecret;
 	private String policy;
 	private String signature;

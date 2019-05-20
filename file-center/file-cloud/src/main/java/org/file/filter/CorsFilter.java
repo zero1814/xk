@@ -1,4 +1,4 @@
-package org.product.filter;
+package org.file.filter;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * 类: CorsFilter <br>
  * 描述: 跨域过滤器 <br>
  * 作者: zhy<br>
- * 时间: 2019年5月13日 下午1:52:08
+ * 时间: 2019年3月4日 下午3:40:27
  */
 @Component
 public class CorsFilter implements Filter {
@@ -25,7 +25,6 @@ public class CorsFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-		logger.info("*********************************进入product-cloud系统**************************");
 		HttpServletResponse response = (HttpServletResponse) res;
 		// 允许来自所有域名请求
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -34,7 +33,7 @@ public class CorsFilter implements Filter {
 		response.setHeader("Access-Control-Max-Age", "3600");
 		// 服务器支持的所有头信息字段，多个字段用逗号分隔
 		response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token");
-		logger.info("*********************************product-cloud的过滤器被使用**************************");
+		logger.info("*********************************过滤器被使用**************************");
 		chain.doFilter(req, res);
 	}
 

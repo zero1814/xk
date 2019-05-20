@@ -1,4 +1,4 @@
-package org.system.entity.extend;
+package org.file.entity;
 
 import lombok.Getter;
 import lombok.Setter;

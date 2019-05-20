@@ -1,15 +1,15 @@
-package org.system.component;
+package org.file.service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.system.entity.extend.OssCallback;
-import org.system.entity.extend.OssPolicy;
+import org.file.entity.OssCallback;
+import org.file.entity.OssPolicy;
 
 import com.aliyun.oss.model.Bucket;
 
 import zero.commons.basics.result.EntityResult;
 
-public interface IOssClientComponent {
+public interface IOssClientService {
 
 	EntityResult<OssPolicy> policy(String path);
 
@@ -36,4 +36,5 @@ public interface IOssClientComponent {
 	 * @return
 	 */
 	EntityResult<OssCallback> callback(HttpServletRequest request);
+
 }
