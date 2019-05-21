@@ -44,7 +44,6 @@ public class PcCategoryTest {
 
 	@Test
 	public void parent() {
-		WebResult result = controller.findParent("PC1130401130858147840");
-		System.out.println(JSON.toJSON(result));
+		System.out.println(JSON.toJSONString(service.findParent("PC1130401130858147840")));
 	}
 }
