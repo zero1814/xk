@@ -35,7 +35,7 @@ public class PcAlbum extends BaseEntity {
 	 * 名称
 	 */
 	@ApiModelProperty("名称")
-	@Column(name = "name", length = 500, nullable = false)
+	@Column(name = "name", length = 500, nullable = false,unique=true)
 	private String name;
 
 	/**

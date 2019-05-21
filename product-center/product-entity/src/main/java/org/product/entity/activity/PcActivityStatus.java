@@ -27,6 +27,6 @@ public class PcActivityStatus extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = 5254869214130216041L;
 	@ApiModelProperty("名称")
-	@Column(name = "name", length = 50, nullable = false)
+	@Column(name = "name", length = 50, nullable = false, unique = true)
 	private String name;
 }

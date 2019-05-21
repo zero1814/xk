@@ -3,6 +3,8 @@ package org.product.service.category;
 import org.product.entity.category.PcCategory;
 import org.product.service.IFlagEnabledService;
 
+import zero.commons.basics.result.DataResult;
+
 /**
  * 
  * 类: IPcCategoryService <br>
@@ -12,4 +14,15 @@ import org.product.service.IFlagEnabledService;
  */
 public interface IPcCategoryService extends IFlagEnabledService<PcCategory, String> {
 
+	/**
+	 * 
+	 * 方法: findParent <br>
+	 * 描述: 查询可选的父级分类 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年5月21日 上午8:43:13
+	 * 
+	 * @param code
+	 * @return
+	 */
+	DataResult<PcCategory> findParent(String code);
 }

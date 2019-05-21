@@ -41,7 +41,7 @@ public class PcActivity extends BaseEntity {
 	 * 标题
 	 */
 	@ApiModelProperty("活动标题")
-	@Column(name = "title", length = 100, nullable = false)
+	@Column(name = "title", length = 100, nullable = false, unique = true)
 	private String title;
 
 	/**

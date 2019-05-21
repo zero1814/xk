@@ -2,7 +2,7 @@ server:
   port: 8020
 spring:
   profiles:
-    active: dev
+    active: beta
 logging:
   level: 
     root: info

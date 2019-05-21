@@ -45,7 +45,7 @@ public class PcCategory extends FlagEnabledEntity {
 	 * 名称
 	 */
 	@ApiModelProperty("名称")
-	@Column(name = "name", length = 100, nullable = false)
+	@Column(name = "name", length = 100, nullable = false, unique = true)
 	private String name;
 
 	/**
