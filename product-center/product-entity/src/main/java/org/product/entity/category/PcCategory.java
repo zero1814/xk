@@ -2,7 +2,6 @@ package org.product.entity.category;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -41,6 +40,9 @@ public class PcCategory extends FlagEnabledEntity {
 	@JoinColumn(name = "parent")
 	private PcCategory parent;
 
+	@OneToMany(mappedBy = "parent")
+	private List<PcCategory> children;
+
 	/**
 	 * 名称
 	 */
@@ -66,12 +68,12 @@ public class PcCategory extends FlagEnabledEntity {
 	 * 分类属性集合
 	 */
 	@ApiModelProperty("分类属性集合")
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany
 	@JoinColumn(name = "category")
 	private List<PcCategoryAttribute> attributes;
 
 	@ApiModelProperty("分类参数集合")
-	@OneToMany(cascade = { CascadeType.ALL })
+	@OneToMany
 	@JoinColumn(name = "category")
 	private List<PcCategoryParam> params;
 }

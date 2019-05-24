@@ -60,6 +60,16 @@
 				<artifactId>commons-basics</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>org.zero.spring</groupId>
+				<artifactId>zero-spring-jpa</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.zero.spring</groupId>
+				<artifactId>zero-spring-mybatis</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
 			<!-- swagger2配置 -->
 			<dependency>
 				<groupId>io.springfox</groupId>

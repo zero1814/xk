@@ -3,12 +3,15 @@ package org.product.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.product.ProductCloudApplication;
 import org.product.controller.category.PcCategoryController;
 import org.product.entity.category.PcCategory;
 import org.product.entity.category.PcCategoryParam;
+import org.product.repository.query.category.PcCategoryQuery;
 import org.product.service.category.IPcCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,7 +46,8 @@ public class PcCategoryTest {
 	}
 
 	@Test
-	public void parent() {
-		System.out.println(JSON.toJSONString(service.findParent("PC1130401130858147840")));
+	public void get() {
+		WebResult reuslt = controller.select("PC1130401130858147840");
+		System.out.println(JSON.toJSONString(reuslt));
 	}
 }
