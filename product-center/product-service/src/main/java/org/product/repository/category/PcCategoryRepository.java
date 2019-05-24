@@ -1,7 +1,11 @@
 package org.product.repository.category;
 
+import java.util.List;
+
 import org.product.entity.category.PcCategory;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.zero.spring.jpa.BaseRepository;
 
 /**
@@ -13,4 +17,6 @@ import org.zero.spring.jpa.BaseRepository;
  */
 public interface PcCategoryRepository extends BaseRepository<PcCategory, String>, JpaSpecificationExecutor<PcCategory> {
 
+	@Query(value = "select new PcCategory(code,name) from PcCategory where flagEnabled = 0 and code <>:code")
+	List<PcCategory> parent(@Param("code") String code);
 }

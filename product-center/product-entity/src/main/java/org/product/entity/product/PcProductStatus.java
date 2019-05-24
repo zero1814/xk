@@ -24,6 +24,15 @@ public class PcProductStatus extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = -7099499428276362536L;
 
+	public PcProductStatus() {
+
+	}
+
+	public PcProductStatus(String code, String name) {
+		setCode(code);
+		setName(name);
+	}
+
 	/**
 	 * 名称
 	 */

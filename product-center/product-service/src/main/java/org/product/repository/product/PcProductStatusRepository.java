@@ -11,5 +11,4 @@ import org.zero.spring.jpa.BaseRepository;
  * 时间: 2019年4月29日 下午4:10:17
  */
 public interface PcProductStatusRepository extends BaseRepository<PcProductStatus, String> {
-
 }

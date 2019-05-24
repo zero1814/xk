@@ -32,6 +32,15 @@ public class PcCategory extends FlagEnabledEntity {
 
 	private static final long serialVersionUID = 142846225528469454L;
 
+	public PcCategory() {
+
+	}
+
+	public PcCategory(String code, String name) {
+		setCode(code);
+		setName(name);
+	}
+
 	/**
 	 * 父级编码
 	 */
