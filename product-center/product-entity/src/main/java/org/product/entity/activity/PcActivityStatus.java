@@ -1,32 +1,23 @@
 package org.product.entity.activity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.product.entity.FlagEnabledEntity;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import org.zero.spring.mybatis.BaseEntity;
+
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 
- * 类: PcActivityStatus <br>
- * 描述: 活动状态 <br>
- * 作者: zhy<br>
- * 时间: 2019年4月29日 下午2:50:12
- */
 @Getter
 @Setter
-@Entity
-@Table(name = "pc_activity_status")
-@ApiModel("活动状态")
-public class PcActivityStatus extends FlagEnabledEntity {
+@ApiModel(value="活动状态")
+public class PcActivityStatus extends BaseEntity {
 
-	private static final long serialVersionUID = 5254869214130216041L;
-	@ApiModelProperty("名称")
-	@Column(name = "name", length = 50, nullable = false, unique = true)
+	private static final long serialVersionUID = 8715892816176372490L;
+
+	@ApiModelProperty(value="名称")
 	private String name;
+
+	@ApiModelProperty(value = "是否可用 0 可用 1 不可用")
+	private Integer flagEnabled;
 }

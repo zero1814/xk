@@ -1,30 +1,33 @@
 package org.product.entity.product;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
-import org.zero.spring.jpa.BaseEntity;
+import org.zero.spring.mybatis.BaseEntity;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "pc_activity_spec")
+@ApiModel(value = "商品规格")
 public class PcProductSpec extends BaseEntity {
 
-	private static final long serialVersionUID = -3315204042315937888L;
+	private static final long serialVersionUID = -7927036048168510067L;
 
-	@Column(name = "spec_key", length = 50, nullable = false, unique = true)
-	@NotNull(message = "规格名称不能为空")
-	private String key;
-	@Column(name = "spec_value", length = 500, nullable = false)
-	@NotNull(message = "规格参数值不能为空")
-	private String value;
-	@Column(name = "sort", nullable = false)
+	@ApiModelProperty("商品编码")
+	private String product;
+
+	@ApiModelProperty("规格名称")
+	private String specKey;
+
+	@ApiModelProperty("规格值")
+	private String specValue;
+
+	@ApiModelProperty(value = "类型 0 自动 1 手动")
+	private Integer type;
+
+	@ApiModelProperty(value = "排序 默认0 越高越靠后")
 	private Long sort;
 
 }

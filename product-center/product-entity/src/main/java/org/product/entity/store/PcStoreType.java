@@ -1,35 +1,21 @@
 package org.product.entity.store;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.product.entity.FlagEnabledEntity;
+import org.zero.spring.mybatis.BaseEntity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-/**
- * 
- * 类: PcStoreType <br>
- * 描述: 店铺类型 <br>
- * 作者: zhy<br>
- * 时间: 2019年4月29日 下午3:33:31
- */
+
 @Getter
 @Setter
-@Entity
-@Table(name = "pc_store_type")
-@ApiModel(value="店铺类型管理")
-public class PcStoreType extends FlagEnabledEntity {
+@ApiModel(value = "店铺类型")
+public class PcStoreType extends BaseEntity {
 
-	private static final long serialVersionUID = 4526615436453852504L;
+	private static final long serialVersionUID = -6612665630055736856L;
 
-	/**
-	 * 名称
-	 */
-	@ApiModelProperty("名称")
-	@Column(name = "name", length = 50, nullable = false, unique = true)
+	@ApiModelProperty(value = "名称")
 	private String name;
+	@ApiModelProperty(value = "是否启用 0 未启用 1 已启用")
+	private Integer flagEnabled;
 }

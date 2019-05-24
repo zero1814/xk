@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.product.mapper.PcBrandMapper">
+	<resultMap id="BaseResultMap" type="org.product.entity.PcBrand">
+		<id column="code" jdbcType="VARCHAR" property="code" />
+		<result column="uid" jdbcType="VARCHAR" property="uid" />
+		<result column="parent" jdbcType="VARCHAR" property="parent" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="icon" jdbcType="VARCHAR" property="icon" />
+		<result column="logo" jdbcType="VARCHAR" property="logo" />
+		<result column="flag_enabled" jdbcType="INTEGER" property="flagEnabled" />
+		<result column="sort" jdbcType="BIGINT" property="sort" />
+		<result column="create_user" jdbcType="VARCHAR" property="createUser" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+		<result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		code, uid, parent, name, icon, logo, flag_enabled, sort,
+		create_user,
+		create_time,
+		update_user, update_date
+	</sql>
+	<select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from pc_brand
+		where code = #{code,jdbcType=VARCHAR}
+	</select>
+	<delete id="delete" parameterType="java.lang.String">
+		delete from pc_brand
+		where code
+		= #{code,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.product.entity.PcBrand">
+		insert into pc_brand
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+				code,
+			</if>
+			<if test="uid != null">
+				uid,
+			</if>
+			<if test="parent != null">
+				parent,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="logo != null">
+				logo,
+			</if>
+			<if test="flagEnabled != null">
+				flag_enabled,
+			</if>
+			<if test="sort != null">
+				sort,
+			</if>
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateUser != null">
+				update_user,
+			</if>
+			<if test="updateDate != null">
+				update_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="uid != null">
+				#{uid,jdbcType=VARCHAR},
+			</if>
+			<if test="parent != null">
+				#{parent,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="logo != null">
+				#{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="flagEnabled != null">
+				#{flagEnabled,jdbcType=INTEGER},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=BIGINT},
+			</if>
+			#{createUser,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{updateUser,jdbcType=VARCHAR},
+			#{updateDate,jdbcType=TIMESTAMP},
+		</trim>
+	</insert>
+	<update id="update" parameterType="org.product.entity.PcBrand">
+		update pc_brand
+		<set>
+			<if test="parent != null">
+				parent = #{parent,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="logo != null">
+				logo = #{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="flagEnabled != null">
+				flag_enabled = #{flagEnabled,jdbcType=INTEGER},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=BIGINT},
+			</if>
+			update_user = #{updateUser,jdbcType=VARCHAR},
+			update_date
+			=
+			#{updateDate,jdbcType=TIMESTAMP},
+		</set>
+		where code = #{code,jdbcType=VARCHAR}
+	</update>
+</mapper>

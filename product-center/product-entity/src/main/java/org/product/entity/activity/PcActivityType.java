@@ -1,26 +1,25 @@
 package org.product.entity.activity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.product.entity.FlagEnabledEntity;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import org.zero.spring.mybatis.BaseEntity;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "pc_activity_type")
-@ApiModel("活动类型")
-public class PcActivityType extends FlagEnabledEntity {
+@ApiModel(value="活动类型")
+public class PcActivityType extends BaseEntity {
 
-	private static final long serialVersionUID = 3037597503569263399L;
+	/**  */
+	private static final long serialVersionUID = -5211420799280638808L;
 
-	@ApiModelProperty("名称")
-	@Column(name = "name", length = 100, nullable = false,unique=true)
+	@ApiModelProperty(value="名称")
 	private String name;
+
+	@ApiModelProperty(value = "是否启用 0 未启用 1 已启用")
+	private Integer flagEnabled;
+
 }
