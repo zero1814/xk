@@ -1,6 +1,6 @@
 package org.product.repository;
 
-import org.product.entity.PcKeywords;
+import org.product.entity.PcKeyword;
 import org.zero.spring.jpa.BaseRepository;
 
 /**
@@ -10,6 +10,6 @@ import org.zero.spring.jpa.BaseRepository;
  * 作者: zhy<br>
  * 时间: 2019年4月29日 下午3:47:02
  */
-public interface PcKeywordsRepository extends BaseRepository<PcKeywords, String> {
+public interface PcKeywordsRepository extends BaseRepository<PcKeyword, String> {
 
 }

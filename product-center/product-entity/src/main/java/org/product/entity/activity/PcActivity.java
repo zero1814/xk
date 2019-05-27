@@ -1,19 +1,17 @@
 package org.product.entity.activity;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
-import org.product.entity.album.PcAlbum;
 import org.zero.spring.jpa.BaseEntity;
 
 import io.swagger.annotations.ApiModel;
@@ -21,92 +19,72 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 
- * 类: PcActivity <br>
- * 描述: 活动 <br>
- * 作者: zhy<br>
- * 时间: 2019年4月29日 下午2:46:12
- */
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_activity")
-@ApiModel("活动管理")
+@Table(name = "pc_activity", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "title", "start_time", "end_time" }) })
+@ApiModel(value = "活动管理")
 public class PcActivity extends BaseEntity {
 
-	private static final long serialVersionUID = 5035818803827796670L;
+	private static final long serialVersionUID = -5995695622362979571L;
 
-	/**
-	 * 标题
-	 */
-	@ApiModelProperty("活动标题")
-	@Column(name = "title", length = 100, nullable = false, unique = true)
+	@ApiModelProperty("编码")
+	@Id
+	@Column(name = "code", length = 50)
+	private String code;
+
+	@ApiModelProperty("标题")
+	@Column(name = "title", length = 100)
 	private String title;
 
-	/**
-	 * 副标题
-	 */
-	@ApiModelProperty("活动副标题")
-	@Column(name = "subheading", length = 100, nullable = false)
+	@ApiModelProperty("副标题")
+	@Column(name = "subheading", length = 200)
 	private String subheading;
 
-	/**
-	 * 主图
-	 */
-	@Column(name = "main_pic", length = 100, nullable = false)
+	@ApiModelProperty("主图")
+	@Column(name = "main_pic", length = 50)
 	private String mainPic;
 
-	/**
-	 * 开始时间
-	 */
 	@ApiModelProperty("开始时间")
-	@Column(name = "start_time", nullable = false)
-	@Temporal(TemporalType.TIME)
+	@Column(name = "start_time")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date startTime;
 
-	/**
-	 * 结束时间
-	 */
 	@ApiModelProperty("结束时间")
-	@Column(name = "end_time", nullable = false)
-	@Temporal(TemporalType.TIME)
+	@Column(name = "end_time")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date endTime;
 
-	/**
-	 * 简介
-	 */
 	@ApiModelProperty("简介")
-	@Column(name = "intro", nullable = false)
+	@Column(name = "intro", length = 1000)
 	private String intro;
 
-	/**
-	 * 类型
-	 */
 	@ApiModelProperty("类型")
 	@ManyToOne
 	@JoinColumn(name = "type")
 	private PcActivityType type;
 
-	/**
-	 * 相册
-	 */
-	@ApiModelProperty("相册")
-	@OneToOne
-	@JoinColumn(name = "album")
-	private PcAlbum album;
-
-	/**
-	 * 状态
-	 */
 	@ApiModelProperty("状态")
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private PcActivityStatus status;
 
-	@ApiModelProperty("活动商品列表")
-	@OneToMany
-	@JoinColumn(name = "activity")
-	private List<PcActivityProduct> products;
+	@ApiModelProperty("创建人")
+	@Column(name = "create_user", length = 50, insertable = true, updatable = false, nullable = false)
+	private String createUser;
 
+	@ApiModelProperty("创建时间")
+	@Column(name = "create_time", insertable = true, updatable = false, nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createTime;
+
+	@ApiModelProperty("修改人")
+	@Column(name = "update_user", length = 50, insertable = true, updatable = true, nullable = false)
+	private String updateUser;
+
+	@ApiModelProperty("修改时间")
+	@Column(name = "update_time", insertable = true, updatable = true, nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateTime;
 }

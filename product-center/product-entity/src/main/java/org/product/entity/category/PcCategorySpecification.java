@@ -1,14 +1,10 @@
-package org.product.entity;
+package org.product.entity.category;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,60 +16,31 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 
- * 类: PcBrand <br>
- * 描述: 商品品牌 <br>
- * 作者: zhy<br>
- * 时间: 2019年4月29日 下午2:51:22
- */
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_brand")
-@ApiModel(value = "品牌管理")
-public class PcBrand extends BaseEntity {
+@Table(name = "pc_category_specification")
+@ApiModel(value = "商品分类通用规格参数管理")
+public class PcCategorySpecification extends BaseEntity {
 
-	private static final long serialVersionUID = 8062249932920020241L;
-
-	public PcBrand() {
-
-	}
-
-	public PcBrand(String code, String name) {
-		this.code = code;
-		this.name = name;
-	}
+	private static final long serialVersionUID = 139696118822260004L;
 
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50)
 	private String code;
 
-	@ApiModelProperty("父级品牌")
-	@ManyToOne
-	@JoinColumn(name = "parent")
-	private PcBrand parent;
-
 	@ApiModelProperty("名称")
-	@Column(name = "name", length = 100, nullable = false, unique = true)
+	@Column(name = "name", length = 50, unique = true)
 	private String name;
 
-	@ApiModelProperty("品牌图标")
-	@Column(name = "icon", length = 200, nullable = false)
-	private String icon;
-
-	@ApiModelProperty("品牌LOGO")
-	@Column(name = "品牌logo", length = 200, nullable = false)
-	private String logo;
-
-	@ApiModelProperty("是否可用 0 可用 1 不可用")
-	@Column(name = "flag_enabled")
-	private Integer flagEnabled;
+	@ApiModelProperty("默认可选值，多选使用','隔开")
+	@Column(name = "default_value", length = 500, unique = true)
+	private String defaultValue;
 
 	@ApiModelProperty("排序")
-	@Column(name = "sort", columnDefinition = " bigint default 0 ")
-	private Long sort;
+	@Column(name = "sort")
+	private Integer sort;
 
 	@ApiModelProperty("创建人")
 	@Column(name = "create_user", length = 50, insertable = true, updatable = false, nullable = false)
@@ -92,8 +59,4 @@ public class PcBrand extends BaseEntity {
 	@Column(name = "update_time", insertable = true, updatable = true, nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
-
-	@ApiModelProperty("子分类集合")
-	@OneToMany(mappedBy = "parent")
-	private List<PcBrand> children;
 }

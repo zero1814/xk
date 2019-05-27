@@ -1,6 +1,6 @@
 package org.product.service.impl;
 
-import org.product.entity.PcKeywords;
+import org.product.entity.PcKeyword;
 import org.product.repository.PcKeywordsRepository;
 import org.product.service.IPcKeywordsService;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import org.zero.spring.jpa.BaseServiceImpl;
  * 时间: 2019年4月29日 下午5:23:52
  */
 @Service
-public class PcKeywordsServiceImpl extends BaseServiceImpl<PcKeywords, String, PcKeywordsRepository>
+public class PcKeywordsServiceImpl extends BaseServiceImpl<PcKeyword, String, PcKeywordsRepository>
 		implements IPcKeywordsService {
 
 }

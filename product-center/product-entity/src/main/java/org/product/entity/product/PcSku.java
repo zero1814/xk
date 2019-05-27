@@ -1,94 +1,90 @@
 package org.product.entity.product;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.product.entity.album.PcAlbum;
 import org.zero.spring.jpa.BaseEntity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 
- * 类: PcSku <br>
- * 描述: 商品sku <br>
- * 作者: zhy<br>
- * 时间: 2019年4月29日 下午3:21:26
- */
 @Getter
 @Setter
 @Entity
 @Table(name = "pc_sku")
+@ApiModel(value = "商品sku管理")
 public class PcSku extends BaseEntity {
 
 	private static final long serialVersionUID = -9059563854277341590L;
 
-	/**
-	 * 名称
-	 */
-	@Column(name = "name", length = 50, nullable = false, unique = true)
+	@ApiModelProperty("编码")
+	@Id
+	@Column(name = "code", length = 50)
+	private String code;
+
+	@ApiModelProperty("商品编码")
+	@ManyToOne
+	@JoinColumn(name = "product")
+	private PcProduct product;
+
+	@ApiModelProperty("名称")
+	@Column(name = "name", length = 100, nullable = false, unique = true)
 	private String name;
 
-	/**
-	 * 主图
-	 */
-	@Column(name = "main_pic", length = 500, nullable = false, unique = true)
+	@ApiModelProperty("商品主图")
+	@Column(name = "main_pic", length = 500, nullable = false)
 	private String mainPic;
 
-	/**
-	 * 成本价
-	 */
-	@Column(name = "cost_price", nullable = false)
-	@JsonProperty("cost_price")
+	@ApiModelProperty("成本价")
+	@Column(name = "cost_price")
 	private BigDecimal costPrice;
 
-	/**
-	 * 市场价
-	 */
-	@Column(name = "market_price", nullable = false)
-	@JsonProperty("market_price")
+	@ApiModelProperty("市场价")
+	@Column(name = "market_price")
 	private BigDecimal marketPrice;
 
-	/**
-	 * 销售价
-	 */
-	@Column(name = "sell_price", nullable = false)
-	@JsonProperty("sell_price")
+	@ApiModelProperty("销售价")
+	@Column(name = "sell_price")
 	private BigDecimal sellPrice;
 
-	/**
-	 * 相册
-	 */
-	@OneToOne
-	@JoinColumn(name = "album")
-	private PcAlbum album;
-
-	/**
-	 * 库存
-	 */
-	@Column(name = "stock", nullable = false)
+	@ApiModelProperty("库存")
+	@Column(name = "stock")
 	private Long stock;
 
-	/**
-	 * 预警库存
-	 */
-	@Column(name = "warn_stock", nullable = false)
-	@JsonProperty("warn_stock")
+	@ApiModelProperty("预警库存")
+	@Column(name = "warn_stock")
 	private Long warnStock;
 
-	/**
-	 * 状态
-	 */
 	@ManyToOne
 	@JoinColumn(name = "status")
 	private PcSkuStatus status;
+
+	@ApiModelProperty("创建人")
+	@Column(name = "create_user", length = 50, insertable = true, updatable = false, nullable = false)
+	private String createUser;
+
+	@ApiModelProperty("创建时间")
+	@Column(name = "create_time", insertable = true, updatable = false, nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createTime;
+
+	@ApiModelProperty("修改人")
+	@Column(name = "update_user", length = 50, insertable = true, updatable = true, nullable = false)
+	private String updateUser;
+
+	@ApiModelProperty("修改时间")
+	@Column(name = "update_time", insertable = true, updatable = true, nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateTime;
 }

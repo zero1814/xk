@@ -1,88 +1,97 @@
 package org.product.entity.category;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.product.entity.FlagEnabledEntity;
+import org.zero.spring.jpa.BaseEntity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 
- * 类: PcCategory <br>
- * 描述: 商品分类 <br>
- * 作者: zhy<br>
- * 时间: 2019年4月29日 下午2:56:54
- */
 @Getter
 @Setter
 @Entity
 @Table(name = "pc_category")
-@ApiModel("商品分类管理")
-public class PcCategory extends FlagEnabledEntity {
+@ApiModel(value = "商品分类管理")
+public class PcCategory extends BaseEntity {
 
 	private static final long serialVersionUID = 142846225528469454L;
 
 	public PcCategory() {
-
 	}
 
 	public PcCategory(String code, String name) {
-		setCode(code);
-		setName(name);
+		this.code = code;
+		this.name = name;
 	}
 
-	/**
-	 * 父级编码
-	 */
+	@ApiModelProperty("编码")
+	@Id
+	@Column(name = "code", length = 50)
+	private String code;
+
 	@ApiModelProperty("父级编码")
 	@ManyToOne
 	@JoinColumn(name = "parent")
 	private PcCategory parent;
 
+	@ApiModelProperty("名称")
+	@Column(name = "name", length = 50, nullable = true, unique = true)
+	private String name;
+
+	@ApiModelProperty("分类图标")
+	@Column(name = "icon", length = 200)
+	private String icon;
+
+	@ApiModelProperty("是否可用 0 可用 1 不可用")
+	@Column(name = "flag_enabled")
+	private Integer flagEnabled;
+
+	@ApiModelProperty("排序")
+	@Column(name = "sort")
+	private Integer sort;
+
+	@ApiModelProperty("创建人")
+	@Column(name = "create_user", length = 50, insertable = true, updatable = false, nullable = false)
+	private String createUser;
+
+	@ApiModelProperty("创建时间")
+	@Column(name = "create_time", insertable = true, updatable = false, nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date createTime;
+
+	@ApiModelProperty("修改人")
+	@Column(name = "update_user", length = 50, insertable = true, updatable = true, nullable = false)
+	private String updateUser;
+
+	@ApiModelProperty("修改时间")
+	@Column(name = "update_time", insertable = true, updatable = true, nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateTime;
+
+	@ApiModelProperty("子分类集合")
 	@OneToMany(mappedBy = "parent")
 	private List<PcCategory> children;
 
-	/**
-	 * 名称
-	 */
-	@ApiModelProperty("名称")
-	@Column(name = "name", length = 100, nullable = false, unique = true)
-	private String name;
-
-	/**
-	 * 图标
-	 */
-	@ApiModelProperty("图标")
-	@Column(name = "icon", length = 100, nullable = false)
-	private String icon;
-
-	/**
-	 * 排序
-	 */
-	@ApiModelProperty("排序")
-	@Column(name = "sort", columnDefinition = "bigint default 0")
-	private Long sort;
-
-	/**
-	 * 分类属性集合
-	 */
-	@ApiModelProperty("分类属性集合")
+	@ApiModelProperty("分类通用规格参数")
 	@OneToMany
 	@JoinColumn(name = "category")
-	private List<PcCategoryAttribute> attributes;
+	private List<PcCategorySpecification> sepcList;
 
-	@ApiModelProperty("分类参数集合")
+	@ApiModelProperty("分类通用属性")
 	@OneToMany
 	@JoinColumn(name = "category")
-	private List<PcCategoryParam> params;
+	private List<PcCategoryAttribute> attributeList;
 }
