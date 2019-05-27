@@ -12,7 +12,7 @@
 		<property name="endingDelimiter" value="`" />
 		<property name="javaFileEncoding" value="UTF-8" />
 		<!-- 设置覆盖源文件 -->
-		<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" /> 
+		<plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
 		<!-- 为模型生成序列化方法 -->
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 		<!-- 为生成的Java模型创建一个toString方法 -->
@@ -30,19 +30,21 @@
 			<!--解决mysql驱动升级到8.0后不生成指定数据库代码的问题 -->
 			<property name="nullCatalogMeansCurrent" value="true" />
 		</jdbcConnection>
-
 		<javaModelGenerator targetPackage="org.product.entity"
 			targetProject="D:\project\xk\work\xk\product-center\product-entity\src\main\java" />
-
 		<sqlMapGenerator targetPackage="mapper"
 			targetProject="D:\project\xk\work\xk\product-center\product-entity\src\main\resource" />
 		<javaClientGenerator type="XMLMAPPER"
 			targetPackage="org.product.mapper"
 			targetProject="D:\project\xk\work\xk\product-center\product-entity\src\main\java" />
 		<!--生成全部表tableName设为% -->
-		<table tableName="%" enableCountByExample="false"
+		<table tableName="pc_product_comment" enableCountByExample="false"
 			enableDeleteByExample="false" enableSelectByExample="false"
 			enableUpdateByExample="false">
+		</table>
+		<table tableName="pc_product_comment_reply"
+			enableCountByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" enableUpdateByExample="false">
 		</table>
 	</context>
 </generatorConfiguration>

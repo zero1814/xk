@@ -1,223 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.product.mapper.PcSkuMapper">
-  <resultMap id="BaseResultMap" type="org.product.entity.PcSku">
-    <id column="code" jdbcType="VARCHAR" property="code" />
-    <result column="uid" jdbcType="VARCHAR" property="uid" />
-    <result column="product" jdbcType="VARCHAR" property="product" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="main_pic" jdbcType="VARCHAR" property="mainPic" />
-    <result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
-    <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
-    <result column="sell_price" jdbcType="DECIMAL" property="sellPrice" />
-    <result column="album" jdbcType="VARCHAR" property="album" />
-    <result column="stock" jdbcType="BIGINT" property="stock" />
-    <result column="warn_stock" jdbcType="BIGINT" property="warnStock" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    code, uid, product, name, main_pic, cost_price, market_price, sell_price, album, 
-    stock, warn_stock, status, create_user, create_time, update_user, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from pc_sku
-    where code = #{code,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from pc_sku
-    where code = #{code,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="org.product.entity.PcSku">
-    insert into pc_sku (code, uid, product, 
-      name, main_pic, cost_price, 
-      market_price, sell_price, album, 
-      stock, warn_stock, status, 
-      create_user, create_time, update_user, 
-      update_time)
-    values (#{code,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{product,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{mainPic,jdbcType=VARCHAR}, #{costPrice,jdbcType=DECIMAL}, 
-      #{marketPrice,jdbcType=DECIMAL}, #{sellPrice,jdbcType=DECIMAL}, #{album,jdbcType=VARCHAR}, 
-      #{stock,jdbcType=BIGINT}, #{warnStock,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="org.product.entity.PcSku">
-    insert into pc_sku
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        code,
-      </if>
-      <if test="uid != null">
-        uid,
-      </if>
-      <if test="product != null">
-        product,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="mainPic != null">
-        main_pic,
-      </if>
-      <if test="costPrice != null">
-        cost_price,
-      </if>
-      <if test="marketPrice != null">
-        market_price,
-      </if>
-      <if test="sellPrice != null">
-        sell_price,
-      </if>
-      <if test="album != null">
-        album,
-      </if>
-      <if test="stock != null">
-        stock,
-      </if>
-      <if test="warnStock != null">
-        warn_stock,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="createUser != null">
-        create_user,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateUser != null">
-        update_user,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="uid != null">
-        #{uid,jdbcType=VARCHAR},
-      </if>
-      <if test="product != null">
-        #{product,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="mainPic != null">
-        #{mainPic,jdbcType=VARCHAR},
-      </if>
-      <if test="costPrice != null">
-        #{costPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="marketPrice != null">
-        #{marketPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="sellPrice != null">
-        #{sellPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="album != null">
-        #{album,jdbcType=VARCHAR},
-      </if>
-      <if test="stock != null">
-        #{stock,jdbcType=BIGINT},
-      </if>
-      <if test="warnStock != null">
-        #{warnStock,jdbcType=BIGINT},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.product.entity.PcSku">
-    update pc_sku
-    <set>
-      <if test="uid != null">
-        uid = #{uid,jdbcType=VARCHAR},
-      </if>
-      <if test="product != null">
-        product = #{product,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="mainPic != null">
-        main_pic = #{mainPic,jdbcType=VARCHAR},
-      </if>
-      <if test="costPrice != null">
-        cost_price = #{costPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="marketPrice != null">
-        market_price = #{marketPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="sellPrice != null">
-        sell_price = #{sellPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="album != null">
-        album = #{album,jdbcType=VARCHAR},
-      </if>
-      <if test="stock != null">
-        stock = #{stock,jdbcType=BIGINT},
-      </if>
-      <if test="warnStock != null">
-        warn_stock = #{warnStock,jdbcType=BIGINT},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        create_user = #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUser != null">
-        update_user = #{updateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where code = #{code,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.product.entity.PcSku">
-    update pc_sku
-    set uid = #{uid,jdbcType=VARCHAR},
-      product = #{product,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      main_pic = #{mainPic,jdbcType=VARCHAR},
-      cost_price = #{costPrice,jdbcType=DECIMAL},
-      market_price = #{marketPrice,jdbcType=DECIMAL},
-      sell_price = #{sellPrice,jdbcType=DECIMAL},
-      album = #{album,jdbcType=VARCHAR},
-      stock = #{stock,jdbcType=BIGINT},
-      warn_stock = #{warnStock,jdbcType=BIGINT},
-      status = #{status,jdbcType=VARCHAR},
-      create_user = #{createUser,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_user = #{updateUser,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where code = #{code,jdbcType=VARCHAR}
-  </update>
+<mapper namespace="org.product.mapper.sku.PcSkuMapper">
+	<resultMap id="BaseResultMap" type="org.product.entity.sku.PcSku">
+		<id column="code" jdbcType="VARCHAR" property="code" />
+		<result column="uid" jdbcType="VARCHAR" property="uid" />
+		<result column="product" jdbcType="VARCHAR" property="product" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="main_pic" jdbcType="VARCHAR" property="mainPic" />
+		<result column="cost_price" jdbcType="DECIMAL" property="costPrice" />
+		<result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+		<result column="sell_price" jdbcType="DECIMAL" property="sellPrice" />
+		<result column="album" jdbcType="VARCHAR" property="album" />
+		<result column="stock" jdbcType="BIGINT" property="stock" />
+		<result column="warn_stock" jdbcType="BIGINT" property="warnStock" />
+		<result column="status" jdbcType="VARCHAR" property="status" />
+		<result column="create_user" jdbcType="VARCHAR" property="createUser" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		code, uid, product, name, main_pic, cost_price,
+		market_price, sell_price,
+		album,
+		stock, warn_stock, status, create_user,
+		create_time, update_user,
+		update_time
+	</sql>
+	<select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from pc_sku
+		where code = #{code,jdbcType=VARCHAR}
+	</select>
+	<select id="selectByProduct" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from pc_sku
+		where product = #{product,jdbcType=VARCHAR}
+	</select>
+	<delete id="delete" parameterType="java.lang.String">
+		delete from pc_sku
+		where code =
+		#{code,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.product.entity.sku.PcSku">
+		insert into pc_sku (code, uid,
+		product,
+		name, main_pic, cost_price,
+		market_price, sell_price, album,
+		stock, warn_stock, status,
+		create_user, create_time, update_user,
+		update_time)
+		values (#{code,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR},
+		#{product,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{mainPic,jdbcType=VARCHAR}, #{costPrice,jdbcType=DECIMAL},
+		#{marketPrice,jdbcType=DECIMAL}, #{sellPrice,jdbcType=DECIMAL},
+		#{album,jdbcType=VARCHAR},
+		#{stock,jdbcType=BIGINT},
+		#{warnStock,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR},
+		#{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{updateUser,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=TIMESTAMP})
+	</insert>
+	<update id="update" parameterType="org.product.entity.sku.PcSku">
+		update pc_sku
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="mainPic != null">
+				main_pic = #{mainPic,jdbcType=VARCHAR},
+			</if>
+			<if test="costPrice != null">
+				cost_price = #{costPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="marketPrice != null">
+				market_price = #{marketPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="sellPrice != null">
+				sell_price = #{sellPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="album != null">
+				album = #{album,jdbcType=VARCHAR},
+			</if>
+			<if test="stock != null">
+				stock = #{stock,jdbcType=BIGINT},
+			</if>
+			<if test="warnStock != null">
+				warn_stock = #{warnStock,jdbcType=BIGINT},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateUser != null">
+				update_user = #{updateUser,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where code = #{code,jdbcType=VARCHAR}
+	</update>
 </mapper>

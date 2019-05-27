@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.product.mapper.product.PcProductCommentMapper">
+	<resultMap id="BaseResultMap" type="org.product.entity.product.PcProductComment">
+		<id column="code" jdbcType="VARCHAR" property="code" />
+		<result column="uid" jdbcType="VARCHAR" property="uid" />
+		<result column="product" jdbcType="VARCHAR" property="product" />
+		<result column="stars" jdbcType="INTEGER" property="stars" />
+		<result column="flag_deleted" jdbcType="INTEGER" property="flagDeleted" />
+		<result column="create_user" jdbcType="VARCHAR" property="createUser" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+	</resultMap>
+	<resultMap extends="BaseResultMap" id="ResultMapWithBLOBs"
+		type="org.product.entity.product.PcProductComment">
+		<result column="content" jdbcType="LONGVARCHAR" property="content" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		code, uid, product, stars, flag_deleted, create_user,
+		create_time,
+		update_user, update_time
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	<select id="select" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from pc_product_comment
+		where code = #{code,jdbcType=VARCHAR}
+	</select>
+	<delete id="delete" parameterType="java.lang.String">
+		delete from
+		pc_product_comment
+		where code = #{code,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.product.entity.product.PcProductComment">
+		insert into pc_product_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			code,
+			uid,
+			product,
+			<if test="stars != null">
+				stars,
+			</if>
+			<if test="flagDeleted != null">
+				flag_deleted,
+			</if>
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+			content,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{code,jdbcType=VARCHAR},
+			#{uid,jdbcType=VARCHAR},
+			#{product,jdbcType=VARCHAR},
+			<if test="stars != null">
+				#{stars,jdbcType=INTEGER},
+			</if>
+			<if test="flagDeleted != null">
+				#{flagDeleted,jdbcType=INTEGER},
+			</if>
+			#{createUser,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{createUser,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{content,jdbcType=LONGVARCHAR},
+		</trim>
+	</insert>
+	<update id="update" parameterType="org.product.entity.product.PcProductComment">
+		update pc_product_comment
+		<set>
+			<if test="stars != null">
+				stars = #{stars,jdbcType=INTEGER},
+			</if>
+			<if test="flagDeleted != null">
+				flag_deleted = #{flagDeleted,jdbcType=INTEGER},
+			</if>
+			update_user = #{updateUser,jdbcType=VARCHAR},
+			update_time =
+			#{updateTime,jdbcType=TIMESTAMP},
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where code = #{code,jdbcType=VARCHAR}
+	</update>
+</mapper>

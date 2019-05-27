@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.product.mapper.PcStoreTypeMapper">
-	<resultMap id="BaseResultMap" type="org.product.entity.store.PcStoreType">
+<mapper namespace="org.product.mapper.PcProductCommentReplyMapper">
+	<resultMap id="BaseResultMap" type="org.product.entity.PcProductCommentReply">
 		<id column="code" jdbcType="VARCHAR" property="code" />
 		<result column="uid" jdbcType="VARCHAR" property="uid" />
-		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="comment" jdbcType="VARCHAR" property="comment" />
+		<result column="content" jdbcType="VARCHAR" property="content" />
+		<result column="flag_deleted" jdbcType="INTEGER" property="flagDeleted" />
 		<result column="create_user" jdbcType="VARCHAR" property="createUser" />
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
 		<result column="update_user" jdbcType="VARCHAR" property="updateUser" />
 		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		code, uid, name, create_user, create_time, update_user,
+		code, uid, comment, content, flag_deleted, create_user,
+		create_time,
+		update_user,
 		update_time
 	</sql>
 	<select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from pc_store_type
+		from pc_product_comment_reply
 		where code = #{code,jdbcType=VARCHAR}
 	</select>
 	<delete id="delete" parameterType="java.lang.String">
-		delete from pc_store_type
+		delete from
+		pc_product_comment_reply
 		where code = #{code,jdbcType=VARCHAR}
 	</delete>
-	<insert id="insert" parameterType="org.product.entity.store.PcStoreType">
-		insert into pc_store_type
+	<insert id="insertSelective" parameterType="org.product.entity.PcProductCommentReply">
+		insert into pc_product_comment_reply
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			code,
 			uid,
-			name,
-			<if test="flagEnabled != null">
-				flag_enabled,
+			comment,
+			content,
+			<if test="flagDeleted != null">
+				flag_deleted,
 			</if>
 			create_user,
 			create_time,
@@ -41,9 +47,10 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			#{code,jdbcType=VARCHAR},
 			#{uid,jdbcType=VARCHAR},
-			#{name,jdbcType=VARCHAR},
-			<if test="flagEnabled != null">
-				#{flagEnabled,jdbcType=INTEGER},
+			#{comment,jdbcType=VARCHAR},
+			#{content,jdbcType=VARCHAR},
+			<if test="flagDeleted != null">
+				#{flagDeleted,jdbcType=INTEGER},
 			</if>
 			#{createUser,jdbcType=VARCHAR},
 			#{createTime,jdbcType=TIMESTAMP},
@@ -51,14 +58,14 @@
 			#{createTime,jdbcType=TIMESTAMP},
 		</trim>
 	</insert>
-	<update id="update" parameterType="org.product.entity.store.PcStoreType">
-		update pc_store_type
+	<update id="update" parameterType="org.product.entity.PcProductCommentReply">
+		update pc_product_comment_reply
 		<set>
-			<if test="name != null">
-				name = #{name,jdbcType=VARCHAR},
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
 			</if>
-			<if test="flagEnabled != null">
-				flag_enabled = #{flagEnabled,jdbcType=INTEGER},
+			<if test="flagDeleted != null">
+				flag_deleted = #{flagDeleted,jdbcType=INTEGER},
 			</if>
 			update_user = #{updateUser,jdbcType=VARCHAR},
 			update_time =

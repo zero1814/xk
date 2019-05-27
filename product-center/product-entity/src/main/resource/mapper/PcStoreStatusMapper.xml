@@ -1,128 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.product.mapper.PcStoreStatusMapper">
-  <resultMap id="BaseResultMap" type="org.product.entity.PcStoreStatus">
-    <id column="code" jdbcType="VARCHAR" property="code" />
-    <result column="uid" jdbcType="VARCHAR" property="uid" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="flag_enabled" jdbcType="INTEGER" property="flagEnabled" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    code, uid, name, create_user, create_time, update_user, update_time, flag_enabled
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from pc_store_status
-    where code = #{code,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from pc_store_status
-    where code = #{code,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="org.product.entity.PcStoreStatus">
-    insert into pc_store_status (code, uid, name, 
-      create_user, create_time, update_user, 
-      update_time, flag_enabled)
-    values (#{code,jdbcType=VARCHAR}, #{uid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{flagEnabled,jdbcType=INTEGER})
-  </insert>
-  <insert id="insertSelective" parameterType="org.product.entity.PcStoreStatus">
-    insert into pc_store_status
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        code,
-      </if>
-      <if test="uid != null">
-        uid,
-      </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="createUser != null">
-        create_user,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateUser != null">
-        update_user,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="flagEnabled != null">
-        flag_enabled,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="uid != null">
-        #{uid,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUser != null">
-        #{updateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="flagEnabled != null">
-        #{flagEnabled,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.product.entity.PcStoreStatus">
-    update pc_store_status
-    <set>
-      <if test="uid != null">
-        uid = #{uid,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="createUser != null">
-        create_user = #{createUser,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateUser != null">
-        update_user = #{updateUser,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="flagEnabled != null">
-        flag_enabled = #{flagEnabled,jdbcType=INTEGER},
-      </if>
-    </set>
-    where code = #{code,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.product.entity.PcStoreStatus">
-    update pc_store_status
-    set uid = #{uid,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      create_user = #{createUser,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_user = #{updateUser,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      flag_enabled = #{flagEnabled,jdbcType=INTEGER}
-    where code = #{code,jdbcType=VARCHAR}
-  </update>
+<mapper namespace="org.product.mapper.store.PcStoreStatusMapper">
+	<resultMap id="BaseResultMap" type="org.product.entity.store.PcStoreStatus">
+		<id column="code" jdbcType="VARCHAR" property="code" />
+		<result column="uid" jdbcType="VARCHAR" property="uid" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="create_user" jdbcType="VARCHAR" property="createUser" />
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+		<result column="flag_enabled" jdbcType="INTEGER" property="flagEnabled" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		code, uid, name, create_user, create_time, update_user,
+		update_time,
+		flag_enabled
+	</sql>
+	<select id="select" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from pc_store_status
+		where code = #{code,jdbcType=VARCHAR}
+	</select>
+	<delete id="delete" parameterType="java.lang.String">
+		delete from
+		pc_store_status
+		where code = #{code,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="org.product.entity.store.PcStoreStatus">
+		insert into pc_store_status
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			code,
+			uid,
+			name,
+			<if test="flagEnabled != null">
+				flag_enabled,
+			</if>
+			create_user,
+			create_time,
+			update_user,
+			update_time,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{code,jdbcType=VARCHAR},
+			#{uid,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			<if test="flagEnabled != null">
+				#{flagEnabled,jdbcType=INTEGER},
+			</if>
+			#{createUser,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+			#{createUser,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
+		</trim>
+	</insert>
+	<update id="update" parameterType="org.product.entity.store.PcStoreStatus">
+		update pc_store_status
+		<set>
+			<if test="name != null and name != '' ">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="flagEnabled != null">
+				flag_enabled = #{flagEnabled,jdbcType=INTEGER},
+			</if>
+			update_user = #{updateUser,jdbcType=VARCHAR},
+			update_time =
+			#{updateTime,jdbcType=TIMESTAMP},
+		</set>
+		where code = #{code,jdbcType=VARCHAR}
+	</update>
 </mapper>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.product.mapper.PcBrandMapper">
-	<resultMap id="BaseResultMap" type="org.product.entity.PcBrand">
+<mapper namespace="org.product.mapper.product.PcBrandMapper">
+	<resultMap id="BaseResultMap" type="org.product.entity.product.PcBrand">
 		<id column="code" jdbcType="VARCHAR" property="code" />
 		<result column="uid" jdbcType="VARCHAR" property="uid" />
 		<result column="parent" jdbcType="VARCHAR" property="parent" />
@@ -32,65 +32,37 @@
 		where code
 		= #{code,jdbcType=VARCHAR}
 	</delete>
-	<insert id="insert" parameterType="org.product.entity.PcBrand">
+	<insert id="insert" parameterType="org.product.entity.product.PcBrand">
 		insert into pc_brand
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="code != null">
-				code,
-			</if>
-			<if test="uid != null">
-				uid,
-			</if>
+			`code`,
+			uid,
 			<if test="parent != null">
 				parent,
 			</if>
-			<if test="name != null">
-				name,
-			</if>
-			<if test="icon != null">
-				icon,
-			</if>
-			<if test="logo != null">
-				logo,
-			</if>
+			`name`,
+			icon,
+			logo,
 			<if test="flagEnabled != null">
 				flag_enabled,
 			</if>
 			<if test="sort != null">
 				sort,
 			</if>
-			<if test="createUser != null">
-				create_user,
-			</if>
-			<if test="createTime != null">
-				create_time,
-			</if>
-			<if test="updateUser != null">
-				update_user,
-			</if>
-			<if test="updateDate != null">
-				update_date,
-			</if>
+			create_user,
+			create_time,
+			update_user,
+			update_date,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="code != null">
-				#{code,jdbcType=VARCHAR},
-			</if>
-			<if test="uid != null">
-				#{uid,jdbcType=VARCHAR},
-			</if>
+			#{code,jdbcType=VARCHAR},
+			#{uid,jdbcType=VARCHAR},
 			<if test="parent != null">
 				#{parent,jdbcType=VARCHAR},
 			</if>
-			<if test="name != null">
-				#{name,jdbcType=VARCHAR},
-			</if>
-			<if test="icon != null">
-				#{icon,jdbcType=VARCHAR},
-			</if>
-			<if test="logo != null">
-				#{logo,jdbcType=VARCHAR},
-			</if>
+			#{name,jdbcType=VARCHAR},
+			#{icon,jdbcType=VARCHAR},
+			#{logo,jdbcType=VARCHAR},
 			<if test="flagEnabled != null">
 				#{flagEnabled,jdbcType=INTEGER},
 			</if>
@@ -103,19 +75,19 @@
 			#{updateDate,jdbcType=TIMESTAMP},
 		</trim>
 	</insert>
-	<update id="update" parameterType="org.product.entity.PcBrand">
+	<update id="update" parameterType="org.product.entity.product.PcBrand">
 		update pc_brand
 		<set>
-			<if test="parent != null">
+			<if test="parent != null and parent != '' ">
 				parent = #{parent,jdbcType=VARCHAR},
 			</if>
-			<if test="name != null">
+			<if test="name != null and name != '' ">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
-			<if test="icon != null">
+			<if test="icon != null and icon != '' ">
 				icon = #{icon,jdbcType=VARCHAR},
 			</if>
-			<if test="logo != null">
+			<if test="logo != null and logo != ''">
 				logo = #{logo,jdbcType=VARCHAR},
 			</if>
 			<if test="flagEnabled != null">

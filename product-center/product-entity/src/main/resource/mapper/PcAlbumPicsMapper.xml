@@ -23,32 +23,16 @@
 	<insert id="insert" parameterType="org.product.entity.PcAlbumPics">
 		insert into pc_album_pics
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="code != null">
-				code,
-			</if>
-			<if test="uid != null">
-				uid,
-			</if>
-			<if test="picUrl != null">
-				pic_url,
-			</if>
-			<if test="createTime != null">
-				create_time,
-			</if>
+			code,
+			uid,
+			pic_url,
+			create_time,
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="code != null">
-				#{code,jdbcType=VARCHAR},
-			</if>
-			<if test="uid != null">
-				#{uid,jdbcType=VARCHAR},
-			</if>
-			<if test="picUrl != null">
-				#{picUrl,jdbcType=VARCHAR},
-			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
+			#{code,jdbcType=VARCHAR},
+			#{uid,jdbcType=VARCHAR},
+			#{picUrl,jdbcType=VARCHAR},
+			#{createTime,jdbcType=TIMESTAMP},
 		</trim>
 	</insert>
 </mapper>
