@@ -1,6 +1,6 @@
 package org.product.controller.category;
 
-import org.product.controller.FlagEnabledController;
+import org.zero.spring.jpa.BaseController;
 import org.product.entity.category.PcCategory;
 import org.product.service.category.IPcCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import zero.commons.basics.result.WebResult;
 @RestController
 @RequestMapping("/category/")
 @Api(tags = "商品分类相关")
-public class PcCategoryController extends FlagEnabledController<PcCategory, IPcCategoryService> {
+public class PcCategoryController extends BaseController<PcCategory, IPcCategoryService> {
 
 	@Autowired
 	private IPcCategoryService service;

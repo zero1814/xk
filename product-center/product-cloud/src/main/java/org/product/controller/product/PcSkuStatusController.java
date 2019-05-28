@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 
-import org.product.controller.BaseController;
+import org.zero.spring.jpa.BaseController;
 import org.product.entity.product.PcSkuStatus;
 
 @RestController

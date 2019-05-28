@@ -1,10 +1,10 @@
 package org.product.controller.album;
 
-import org.product.controller.BaseController;
-import org.product.entity.album.PcAlbum;
-import org.product.service.album.IPcAlbumService;
+import org.product.entity.PcAlbum;
+import org.product.service.IPcAlbumService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.zero.spring.jpa.BaseController;
 
 import io.swagger.annotations.Api;
 

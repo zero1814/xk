@@ -1,7 +1,7 @@
 package org.product.service.label;
 
 import org.product.entity.PcLabel;
-import org.product.service.IFlagEnabledService;
+import org.zero.spring.jpa.IBaseService;
 
 /**
  * 
@@ -10,6 +10,6 @@ import org.product.service.IFlagEnabledService;
  * 作者: zhy<br>
  * 时间: 2019年4月29日 下午4:47:08
  */
-public interface IPcLabelService extends IFlagEnabledService<PcLabel, String> {
+public interface IPcLabelService extends IBaseService<PcLabel, String> {
 
 }

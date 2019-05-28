@@ -2,9 +2,9 @@ package org.product.service.impl.product;
 
 import org.product.entity.product.PcSkuStatus;
 import org.product.repository.product.PcSkuStatusRepository;
-import org.product.service.impl.FlagEnabledServiceImpl;
 import org.product.service.product.IPcSkuStatusService;
 import org.springframework.stereotype.Service;
+import org.zero.spring.jpa.BaseServiceImpl;
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * 时间: 2019年4月29日 下午5:23:00
  */
 @Service
-public class PcSkuStatusServiceImpl extends FlagEnabledServiceImpl<PcSkuStatus, String, PcSkuStatusRepository>
+public class PcSkuStatusServiceImpl extends BaseServiceImpl<PcSkuStatus, String, PcSkuStatusRepository>
 		implements IPcSkuStatusService {
 
 }

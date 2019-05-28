@@ -1,6 +1,6 @@
 package org.product.repository.comment;
 
-import org.product.entity.comment.PcProductCommentReply;
+import org.product.entity.product.PcProductCommentReply;
 import org.zero.spring.jpa.BaseRepository;
 
 /**

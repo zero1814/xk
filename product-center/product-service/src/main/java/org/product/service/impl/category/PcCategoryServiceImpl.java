@@ -5,10 +5,10 @@ import java.util.List;
 import org.product.entity.category.PcCategory;
 import org.product.repository.category.PcCategoryRepository;
 import org.product.service.category.IPcCategoryService;
-import org.product.service.impl.FlagEnabledServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.zero.spring.jpa.BaseServiceImpl;
 
 import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.ResultType;
@@ -21,12 +21,12 @@ import zero.commons.basics.result.ResultType;
  * 时间: 2019年4月29日 下午5:21:09
  */
 @Service
-public class PcCategoryServiceImpl extends FlagEnabledServiceImpl<PcCategory, String, PcCategoryRepository>
+public class PcCategoryServiceImpl extends BaseServiceImpl<PcCategory, String, PcCategoryRepository>
 		implements IPcCategoryService {
 
 	@Autowired
 	private PcCategoryRepository repository;
-	
+
 	@Override
 	public DataResult<PcCategory> findParent(String code) {
 		DataResult<PcCategory> result = new DataResult<PcCategory>();

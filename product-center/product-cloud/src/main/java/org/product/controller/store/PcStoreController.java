@@ -1,6 +1,6 @@
 package org.product.controller.store;
 
-import org.product.controller.BaseController;
+import org.zero.spring.jpa.BaseController;
 import org.product.entity.store.PcStore;
 import org.product.service.store.IPcStoreService;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,5 +1,6 @@
 package org.product.controller;
 
+import org.zero.spring.jpa.BaseController;
 import org.product.entity.PcKeyword;
 import org.product.service.IPcKeywordsService;
 import org.springframework.web.bind.annotation.RequestMapping;

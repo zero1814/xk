@@ -1,6 +1,6 @@
 package org.product.service.impl.comment;
 
-import org.product.entity.comment.PcProductComment;
+import org.product.entity.product.PcProductComment;
 import org.product.repository.comment.PcProductCommentRepository;
 import org.product.service.comment.IPcProductCommentService;
 import org.springframework.stereotype.Service;

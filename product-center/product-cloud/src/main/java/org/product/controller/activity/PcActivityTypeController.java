@@ -1,6 +1,6 @@
 package org.product.controller.activity;
 
-import org.product.controller.BaseController;
+import org.zero.spring.jpa.BaseController;
 import org.product.entity.activity.PcActivityType;
 import org.product.service.activity.IPcActivityTypeService;
 import org.springframework.web.bind.annotation.RequestMapping;

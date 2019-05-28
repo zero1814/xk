@@ -1,7 +1,7 @@
 package org.product.service.category;
 
 import org.product.entity.category.PcCategory;
-import org.product.service.IFlagEnabledService;
+import org.zero.spring.jpa.IBaseService;
 
 import zero.commons.basics.result.DataResult;
 
@@ -12,7 +12,7 @@ import zero.commons.basics.result.DataResult;
  * 作者: zhy<br>
  * 时间: 2019年4月29日 下午4:46:32
  */
-public interface IPcCategoryService extends IFlagEnabledService<PcCategory, String> {
+public interface IPcCategoryService extends IBaseService<PcCategory, String> {
 
 	/**
 	 * 

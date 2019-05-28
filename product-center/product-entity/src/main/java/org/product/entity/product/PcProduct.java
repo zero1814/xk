@@ -58,6 +58,10 @@ public class PcProduct extends BaseEntity {
 		this.sort = sort;
 	}
 
+	public PcProduct(List<PcSku> skuList) {
+		this.skuList = skuList;
+	}
+
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50)
@@ -146,4 +150,14 @@ public class PcProduct extends BaseEntity {
 	@OneToMany
 	@JoinColumn(name = "product")
 	private List<PcProductSpecification> specList;
+
+	@ApiModelProperty("商品sku")
+	@OneToMany
+	@JoinColumn(name = "product")
+	private List<PcSku> skuList;
+
+	@ApiModelProperty("商品评价")
+	@OneToMany
+	@JoinColumn(name = "product")
+	private List<PcProductComment> commentList;
 }

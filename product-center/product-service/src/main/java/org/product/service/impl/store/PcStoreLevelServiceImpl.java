@@ -2,9 +2,9 @@ package org.product.service.impl.store;
 
 import org.product.entity.store.PcStoreLevel;
 import org.product.repository.store.PcStoreLevelRepository;
-import org.product.service.impl.FlagEnabledServiceImpl;
 import org.product.service.store.IPcStoreLevelService;
 import org.springframework.stereotype.Service;
+import org.zero.spring.jpa.BaseServiceImpl;
 
 /**
  * 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * 时间: 2019年4月29日 下午5:23:09
  */
 @Service
-public class PcStoreLevelServiceImpl extends FlagEnabledServiceImpl<PcStoreLevel, String, PcStoreLevelRepository>
+public class PcStoreLevelServiceImpl extends BaseServiceImpl<PcStoreLevel, String, PcStoreLevelRepository>
 		implements IPcStoreLevelService {
 
 }

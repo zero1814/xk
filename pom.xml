@@ -112,7 +112,6 @@
 		</dependencies>
 	</dependencyManagement>
 	<modules>
-		<module>system-center</module>
 		<module>cloud-parent</module>
 		<module>product-center</module>
 		<module>file-center</module>

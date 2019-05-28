@@ -1,6 +1,6 @@
 package org.product.controller.activity;
 
-import org.product.controller.FlagEnabledController;
+import org.zero.spring.jpa.BaseController;
 import org.product.entity.activity.PcActivityStatus;
 import org.product.service.activity.IPcActivityStatusService;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +11,6 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/activity/status/")
 @Api(tags = "活动状态相关")
-public class PcActivityStatusController extends FlagEnabledController<PcActivityStatus, IPcActivityStatusService> {
+public class PcActivityStatusController extends BaseController<PcActivityStatus, IPcActivityStatusService> {
 
 }
