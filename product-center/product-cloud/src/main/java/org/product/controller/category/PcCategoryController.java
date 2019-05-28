@@ -5,6 +5,7 @@ import org.product.entity.category.PcCategory;
 import org.product.service.category.IPcCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class PcCategoryController extends BaseController<PcCategory, IPcCategory
 	private IPcCategoryService service;
 
 	@PostMapping("parent")
-	public WebResult findParent(String code) {
+	public WebResult findParent(@RequestBody String code) {
 		DataResult<PcCategory> result = service.findParent(code);
 		return WebResult.data(result);
 	}
