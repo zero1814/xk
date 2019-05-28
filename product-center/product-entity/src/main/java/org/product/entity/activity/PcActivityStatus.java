@@ -25,6 +25,12 @@ public class PcActivityStatus extends BaseEntity {
 
 	private static final long serialVersionUID = 4081513707302249647L;
 
+	public PcActivityStatus() {}
+	public PcActivityStatus(String code,String name) {
+		this.code = code;
+		this.name = name;
+	}
+	
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50)

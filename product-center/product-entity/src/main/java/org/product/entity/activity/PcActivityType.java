@@ -25,6 +25,14 @@ public class PcActivityType extends BaseEntity {
 
 	private static final long serialVersionUID = 6757531689676634107L;
 
+	public PcActivityType() {
+	}
+
+	public PcActivityType(String code, String name) {
+		this.code = code;
+		this.name = name;
+	}
+
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50)

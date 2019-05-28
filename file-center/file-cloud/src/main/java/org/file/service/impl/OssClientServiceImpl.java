@@ -2,13 +2,14 @@ package org.file.service.impl;
 
 import java.util.Date;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.file.entity.OssCallback;
 import org.file.entity.OssPolicy;
 import org.file.service.IOssClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
@@ -19,6 +20,7 @@ import com.aliyun.oss.model.PolicyConditions;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.ResultType;
 
+@Service
 public class OssClientServiceImpl implements IOssClientService {
 
 	@Value("${aliyun.oss.policy.expire}")
@@ -33,7 +35,9 @@ public class OssClientServiceImpl implements IOssClientService {
 	private String ALIYUN_OSS_DIR_PREFIX;
 	@Value("${aliyun.oss.accessKeyId}")
 	private String ALIYUN_OSS_ACCESSKEYID;
-	@Autowired
+	@Value("${aliyun.oss.accessKeySecret}")
+	private String ALIYUN_OSS_ACCESSKEYSECRET;
+	@Resource
 	private OSS client;
 
 	/**
@@ -67,6 +71,7 @@ public class OssClientServiceImpl implements IOssClientService {
 			_policy.setPolicy(policy);
 			_policy.setSignature(signature);
 			_policy.setAccessKeyId(ALIYUN_OSS_ACCESSKEYID);
+			_policy.setAccessKeySecret(ALIYUN_OSS_ACCESSKEYSECRET);
 			_policy.setDir(dir);
 			_policy.setHost(action);
 			result.setCode(ResultType.SUCCESS);

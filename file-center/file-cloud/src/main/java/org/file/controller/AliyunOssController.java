@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
@@ -26,7 +25,8 @@ public class AliyunOssController {
 
 	@ApiOperation(value = "oss上传签名生成")
 	@GetMapping("policy")
-	public WebResult policy(@RequestParam("path") String path) {
+	public WebResult policy() {
+		String path = "/images/";
 		EntityResult<OssPolicy> result = service.policy(path);
 		return WebResult.obj(result);
 	}
