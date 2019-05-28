@@ -2,6 +2,7 @@ package org.product.entity.activity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,14 +15,19 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+@ApiModel(value = "活动商品管理")
 @Getter
 @Setter
 @Entity
 @Table(name = "pc_activity_product")
-@ApiModel(value = "活动商品管理")
 public class PcActivityProduct extends BaseEntity {
 
 	private static final long serialVersionUID = -7643204064521311008L;
+
+	@ApiModelProperty("编码")
+	@Id
+	@Column(name = "code")
+	private String code;
 
 	@ApiModelProperty("商品sku")
 	@ManyToOne

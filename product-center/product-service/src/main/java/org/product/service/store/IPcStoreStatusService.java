@@ -3,6 +3,8 @@ package org.product.service.store;
 import org.product.entity.store.PcStoreStatus;
 import org.zero.spring.jpa.IBaseService;
 
+import zero.commons.basics.result.DataResult;
+
 /**
  * 
  * 类: IPcStoreStatusService <br>
@@ -12,4 +14,5 @@ import org.zero.spring.jpa.IBaseService;
  */
 public interface IPcStoreStatusService extends IBaseService<PcStoreStatus, String> {
 
+	DataResult<PcStoreStatus> statusAll();
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +24,11 @@ import lombok.Setter;
 public class PcProductCommentReply extends BaseEntity {
 
 	private static final long serialVersionUID = 8917389927358907627L;
+
+	@ApiModelProperty("编码")
+	@Id
+	@Column(name = "code", length = 50)
+	private String code;
 
 	@ApiModelProperty("评价内容")
 	@Column(name = "content", length = 1000, nullable = false)

@@ -17,6 +17,28 @@ import org.zero.spring.jpa.BaseRepository;
  */
 public interface PcCategoryRepository extends BaseRepository<PcCategory, String>, JpaSpecificationExecutor<PcCategory> {
 
-	@Query(value = "select new PcCategory(code,name) from PcCategory where flagEnabled = 0 and code <>:code")
-	List<PcCategory> parent(@Param("code") String code);
+	/**
+	 * 
+	 * 方法: parent <br>
+	 * 描述: 查询除了当前分类的其他分类 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年5月28日 上午11:13:14
+	 * 
+	 * @param code
+	 * @return
+	 */
+	@Query(value = "select new PcCategory(code,name) from PcCategory where flagEnabled = 0 and code <>:code order by sort desc")
+	List<PcCategory> categoryNotConcatCode(@Param("code") String code);
+
+	/**
+	 * 
+	 * 方法: categoryAll <br>
+	 * 描述: 查询所有分类 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年5月28日 上午11:13:33
+	 * 
+	 * @return
+	 */
+	@Query(value = "select new PcCategory(code,name) from PcCategory where flagEnabled = 0 order by sort desc")
+	List<PcCategory> categoryAll();
 }

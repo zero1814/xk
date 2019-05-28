@@ -22,21 +22,17 @@ import lombok.Setter;
 @Table(name = "pc_activity_type")
 @ApiModel(value = "活动类型管理")
 public class PcActivityType extends BaseEntity {
-	
+
 	private static final long serialVersionUID = 6757531689676634107L;
-	
+
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50)
 	private String code;
-	
+
 	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = false, unique = true)
 	private String name;
-
-	@ApiModelProperty("类型 1 商品 2 店铺")
-	@Column(name = "type", columnDefinition = "bigint default 0")
-	private Integer type;
 
 	@ApiModelProperty("是否可用 0 可用 1 不可用")
 	@Column(name = "flag_enabled")

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -34,6 +35,11 @@ public class PcProductComment extends BaseEntity {
 		this.replyList = replyList;
 	}
 
+	@ApiModelProperty("编码")
+	@Id
+	@Column(name = "code", length = 50)
+	private String code;
+	
 	@ApiModelProperty("评价内容")
 	@Column(name = "content", length = 1000, nullable = false)
 	private String content;

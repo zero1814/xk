@@ -2,6 +2,7 @@ package org.product.entity.product;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
@@ -20,6 +21,11 @@ public class PcProductSpecification extends BaseEntity {
 
 	private static final long serialVersionUID = 8699451341546241659L;
 
+	@ApiModelProperty("编码")
+	@Id
+	@Column(name = "code", length = 50)
+	private String code;
+	
 	@ApiModelProperty("名称")
 	@Column(name = "name", length = 100, nullable = false, unique = true)
 	private String name;

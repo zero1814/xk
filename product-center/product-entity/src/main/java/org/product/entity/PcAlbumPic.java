@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,6 +24,11 @@ import lombok.Setter;
 public class PcAlbumPic extends BaseEntity {
 
 	private static final long serialVersionUID = -4517833807136641322L;
+
+	@ApiModelProperty("编码")
+	@Id
+	@Column(name = "code")
+	private String code;
 
 	@ApiModelProperty("图片访问地址")
 	@Column(name = "pic_url", insertable = true, nullable = false)

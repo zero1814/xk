@@ -41,10 +41,6 @@ public class PcStoreLevel extends BaseEntity {
 	@Column(name = "name", length = 50, nullable = false, unique = true)
 	private String name;
 
-	@ApiModelProperty("类型 1 商品 2 店铺")
-	@Column(name = "type", columnDefinition = "bigint default 0")
-	private Integer type;
-
 	@ApiModelProperty("是否可用 0 可用 1 不可用")
 	@Column(name = "flag_enabled")
 	private Integer flagEnabled;

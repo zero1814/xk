@@ -19,8 +19,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_brand")
-@ApiModel(value = "商品管理")
+@Table(name = "pc_product_status")
+@ApiModel(value = "商品状态管理")
 public class PcProductStatus extends BaseEntity {
 
 	private static final long serialVersionUID = 3521146872187657055L;
@@ -44,10 +44,6 @@ public class PcProductStatus extends BaseEntity {
 	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = false, unique = true)
 	private String name;
-
-	@ApiModelProperty("类型 1 商品 2 店铺")
-	@Column(name = "type", columnDefinition = "bigint default 0")
-	private Integer type;
 
 	@ApiModelProperty("是否可用 0 可用 1 不可用")
 	@Column(name = "flag_enabled")

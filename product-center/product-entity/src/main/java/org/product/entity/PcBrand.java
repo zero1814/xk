@@ -64,14 +64,14 @@ public class PcBrand extends BaseEntity {
 	private String icon;
 
 	@ApiModelProperty("品牌LOGO")
-	@Column(name = "品牌logo", length = 200, nullable = false)
+	@Column(name = "logo", length = 200, nullable = false)
 	private String logo;
 
 	@ApiModelProperty("是否可用 0 可用 1 不可用")
 	@Column(name = "flag_enabled")
 	private Integer flagEnabled;
 
-	@ApiModelProperty("排序")
+	@ApiModelProperty("排序 越大越靠前")
 	@Column(name = "sort", columnDefinition = " bigint default 0 ")
 	private Long sort;
 

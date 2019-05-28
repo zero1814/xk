@@ -1,6 +1,10 @@
 package org.product.repository.label;
 
+import java.util.List;
+
 import org.product.entity.PcLabel;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.zero.spring.jpa.BaseRepository;
 
 /**
@@ -12,4 +16,16 @@ import org.zero.spring.jpa.BaseRepository;
  */
 public interface PcLabelRepository extends BaseRepository<PcLabel, String> {
 
+	/**
+	 * 
+	 * 方法: all <br>
+	 * 描述: 根据类型查询可用标签 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年5月28日 上午10:28:11
+	 * 
+	 * @param type
+	 * @return
+	 */
+	@Query("select new PcLabel(code,name) from PcLabel where flagEnabled=0 and type=:type order by sort desc,createTime desc")
+	public List<PcLabel> all(@Param("type") Integer type);
 }

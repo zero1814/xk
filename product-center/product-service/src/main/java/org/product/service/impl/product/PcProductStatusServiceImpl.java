@@ -1,9 +1,16 @@
 package org.product.service.impl.product;
 
+import java.util.List;
+
 import org.product.entity.product.PcProductStatus;
 import org.product.repository.product.PcProductStatusRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zero.spring.jpa.BaseServiceImpl;
+
+import zero.commons.basics.result.DataResult;
+import zero.commons.basics.result.ResultType;
+
 import org.product.service.product.IPcProductStatusService;
 
 /**
@@ -16,5 +23,30 @@ import org.product.service.product.IPcProductStatusService;
 @Service
 public class PcProductStatusServiceImpl extends BaseServiceImpl<PcProductStatus, String, PcProductStatusRepository>
 		implements IPcProductStatusService {
+
+	@Autowired
+	private PcProductStatusRepository repository;
+
+	@Override
+	public DataResult<PcProductStatus> statusAll() {
+		DataResult<PcProductStatus> result = new DataResult<PcProductStatus>();
+		try {
+			List<PcProductStatus> list = repository.all();
+			if (list.isEmpty()) {
+				result.setCode(ResultType.NULL);
+				result.setMessage("查询为空");
+				return result;
+			}
+			result.setCode(ResultType.SUCCESS);
+			result.setData(list);
+			result.setTotal(Long.valueOf(list.size()));
+			result.setMessage("查询成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setCode(ResultType.ERROR);
+			result.setMessage("查询报错");
+		}
+		return result;
+	}
 
 }

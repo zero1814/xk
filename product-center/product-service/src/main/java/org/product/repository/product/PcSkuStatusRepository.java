@@ -1,6 +1,9 @@
 package org.product.repository.product;
 
+import java.util.List;
+
 import org.product.entity.product.PcSkuStatus;
+import org.springframework.data.jpa.repository.Query;
 import org.zero.spring.jpa.BaseRepository;
 
 /**
@@ -12,4 +15,15 @@ import org.zero.spring.jpa.BaseRepository;
  */
 public interface PcSkuStatusRepository extends BaseRepository<PcSkuStatus, String> {
 
+	/**
+	 * 
+	 * 方法: all <br>
+	 * 描述: 查询可用状态 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年5月28日 上午10:46:42
+	 * 
+	 * @return
+	 */
+	@Query("select new PcSkuStatus(code,name) from PcSkuStatus where flagEnabled=0 order by creatTime desc")
+	List<PcSkuStatus> all();
 }

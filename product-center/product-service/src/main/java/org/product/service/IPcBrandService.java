@@ -1,7 +1,10 @@
 package org.product.service;
 
+
 import org.product.entity.PcBrand;
 import org.zero.spring.jpa.IBaseService;
+
+import zero.commons.basics.result.DataResult;
 
 /**
  * 
@@ -12,4 +15,14 @@ import org.zero.spring.jpa.IBaseService;
  */
 public interface IPcBrandService extends IBaseService<PcBrand, String> {
 
+	/**
+	 * 
+	 * 方法: brandAll <br>
+	 * 描述: 查询可用品牌 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年5月28日 上午10:55:34
+	 * 
+	 * @return
+	 */
+	DataResult<PcBrand> brandAll();
 }
