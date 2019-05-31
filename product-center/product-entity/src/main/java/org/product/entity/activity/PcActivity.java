@@ -14,6 +14,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.zero.spring.jpa.BaseEntity;
 
 import io.swagger.annotations.ApiModel;
@@ -93,5 +95,6 @@ public class PcActivity extends BaseEntity {
 	@ApiModelProperty("活动商品集合")
 	@OneToMany
 	@JoinColumn(name = "activity")
+	@NotFound(action=NotFoundAction.IGNORE)
 	private List<PcActivityProduct> productList;
 }

@@ -2,8 +2,12 @@ package org.product.controller.category;
 
 import org.zero.spring.jpa.BaseController;
 import org.product.entity.category.PcCategory;
+import org.product.entity.category.PcCategoryAttribute;
+import org.product.entity.category.PcCategorySpecification;
 import org.product.service.category.IPcCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +28,18 @@ public class PcCategoryController extends BaseController<PcCategory, IPcCategory
 	@PostMapping("parent")
 	public WebResult findParent(@RequestBody String code) {
 		DataResult<PcCategory> result = service.findParent(code);
+		return WebResult.data(result);
+	}
+
+	@GetMapping("specification/{category}")
+	public WebResult getSpecifications(@PathVariable("category") String category) {
+		DataResult<PcCategorySpecification> result = service.getSpecifications(category);
+		return WebResult.data(result);
+	}
+
+	@GetMapping("attribute/{category}")
+	public WebResult getAttributes(@PathVariable("category") String category) {
+		DataResult<PcCategoryAttribute> result = service.getAttributes(category);
 		return WebResult.data(result);
 	}
 }

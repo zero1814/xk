@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.product.entity.PcLabel;
 import org.zero.spring.jpa.BaseEntity;
 
@@ -76,5 +78,6 @@ public class PcStore extends BaseEntity {
 	@OneToMany
 	@JoinTable(name = "pc_store_label", joinColumns = { @JoinColumn(name = "store") }, inverseJoinColumns = {
 			@JoinColumn(name = "label") })
+	@NotFound(action=NotFoundAction.IGNORE)
 	private List<PcLabel> labels;
 }

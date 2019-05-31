@@ -3,11 +3,11 @@ package org.product.entity.category;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,15 +37,19 @@ public class PcCategory extends BaseEntity {
 		this.name = name;
 	}
 
+	public PcCategory(String code, String name, String icon, Integer flagEnabled, Integer sort) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.icon = icon;
+		this.flagEnabled = flagEnabled;
+		this.sort = sort;
+	}
+
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50)
 	private String code;
-
-	@ApiModelProperty("父级编码")
-	@ManyToOne
-	@JoinColumn(name = "parent")
-	private PcCategory parent;
 
 	@ApiModelProperty("名称")
 	@Column(name = "name", length = 50, nullable = true, unique = true)
@@ -81,17 +85,13 @@ public class PcCategory extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
 
-	@ApiModelProperty("子分类集合")
-	@OneToMany(mappedBy = "parent")
-	private List<PcCategory> children;
-
 	@ApiModelProperty("分类通用规格参数")
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "category")
 	private List<PcCategorySpecification> sepcList;
 
 	@ApiModelProperty("分类通用属性")
-	@OneToMany
+	@OneToMany(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "category")
 	private List<PcCategoryAttribute> attributeList;
 }

@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.zero.spring.jpa.BaseEntity;
 
 import io.swagger.annotations.ApiModel;
@@ -72,5 +74,6 @@ public class PcProductComment extends BaseEntity {
 
 	@OneToMany
 	@JoinColumn(name = "comment")
+	@NotFound(action=NotFoundAction.IGNORE)
 	List<PcProductCommentReply> replyList;
 }

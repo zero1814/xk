@@ -1,6 +1,8 @@
 package org.product.service.category;
 
 import org.product.entity.category.PcCategory;
+import org.product.entity.category.PcCategoryAttribute;
+import org.product.entity.category.PcCategorySpecification;
 import org.zero.spring.jpa.IBaseService;
 
 import zero.commons.basics.result.DataResult;
@@ -25,4 +27,28 @@ public interface IPcCategoryService extends IBaseService<PcCategory, String> {
 	 * @return
 	 */
 	DataResult<PcCategory> findParent(String code);
+
+	/***
+	 * 
+	 * 方法: getSpecifications <br>
+	 * 描述: 获取分类规格参数 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年5月30日 下午3:18:44
+	 * 
+	 * @param category
+	 * @return
+	 */
+	DataResult<PcCategorySpecification> getSpecifications(String category);
+
+	/**
+	 * 
+	 * 方法: getAttributes <br>
+	 * 描述: 获取分类属性参数 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年5月30日 下午3:19:11
+	 * 
+	 * @param category
+	 * @return
+	 */
+	DataResult<PcCategoryAttribute> getAttributes(String category);
 }

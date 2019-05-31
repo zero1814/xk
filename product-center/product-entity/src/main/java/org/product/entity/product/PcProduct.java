@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.product.entity.PcAlbum;
 import org.product.entity.PcBrand;
 import org.product.entity.PcKeyword;
@@ -138,26 +140,31 @@ public class PcProduct extends BaseEntity {
 	@OneToMany
 	@JoinTable(name = "pc_product_label", joinColumns = { @JoinColumn(name = "product") }, inverseJoinColumns = {
 			@JoinColumn(name = "label") })
+	@NotFound(action=NotFoundAction.IGNORE)
 	private List<PcLabel> labels;
 
 	@ApiModelProperty("商品关键字")
 	@OneToMany
 	@JoinTable(name = "pc_product_keyword", joinColumns = { @JoinColumn(name = "product") }, inverseJoinColumns = {
 			@JoinColumn(name = "keyword") })
+	@NotFound(action=NotFoundAction.IGNORE)
 	private List<PcKeyword> keywords;
 
 	@ApiModelProperty("商品规格")
 	@OneToMany
 	@JoinColumn(name = "product")
+	@NotFound(action=NotFoundAction.IGNORE)
 	private List<PcProductSpecification> specList;
 
 	@ApiModelProperty("商品sku")
 	@OneToMany
 	@JoinColumn(name = "product")
+	@NotFound(action=NotFoundAction.IGNORE)
 	private List<PcSku> skuList;
 
 	@ApiModelProperty("商品评价")
 	@OneToMany
 	@JoinColumn(name = "product")
+	@NotFound(action=NotFoundAction.IGNORE)
 	private List<PcProductComment> commentList;
 }
