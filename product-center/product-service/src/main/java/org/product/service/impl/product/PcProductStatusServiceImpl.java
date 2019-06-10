@@ -28,10 +28,10 @@ public class PcProductStatusServiceImpl extends BaseServiceImpl<PcProductStatus,
 	private PcProductStatusRepository repository;
 
 	@Override
-	public DataResult<PcProductStatus> statusAll() {
+	public DataResult<PcProductStatus> statusAll(Integer type) {
 		DataResult<PcProductStatus> result = new DataResult<PcProductStatus>();
 		try {
-			List<PcProductStatus> list = repository.all();
+			List<PcProductStatus> list = repository.statusByType(type);
 			if (list.isEmpty()) {
 				result.setCode(ResultType.NULL);
 				result.setMessage("查询为空");

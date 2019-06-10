@@ -68,7 +68,7 @@ public class PcSku extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "status")
-	private PcSkuStatus status;
+	private PcProductStatus status;
 
 	@ApiModelProperty("创建人")
 	@Column(name = "create_user", length = 50, insertable = true, updatable = false, nullable = false)
@@ -87,4 +87,5 @@ public class PcSku extends BaseEntity {
 	@Column(name = "update_time", insertable = true, updatable = true, nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
+
 }

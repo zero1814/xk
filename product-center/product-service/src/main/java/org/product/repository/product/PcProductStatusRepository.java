@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.product.entity.product.PcProductStatus;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.zero.spring.jpa.BaseRepository;
 
 /**
@@ -15,6 +16,6 @@ import org.zero.spring.jpa.BaseRepository;
  */
 public interface PcProductStatusRepository extends BaseRepository<PcProductStatus, String> {
 
-	@Query("select new PcProductStatus(code,name) from PcProductStatus where flagEnabled=0 order by createTime desc")
-	public List<PcProductStatus> all();
+	@Query("select new PcProductStatus(code,name) from PcProductStatus where flagEnabled=0 and type=:type order by createTime desc")
+	public List<PcProductStatus> statusByType(@Param("type") Integer type);
 }

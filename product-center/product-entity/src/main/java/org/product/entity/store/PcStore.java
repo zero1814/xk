@@ -27,7 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_brand")
+@Table(name = "pc_store")
 @ApiModel(value = "店铺管理")
 public class PcStore extends BaseEntity {
 
@@ -43,7 +43,7 @@ public class PcStore extends BaseEntity {
 	private String name;
 
 	@ApiModelProperty("图标")
-	@Column(name = "图标", length = 50, unique = true)
+	@Column(name = "icon", length = 50)
 	private String icon;
 
 	@ManyToOne

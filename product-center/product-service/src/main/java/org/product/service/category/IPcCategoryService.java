@@ -28,6 +28,17 @@ public interface IPcCategoryService extends IBaseService<PcCategory, String> {
 	 */
 	DataResult<PcCategory> findParent(String code);
 
+	/**
+	 * 
+	 * 方法: categoryData <br>
+	 * 描述: 查询所有可用分类 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月4日 下午2:28:06
+	 * 
+	 * @return
+	 */
+	DataResult<PcCategory> categoryData();
+
 	/***
 	 * 
 	 * 方法: getSpecifications <br>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.WebResult;
 
@@ -21,6 +22,7 @@ public class PcLabelController extends BaseController<PcLabel, IPcLabelService> 
 	@Autowired
 	private IPcLabelService service;
 
+	@ApiOperation("根据类型查询可用标签列表")
 	@GetMapping("all/{type}")
 	public WebResult labelAll(@PathVariable("type") Integer type) {
 		DataResult<PcLabel> result = service.labels(type);

@@ -36,16 +36,19 @@ public class PcAlbum extends BaseEntity {
 	@Column(name = "code", length = 50)
 	private String code;
 
+	@Column(name = "name", length = 50)
+	private String name;
+
 	@ApiModelProperty("相册照片总数")
 	@Column(name = "total")
 	private BigDecimal total;
 
 	@OneToMany
 	@JoinColumn(name = "album")
-	@NotFound(action=NotFoundAction.IGNORE)
-	private List<PcAlbumPic> pic;
-	
+	@NotFound(action = NotFoundAction.IGNORE)
+	private List<PcAlbumPic> pics;
+
 	@Column(name = "create_time", insertable = true, updatable = false, nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date creatTime;
+	private Date createTime;
 }

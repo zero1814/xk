@@ -31,12 +31,13 @@ public class PcProductStatusTest {
 			PcProductStatus entity = new PcProductStatus();
 			entity.setName(val);
 			entity.setCreateUser("admin");
+			entity.setType(1);
 			service.create(entity);
 		}
 	}
 
 	public void all() {
-		List<PcProductStatus> list = repository.all();
+		List<PcProductStatus> list = repository.statusByType(0);
 		System.out.println(JSON.toJSONString(list));
 	}
 }

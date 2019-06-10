@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.zero.spring.jpa.BaseEntity;
 
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_product_status")
+@Table(name = "pc_product_status",uniqueConstraints= {@UniqueConstraint(columnNames= {"name","type"})})
 @ApiModel(value = "商品状态管理")
 public class PcProductStatus extends BaseEntity {
 
@@ -41,9 +42,14 @@ public class PcProductStatus extends BaseEntity {
 	@Id
 	@Column(name = "code", length = 50)
 	private String code;
+
 	@ApiModelProperty("名称")
-	@Column(name = "name", length = 50, nullable = false, unique = true)
+	@Column(name = "name", length = 50, nullable = false)
 	private String name;
+
+	@ApiModelProperty("状态类型  0 商品 1 商品SKU")
+	@Column(name = "type")
+	private Integer type = 0;
 
 	@ApiModelProperty("是否可用 0 可用 1 不可用")
 	@Column(name = "flag_enabled")

@@ -4,7 +4,7 @@ import org.zero.spring.jpa.BaseController;
 import org.product.entity.PcBrand;
 import org.product.service.IPcBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,7 +22,7 @@ public class PcBrandController extends BaseController<PcBrand, IPcBrandService> 
 	private IPcBrandService service;
 
 	@ApiOperation("获取所有数据信息")
-	@PostMapping(value = "all", consumes = "application/json")
+	@GetMapping(value = "all")
 	public WebResult all() {
 		DataResult<PcBrand> result = service.brandAll();
 		return WebResult.data(result);

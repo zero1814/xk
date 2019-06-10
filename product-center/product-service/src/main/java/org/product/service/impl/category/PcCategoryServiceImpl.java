@@ -276,4 +276,27 @@ public class PcCategoryServiceImpl extends BaseServiceImpl<PcCategory, String, P
 		}
 		return result;
 	}
+
+	/**
+	 * 
+	 * 方法: categoryData <br>
+	 * 
+	 * @return
+	 * @see org.product.service.category.IPcCategoryService#categoryData()
+	 */
+	@Override
+	public DataResult<PcCategory> categoryData() {
+		DataResult<PcCategory> result = new DataResult<PcCategory>();
+		try {
+			List<PcCategory> list = repository.categoryAll();
+			result.setData(list);
+			result.setCode(ResultType.SUCCESS);
+			result.setMessage("查询成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setCode(ResultType.ERROR);
+			result.setMessage("查询报错");
+		}
+		return result;
+	}
 }

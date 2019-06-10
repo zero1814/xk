@@ -140,31 +140,37 @@ public class PcProduct extends BaseEntity {
 	@OneToMany
 	@JoinTable(name = "pc_product_label", joinColumns = { @JoinColumn(name = "product") }, inverseJoinColumns = {
 			@JoinColumn(name = "label") })
-	@NotFound(action=NotFoundAction.IGNORE)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private List<PcLabel> labels;
 
 	@ApiModelProperty("商品关键字")
 	@OneToMany
 	@JoinTable(name = "pc_product_keyword", joinColumns = { @JoinColumn(name = "product") }, inverseJoinColumns = {
 			@JoinColumn(name = "keyword") })
-	@NotFound(action=NotFoundAction.IGNORE)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private List<PcKeyword> keywords;
 
 	@ApiModelProperty("商品规格")
 	@OneToMany
 	@JoinColumn(name = "product")
-	@NotFound(action=NotFoundAction.IGNORE)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private List<PcProductSpecification> specList;
+
+	@ApiModelProperty("商品属性")
+	@OneToMany
+	@JoinColumn(name = "product")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private List<PcProductAttribute> attributeList;
 
 	@ApiModelProperty("商品sku")
 	@OneToMany
 	@JoinColumn(name = "product")
-	@NotFound(action=NotFoundAction.IGNORE)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private List<PcSku> skuList;
 
 	@ApiModelProperty("商品评价")
 	@OneToMany
 	@JoinColumn(name = "product")
-	@NotFound(action=NotFoundAction.IGNORE)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private List<PcProductComment> commentList;
 }

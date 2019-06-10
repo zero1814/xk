@@ -20,7 +20,8 @@ public interface IPcProductStatusService extends IBaseService<PcProductStatus, S
 	 * 描述: 查询可用的商品状态 <br>
 	 * 作者: zhy<br>
 	 * 时间: 2019年5月28日 上午10:33:55
+	 * 
 	 * @return
 	 */
-	public DataResult<PcProductStatus> statusAll();
+	public DataResult<PcProductStatus> statusAll(Integer type);
 }
