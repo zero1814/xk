@@ -21,7 +21,8 @@ public class PcStoreLevelTest {
 	@Test
 	public void page() {
 		PcStoreLevel entity = new PcStoreLevel();
-		entity.setFlagEnabled(1);
+		entity.setName("t");
+//		entity.setFlagEnabled(1);
 		entity.setPage(1);
 		entity.setSize(10);
 		JSON.toJSONString(service.page(entity));
