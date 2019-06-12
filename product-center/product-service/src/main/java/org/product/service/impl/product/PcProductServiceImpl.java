@@ -55,6 +55,8 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	public EntityResult<PcProduct> create(PcProduct entity) {
 		EntityResult<PcProduct> result = new EntityResult<PcProduct>();
 		if (entity.getAlbum() != null) {
+			int total = entity.getAlbum().getPics().size();
+			entity.getAlbum().setTotal(BigDecimal.valueOf(total));
 			EntityResult<PcAlbum> _result = albumService.create(entity.getAlbum());
 			if (_result.getCode() != ResultType.SUCCESS) {
 				result.setCode(_result.getCode());
@@ -174,15 +176,20 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		if (StringUtils.isNotBlank(entity.getName())) {
 			sql.append(" and p.name like CONCAT('%','" + entity.getName() + "','%') ");
 		} else if (entity.getStatus() != null && StringUtils.isNotBlank(entity.getStatus().getCode())) {
-			sql.append(" and s.code = " + entity.getStatus().getCode());
+			sql.append(" and s.code = '" + entity.getStatus().getCode() + "'");
 		} else if (entity.getBrand() != null && StringUtils.isNotBlank(entity.getBrand().getCode())) {
-			sql.append(" and b.code = " + entity.getBrand().getCode());
+			sql.append(" and b.code = '" + entity.getBrand().getCode() + "' ");
 		} else if (entity.getCategory() != null && StringUtils.isNotBlank(entity.getCategory().getCode())) {
-			sql.append(" and c.code = " + entity.getCategory().getCode());
+			sql.append(" and c.code = '" + entity.getCategory().getCode() + "'");
 		} else if (entity.getStore() != null && StringUtils.isNotBlank(entity.getStore().getCode())) {
-			sql.append(" and store.code = " + entity.getStore().getCode());
+			sql.append(" and store.code = '" + entity.getStore().getCode() + "'");
 		}
 		log.info("执行分页查询数据sql:\n" + sql);
 		return sql.toString();
+	}
+
+	@Override
+	public EntityResult<PcProduct> getProduct(String code) {
+		return null;
 	}
 }

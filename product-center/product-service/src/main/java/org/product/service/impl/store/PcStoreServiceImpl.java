@@ -91,20 +91,20 @@ public class PcStoreServiceImpl extends BaseServiceImpl<PcStore, String, PcStore
 		StringBuffer sql = new StringBuffer("select ");
 		try {
 			if (type == 0) {
-				sql.append(" ps.`code`,ps.`name`,ps.icon,psl.`name` AS `level`,pss.`name` AS `status`");
+				sql.append(" ps.code,ps.name,ps.icon,psl.name AS level,pss.name AS status");
 			} else {
 				sql.append(" count(1) ");
 			}
 			sql.append(" FROM pc_store AS ps");
-			sql.append(" LEFT JOIN pc_store_level AS psl ON ps.`level` = psl.`code`");
-			sql.append(" LEFT JOIN pc_store_status AS pss ON ps.`status` = pss.`code`");
-			sql.append(" WHERE 1=1");
+			sql.append(" LEFT JOIN pc_store_level AS psl ON ps.level = psl.code");
+			sql.append(" LEFT JOIN pc_store_status AS pss ON ps.status = pss.code");
+			sql.append(" WHERE 1=1 ");
 			if (StringUtils.isNotBlank(entity.getName())) {
-				sql.append(" and ps.`name` like CONCAT('%','" + entity.getName() + "','%')");
+				sql.append(" AND ps.name like CONCAT('%','" + entity.getName() + "','%')");
 			} else if (entity.getLevel() != null && StringUtils.isNotBlank(entity.getLevel().getCode())) {
-				sql.append("AND psl.`code` = '" + entity.getLevel().getCode() + "'");
+				sql.append(" AND psl.code = '" + entity.getLevel().getCode() + "'");
 			} else if (entity.getStatus() != null && StringUtils.isNotBlank(entity.getStatus().getCode())) {
-				sql.append("AND pss.`code` = '" + entity.getStatus().getCode() + "'");
+				sql.append(" AND pss.code = '" + entity.getStatus().getCode() + "'");
 			}
 			return sql.toString();
 		} catch (Exception e) {

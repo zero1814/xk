@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -13,8 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.zero.spring.jpa.BaseEntity;
 
 import io.swagger.annotations.ApiModel;
@@ -43,12 +43,12 @@ public class PcAlbum extends BaseEntity {
 	@Column(name = "total")
 	private BigDecimal total;
 
-	@OneToMany
-	@JoinColumn(name = "album")
-	@NotFound(action = NotFoundAction.IGNORE)
-	private List<PcAlbumPic> pics;
-
 	@Column(name = "create_time", insertable = true, updatable = false, nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createTime;
+
+	@ApiModelProperty("相册照片集合")
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@JoinColumn(name = "album")
+	private List<PcAlbumPic> pics;
 }
