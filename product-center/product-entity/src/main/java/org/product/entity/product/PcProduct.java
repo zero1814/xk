@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.product.entity.PcAlbum;
 import org.product.entity.PcBrand;
@@ -39,32 +40,20 @@ public class PcProduct extends BaseEntity {
 	private static final long serialVersionUID = 8874070647969533827L;
 
 	public PcProduct() {
-
-	}
-
-	public PcProduct(String code, String name, String enName, String mainPic, PcStore store, PcBrand brand,
-			PcCategory category, BigDecimal minSellPrice, BigDecimal maxSellPrice, PcProductStatus status,
-			Integer sort) {
-		this.code = code;
-		this.name = name;
-		this.enName = enName;
-		this.mainPic = mainPic;
-		this.store = store;
-		this.brand = brand;
-		this.category = category;
-		this.minSellPrice = minSellPrice;
-		this.maxSellPrice = maxSellPrice;
-		this.status = status;
-		this.sort = sort;
 	}
 
 	public PcProduct(List<PcSku> skuList) {
 		this.skuList = skuList;
 	}
 
+	public PcProduct(String code, PcStore store) {
+		this.code = code;
+		this.store = store;
+	}
+
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code", length = 50)
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
 	@ApiModelProperty("名称")
@@ -85,7 +74,7 @@ public class PcProduct extends BaseEntity {
 	private PcStore store;
 
 	@ApiModelProperty("品牌")
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "brand")
 	private PcBrand brand;
 
@@ -133,34 +122,38 @@ public class PcProduct extends BaseEntity {
 	private Date updateTime;
 
 	@ApiModelProperty("商品标签")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	@JoinTable(name = "pc_product_label", joinColumns = { @JoinColumn(name = "product") }, inverseJoinColumns = {
-			@JoinColumn(name = "label") })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH }, orphanRemoval = true)
+	@JoinTable(name = "pc_product_label", joinColumns = {
+			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "label", unique = false) }, uniqueConstraints = {
+							@UniqueConstraint(columnNames = { "product", "label" }) })
 	private List<PcLabel> labels;
 
 	@ApiModelProperty("商品关键字")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	@JoinTable(name = "pc_product_keyword", joinColumns = { @JoinColumn(name = "product") }, inverseJoinColumns = {
-			@JoinColumn(name = "keyword") })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH }, orphanRemoval = true)
+	@JoinTable(name = "pc_product_keyword", joinColumns = {
+			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "keyword", unique = false) }, uniqueConstraints = {
+							@UniqueConstraint(columnNames = { "product", "keyword" }) })
 	private List<PcKeyword> keywords;
 
 	@ApiModelProperty("商品规格")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, orphanRemoval = true)
 	@JoinColumn(name = "product")
 	private List<PcProductSpecification> specList;
 
 	@ApiModelProperty("商品属性")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL}, orphanRemoval = true)
 	@JoinColumn(name = "product")
 	private List<PcProductAttribute> attributeList;
 
 	@ApiModelProperty("商品sku")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REFRESH }, orphanRemoval = true)
 	@JoinColumn(name = "product")
 	private List<PcSku> skuList;
 
 	@ApiModelProperty("商品评价")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH })
 	@JoinColumn(name = "product")
 	private List<PcProductComment> commentList;
 }

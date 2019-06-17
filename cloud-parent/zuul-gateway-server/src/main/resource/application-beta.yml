@@ -1,11 +1,25 @@
 eureka:
+  instance:
+    hostname: gateway
+    lease-renewal-interval-in-seconds: 60 #没过60秒给注册中心发送心跳
+    lease-expiration-duration-in-seconds: 120 #超过120秒没发送心跳，让注册中心删除实例
+    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: http://192.168.99.100:8010/eureka/
+#服务网关配置
 zuul:
+  #是否开启重试功能
+  retryable: true
+  sensitive-headers: Access-Control-Allow-Origin
+  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken
   host:
     socket-timeout-millis: 60000
     connect-timeout-millis: 60000
+#负载均衡
+ribbon:
+  ReadTimeout: 120000
+  ConnectTimeout: 60000
 hystrix:
   command:
     default:

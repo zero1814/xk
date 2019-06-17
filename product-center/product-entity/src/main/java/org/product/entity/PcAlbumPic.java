@@ -23,10 +23,33 @@ public class PcAlbumPic extends BaseEntity {
 
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code")
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
 	@ApiModelProperty("图片访问地址")
 	@Column(name = "pic_url", insertable = true, nullable = false)
 	private String picUrl;
+
+	/**
+	 * 标题: 构造器 <br>
+	 * 描述: TODO <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月17日 下午2:41:34
+	 */
+	public PcAlbumPic() {
+	}
+
+	/**
+	 * 标题: 构造器 <br>
+	 * 描述: TODO <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月17日 下午2:41:44
+	 * 
+	 * @param code
+	 * @param picUrl
+	 */
+	public PcAlbumPic(String code, String picUrl) {
+		this.code = code;
+		this.picUrl = picUrl;
+	}
 }

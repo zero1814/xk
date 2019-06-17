@@ -2,15 +2,21 @@ package org.product.entity.product;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.zero.spring.jpa.BaseEntity;
 
@@ -30,7 +36,7 @@ public class PcSku extends BaseEntity {
 
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code", length = 50)
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
 	@ApiModelProperty("商品编码")
@@ -87,5 +93,13 @@ public class PcSku extends BaseEntity {
 	@Column(name = "update_time", insertable = true, updatable = true, nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
+
+	@ApiModelProperty("sku属性")
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.MERGE }, orphanRemoval = true)
+	@JoinTable(name = "pc_sku_attribute", joinColumns = {
+			@JoinColumn(name = "sku", unique = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "attribute", unique = false) }, uniqueConstraints = {
+							@UniqueConstraint(columnNames = { "sku", "attribute" }) })
+	private List<PcProductAttribute> attributes;
 
 }

@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_product_status",uniqueConstraints= {@UniqueConstraint(columnNames= {"name","type"})})
+@Table(name = "pc_product_status", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "type" }) })
 @ApiModel(value = "商品状态管理")
 public class PcProductStatus extends BaseEntity {
 
@@ -34,13 +34,9 @@ public class PcProductStatus extends BaseEntity {
 		this.name = name;
 	}
 
-	@ApiModelProperty("创建人")
-	@Column(name = "create_user", length = 50, insertable = true, updatable = false, nullable = false)
-	private String createUser;
-
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code", length = 50)
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
 	@ApiModelProperty("名称")
@@ -54,6 +50,10 @@ public class PcProductStatus extends BaseEntity {
 	@ApiModelProperty("是否可用 0 可用 1 不可用")
 	@Column(name = "flag_enabled")
 	private Integer flagEnabled;
+	
+	@ApiModelProperty("创建人")
+	@Column(name = "create_user", length = 50, insertable = true, updatable = false, nullable = false)
+	private String createUser;
 
 	@ApiModelProperty("创建时间")
 	@Column(name = "create_time", insertable = true, updatable = false, nullable = false)

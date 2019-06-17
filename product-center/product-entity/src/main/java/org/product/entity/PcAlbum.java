@@ -33,7 +33,7 @@ public class PcAlbum extends BaseEntity {
 
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code", length = 50)
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
 	@Column(name = "name", length = 50)
@@ -48,7 +48,7 @@ public class PcAlbum extends BaseEntity {
 	private Date createTime;
 
 	@ApiModelProperty("相册照片集合")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinColumn(name = "album")
 	private List<PcAlbumPic> pics;
 }

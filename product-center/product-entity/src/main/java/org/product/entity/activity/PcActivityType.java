@@ -35,7 +35,7 @@ public class PcActivityType extends BaseEntity {
 
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code", length = 50)
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
 	@ApiModelProperty("名称")

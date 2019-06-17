@@ -1,14 +1,10 @@
 package org.product.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -47,13 +43,8 @@ public class PcBrand extends BaseEntity {
 
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code", length = 50)
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
-
-	@ApiModelProperty("父级品牌")
-	@ManyToOne
-	@JoinColumn(name = "parent")
-	private PcBrand parent;
 
 	@ApiModelProperty("名称")
 	@Column(name = "name", length = 100, nullable = false, unique = true)
@@ -93,7 +84,4 @@ public class PcBrand extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
 
-	@ApiModelProperty("子分类集合")
-	@OneToMany(mappedBy = "parent")
-	private List<PcBrand> children;
 }

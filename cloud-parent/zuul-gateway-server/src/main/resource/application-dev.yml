@@ -7,12 +7,18 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://192.168.99.100:8010/eureka/
+#服务网关配置
 zuul:
+  #是否开启重试功能
+  retryable: true
+  sensitive-headers: Access-Control-Allow-Origin
+  ignored-headers: Access-Control-Allow-Origin,H-APP-Id,Token,APPToken
   host:
     socket-timeout-millis: 60000
     connect-timeout-millis: 60000
+#负载均衡
 ribbon:
-  ReadTimeout: 60000
+  ReadTimeout: 120000
   ConnectTimeout: 60000
 hystrix:
   command:

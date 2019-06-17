@@ -23,11 +23,11 @@ public class PcProductSpecification extends BaseEntity {
 
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code", length = 50)
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
-	
+
 	@ApiModelProperty("名称")
-	@Column(name = "name", length = 100, nullable = false, unique = true)
+	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
 	@ApiModelProperty("值")

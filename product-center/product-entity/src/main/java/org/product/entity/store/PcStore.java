@@ -33,9 +33,27 @@ public class PcStore extends BaseEntity {
 
 	private static final long serialVersionUID = -7833056372217206242L;
 
+	/**
+	 * 标题: 构造器 <br>
+	 * 描述: TODO <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月17日 下午4:13:07
+	 * 
+	 * @param code
+	 * @param name
+	 */
+	public PcStore() {
+	}
+
+	public PcStore(String code, String name) {
+		super();
+		this.code = code;
+		this.name = name;
+	}
+
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code", length = 50)
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
 	@ApiModelProperty("名称")
@@ -78,6 +96,6 @@ public class PcStore extends BaseEntity {
 	@OneToMany
 	@JoinTable(name = "pc_store_label", joinColumns = { @JoinColumn(name = "store") }, inverseJoinColumns = {
 			@JoinColumn(name = "label") })
-	@NotFound(action=NotFoundAction.IGNORE)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private List<PcLabel> labels;
 }

@@ -26,7 +26,7 @@ public class PcActivityProduct extends BaseEntity {
 
 	@ApiModelProperty("编码")
 	@Id
-	@Column(name = "code")
+	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
 	@ApiModelProperty("商品sku")
