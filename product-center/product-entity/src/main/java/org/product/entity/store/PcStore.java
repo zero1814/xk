@@ -13,9 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 import org.product.entity.PcLabel;
 import org.zero.spring.jpa.BaseEntity;
 
@@ -33,15 +32,6 @@ public class PcStore extends BaseEntity {
 
 	private static final long serialVersionUID = -7833056372217206242L;
 
-	/**
-	 * 标题: 构造器 <br>
-	 * 描述: TODO <br>
-	 * 作者: zhy<br>
-	 * 时间: 2019年6月17日 下午4:13:07
-	 * 
-	 * @param code
-	 * @param name
-	 */
 	public PcStore() {
 	}
 
@@ -89,13 +79,14 @@ public class PcStore extends BaseEntity {
 	@Column(name = "update_time", insertable = true, updatable = true, nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
+
 	/**
-	 * 商品标签
+	 * 店铺标签
 	 */
 	@ApiModelProperty("店铺标签")
 	@OneToMany
 	@JoinTable(name = "pc_store_label", joinColumns = { @JoinColumn(name = "store") }, inverseJoinColumns = {
-			@JoinColumn(name = "label") })
-	@NotFound(action = NotFoundAction.IGNORE)
+			@JoinColumn(name = "label", unique = false) }, uniqueConstraints = {
+					@UniqueConstraint(columnNames = { "store", "label" }) })
 	private List<PcLabel> labels;
 }

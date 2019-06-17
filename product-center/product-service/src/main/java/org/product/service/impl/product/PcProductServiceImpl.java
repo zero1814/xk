@@ -123,5 +123,4 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		}
 		return result;
 	}
-
 }
