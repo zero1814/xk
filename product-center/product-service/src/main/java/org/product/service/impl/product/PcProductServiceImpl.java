@@ -86,6 +86,8 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 						if (StringUtils.equals(attribute.getName(), productAttribute.getName())
 								&& StringUtils.equals(attribute.getValue(), productAttribute.getValue())) {
 							skuAttributes.add(productAttribute);
+						} else {
+							continue;
 						}
 					}
 				}
@@ -98,8 +100,10 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				}
 			}
 		}
+		entity.setCode(CodeHelper.getCode(PcProduct.class));
 		entity.setMinSellPrice(minSellPrice);
 		entity.setMaxSellPrice(maxSellPrice);
+		System.out.println(JSON.toJSONString(entity));
 		return super.create(entity);
 	}
 

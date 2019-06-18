@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -122,7 +123,7 @@ public class PcProduct extends BaseEntity {
 	private Date updateTime;
 
 	@ApiModelProperty("商品标签")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH }, orphanRemoval = true)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
 	@JoinTable(name = "pc_product_label", joinColumns = {
 			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "label", unique = false) }, uniqueConstraints = {
@@ -130,7 +131,7 @@ public class PcProduct extends BaseEntity {
 	private List<PcLabel> labels;
 
 	@ApiModelProperty("商品关键字")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH }, orphanRemoval = true)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
 	@JoinTable(name = "pc_product_keyword", joinColumns = {
 			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "keyword", unique = false) }, uniqueConstraints = {
@@ -143,7 +144,7 @@ public class PcProduct extends BaseEntity {
 	private List<PcProductSpecification> specList;
 
 	@ApiModelProperty("商品属性")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL}, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, orphanRemoval = true)
 	@JoinColumn(name = "product")
 	private List<PcProductAttribute> attributeList;
 
