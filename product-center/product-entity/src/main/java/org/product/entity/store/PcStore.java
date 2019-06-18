@@ -51,8 +51,12 @@ public class PcStore extends BaseEntity {
 	private String name;
 
 	@ApiModelProperty("图标")
-	@Column(name = "icon", length = 50)
+	@Column(name = "icon", length = 500)
 	private String icon;
+
+	@ApiModelProperty("logo")
+	@Column(name = "logo", length = 500)
+	private String logo;
 
 	@ManyToOne
 	@JoinColumn(name = "level")

@@ -27,9 +27,10 @@ public class ServiceCacheAop {
 	}
 
 	@Around(value = "select()")
-	public void around(ProceedingJoinPoint point) {
+	public Object around(ProceedingJoinPoint point) throws Throwable {
 		log.info("进入切面开始执行----->");
 		log.info("point.getArgs=" + JSON.toJSONString(point.getArgs()));
 		log.info("进入切面结束执行----->");
+		return point.proceed(point.getArgs());
 	}
 }

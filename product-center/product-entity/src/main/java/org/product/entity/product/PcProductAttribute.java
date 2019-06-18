@@ -35,6 +35,6 @@ public class PcProductAttribute extends BaseEntity {
 	private String value;
 
 	@ApiModelProperty("排序")
-	@Column(name = "sort", length = 100, nullable = false)
+	@Column(name = "sort", columnDefinition = "int default 0 comment '排序'")
 	private Integer sort;
 }
