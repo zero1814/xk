@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping("/product/sku/")
+@RequestMapping("/sku/")
 @Api(tags = "商品sku相关")
 public class PcSkuController extends BaseController<PcSku, IPcSkuService> {
 

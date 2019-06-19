@@ -3,6 +3,9 @@ package org.product.service.impl.product;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import javax.transaction.Transactional;
 
@@ -205,26 +208,45 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		DataResult<PcProductAttribute> result = new DataResult<PcProductAttribute>();
 		try {
 
-			List<PcProductAttribute> array = new ArrayList<PcProductAttribute>();
 			List<Object> list = ppaRepository.findProductAttribute(code);
 			if (list == null || list.isEmpty()) {
 				result.setCode(ResultType.NULL);
 				result.setMessage("查询为空");
-
 			}
+			System.out.println(JSON.toJSONString(list));
+			Map<String, String> values = new TreeMap<String, String>();
+			Map<String, Integer> sorts = new TreeMap<String, Integer>();
 			for (Object object : list) {
 				Object[] data = (Object[]) object;
-				PcProductAttribute entity = new PcProductAttribute();
-				entity.setCode(data[0].toString());
-				entity.setName(data[1].toString());
-				entity.setValue(data[2].toString());
-				entity.setSort(Integer.valueOf(data[3].toString()));
-				array.add(entity);
+				String name = data[1].toString();
+				String value = data[2].toString();
+				Integer sort = Integer.valueOf(data[3].toString());
+				if (values.containsKey(name)) {
+					value = values.get(name) + "," + value;
+					values.replace(name, value);
+				} else {
+					values.put(name, value);
+				}
+				if (sorts.containsKey(name)) {
+					int _sort = sorts.get(name);
+					if (sort < _sort) {
+						sorts.replace(name, sort);
+					}
+				} else {
+					sorts.put(name, sort);
+				}
+			}
+			List<PcProductAttribute> data = new ArrayList<PcProductAttribute>();
+			for (Entry<String, String> entry : values.entrySet()) {
+				PcProductAttribute attribute = new PcProductAttribute();
+				attribute.setName(entry.getKey());
+				attribute.setValue(entry.getValue());
+				attribute.setSort(sorts.get(entry.getKey()));
+				data.add(attribute);
 			}
 			result.setCode(ResultType.SUCCESS);
-			result.setData(array);
+			result.setData(data);
 			result.setMessage("查询成功");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.setCode(ResultType.ERROR);
