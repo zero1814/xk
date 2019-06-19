@@ -9,9 +9,12 @@ import javax.transaction.Transactional;
 import org.product.entity.PcAlbum;
 import org.product.entity.product.PcProduct;
 import org.product.entity.product.PcProductAttribute;
+import org.product.entity.product.PcProductSpecification;
 import org.product.entity.product.PcSku;
 import org.product.query.product.PcProductQuery;
+import org.product.repository.product.PcProductAttributeRepository;
 import org.product.repository.product.PcProductRepository;
+import org.product.repository.product.PcProductSpecificationRepository;
 import org.product.service.IPcAlbumService;
 import org.product.service.product.IPcProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import zero.commons.basics.StringUtils;
 import zero.commons.basics.helper.CodeHelper;
+import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.PageResult;
 import zero.commons.basics.result.ResultType;
@@ -39,9 +43,16 @@ import zero.commons.basics.result.ResultType;
 public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcProductRepository>
 		implements IPcProductService {
 	@Autowired
+	private PcProductRepository repository;
+	@Autowired
 	private IPcAlbumService albumService;
 	@Autowired
 	private PcProductQuery query;
+	@Autowired
+	private PcProductSpecificationRepository ppsRepository;
+
+	@Autowired
+	private PcProductAttributeRepository ppaRepository;
 
 	@Override
 	@Transactional
@@ -107,6 +118,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		return super.create(entity);
 	}
 
+	@Transactional
 	public PageResult<PcProduct> page(PcProduct entity) {
 		PageResult<PcProduct> result = new PageResult<PcProduct>();
 		try {
@@ -141,7 +153,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				result.setMessage("商品编码不能为空");
 				return result;
 			}
-			PcProduct product = query.productQuery(code);
+			PcProduct product = repository.getProduct(code);
 			if (product == null) {
 				result.setCode(ResultType.NULL);
 				result.setMessage("商品不存在");
@@ -154,6 +166,90 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 			e.printStackTrace();
 			result.setCode(ResultType.ERROR);
 			result.setMessage("查询失败");
+		}
+		return result;
+	}
+
+	@Transactional
+	@Override
+	public DataResult<PcProductSpecification> getSpecification(String code) {
+		DataResult<PcProductSpecification> result = new DataResult<PcProductSpecification>();
+		try {
+			List<PcProductSpecification> array = new ArrayList<PcProductSpecification>();
+			List<Object> list = ppsRepository.findProductSpecification(code);
+			if (list != null && !list.isEmpty()) {
+				for (Object object : list) {
+					Object[] data = (Object[]) object;
+					PcProductSpecification entity = new PcProductSpecification();
+					entity.setCode(data[0].toString());
+					entity.setName(data[1].toString());
+					entity.setValue(data[2].toString());
+					entity.setSort(Integer.valueOf(data[3].toString()));
+					array.add(entity);
+				}
+			}
+			result.setCode(ResultType.SUCCESS);
+			result.setData(array);
+			result.setMessage("查询成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setCode(ResultType.ERROR);
+			result.setMessage("查询商品参数失败");
+		}
+		return result;
+	}
+
+	@Transactional
+	@Override
+	public DataResult<PcProductAttribute> getAttribute(String code) {
+		DataResult<PcProductAttribute> result = new DataResult<PcProductAttribute>();
+		try {
+
+			List<PcProductAttribute> array = new ArrayList<PcProductAttribute>();
+			List<Object> list = ppaRepository.findProductAttribute(code);
+			if (list == null || list.isEmpty()) {
+				result.setCode(ResultType.NULL);
+				result.setMessage("查询为空");
+
+			}
+			for (Object object : list) {
+				Object[] data = (Object[]) object;
+				PcProductAttribute entity = new PcProductAttribute();
+				entity.setCode(data[0].toString());
+				entity.setName(data[1].toString());
+				entity.setValue(data[2].toString());
+				entity.setSort(Integer.valueOf(data[3].toString()));
+				array.add(entity);
+			}
+			result.setCode(ResultType.SUCCESS);
+			result.setData(array);
+			result.setMessage("查询成功");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setCode(ResultType.ERROR);
+			result.setMessage("查询商品属性失败");
+		}
+		return result;
+	}
+
+	@Transactional
+	@Override
+	public DataResult<PcSku> getSkuList(String code) {
+		DataResult<PcSku> result = new DataResult<PcSku>();
+		try {
+			List<PcSku> list = repository.findSkuList(code);
+			if (list == null || list.isEmpty()) {
+				result.setCode(ResultType.NULL);
+				result.setMessage("查询为空");
+			}
+			result.setCode(ResultType.SUCCESS);
+			result.setMessage("查询成功");
+			result.setData(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setCode(ResultType.ERROR);
+			result.setMessage("查询商品sku失败");
 		}
 		return result;
 	}

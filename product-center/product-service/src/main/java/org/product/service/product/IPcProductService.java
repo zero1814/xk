@@ -1,8 +1,12 @@
 package org.product.service.product;
 
 import org.product.entity.product.PcProduct;
+import org.product.entity.product.PcProductAttribute;
+import org.product.entity.product.PcProductSpecification;
+import org.product.entity.product.PcSku;
 import org.zero.spring.jpa.IBaseService;
 
+import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.EntityResult;
 
 /**
@@ -25,4 +29,40 @@ public interface IPcProductService extends IBaseService<PcProduct, String> {
 	 * @return
 	 */
 	EntityResult<PcProduct> getProduct(String code);
+
+	/**
+	 * 
+	 * 方法: getSpecification <br>
+	 * 描述: 查询商品编码查询商品参数列表 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月18日 下午3:15:16
+	 * 
+	 * @param code
+	 * @return
+	 */
+	DataResult<PcProductSpecification> getSpecification(String code);
+
+	/**
+	 * 
+	 * 方法: getAttribute <br>
+	 * 描述: 查询商品编码查询商品属性列表 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月18日 下午3:15:33
+	 * 
+	 * @param code
+	 * @return
+	 */
+	DataResult<PcProductAttribute> getAttribute(String code);
+
+	/**
+	 * 
+	 * 方法: getSkuList <br>
+	 * 描述: 获取商品SKU列表 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月18日 下午4:21:29
+	 * 
+	 * @param code
+	 * @return
+	 */
+	DataResult<PcSku> getSkuList(String code);
 }

@@ -13,12 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
+import org.product.entity.PcAlbum;
 import org.zero.spring.jpa.BaseEntity;
+
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -34,15 +37,27 @@ public class PcSku extends BaseEntity {
 
 	private static final long serialVersionUID = -9059563854277341590L;
 
+	public PcSku() {
+
+	}
+
+	public PcSku(String code, String name, String mainPic, BigDecimal costPrice, BigDecimal marketPrice,
+			BigDecimal sellPrice, Long stock, Long warnStock, String statusCode, String statusName) {
+		this.code = code;
+		this.name = name;
+		this.mainPic = mainPic;
+		this.costPrice = costPrice;
+		this.marketPrice = marketPrice;
+		this.sellPrice = sellPrice;
+		this.stock = stock;
+		this.warnStock = warnStock;
+		this.status = new PcProductStatus(statusCode, statusName);
+	}
+
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50, updatable = false)
 	private String code;
-
-	@ApiModelProperty("商品编码")
-	@ManyToOne
-	@JoinColumn(name = "product")
-	private PcProduct product;
 
 	@ApiModelProperty("名称")
 	@Column(name = "name", length = 100, nullable = false, unique = true)
@@ -72,7 +87,7 @@ public class PcSku extends BaseEntity {
 	@Column(name = "warn_stock")
 	private Long warnStock;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH })
 	@JoinColumn(name = "status")
 	private PcProductStatus status;
 
@@ -95,11 +110,15 @@ public class PcSku extends BaseEntity {
 	private Date updateTime;
 
 	@ApiModelProperty("sku属性")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
 	@JoinTable(name = "pc_sku_attribute", joinColumns = {
 			@JoinColumn(name = "sku", unique = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "attribute", unique = false) }, uniqueConstraints = {
 							@UniqueConstraint(columnNames = { "sku", "attribute" }) })
 	private List<PcProductAttribute> attributes;
 
+	@ApiModelProperty("商品相册")
+	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
+	@JoinColumn(name = "album")
+	private PcAlbum album;
 }

@@ -52,6 +52,38 @@ public class PcProduct extends BaseEntity {
 		this.store = store;
 	}
 
+	public PcProduct(String code, String name, String enName, String mainPic, PcStore store, PcBrand brand,
+			PcCategory category, BigDecimal minSellPrice, BigDecimal maxSellPrice, PcAlbum album,
+			PcProductStatus status) {
+		this.code = code;
+		this.name = name;
+		this.enName = enName;
+		this.mainPic = mainPic;
+		this.store = store;
+		this.brand = brand;
+		this.category = category;
+		this.minSellPrice = minSellPrice;
+		this.maxSellPrice = maxSellPrice;
+		this.album = album;
+		this.status = status;
+	}
+
+	public PcProduct(String code, String name, String enName, String mainPic, String storeCode, String storeName,
+			String brandCode, String brandName, String categoryCode, String categoryName, BigDecimal minSellPrice,
+			BigDecimal maxSellPrice, PcAlbum album, String statusCode, String statusName) {
+		this.code = code;
+		this.name = name;
+		this.enName = enName;
+		this.mainPic = mainPic;
+		this.store = new PcStore(storeCode, storeName);
+		this.brand = new PcBrand(brandCode, brandName);
+		this.category = new PcCategory(categoryCode, categoryName);
+		this.minSellPrice = minSellPrice;
+		this.maxSellPrice = maxSellPrice;
+		this.album = album;
+		this.status = new PcProductStatus(statusCode, statusName);
+	}
+
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50, updatable = false)

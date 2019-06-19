@@ -48,7 +48,7 @@ public class PcAlbum extends BaseEntity {
 	private Date createTime;
 
 	@ApiModelProperty("相册照片集合")
-	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@JoinColumn(name = "album")
 	private List<PcAlbumPic> pics;
 }

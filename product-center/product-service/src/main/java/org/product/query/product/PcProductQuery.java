@@ -36,9 +36,9 @@ public class PcProductQuery {
 
 	public PcProduct getEntityByCode(String code) {
 		PcProduct product = null;
-		Query query = em.createQuery("from PcProduct where code=:code",PcProduct.class);
+		Query query = em.createQuery("from PcProduct where code=:code", PcProduct.class);
 		query.setParameter("code", code);
-		if(query.getSingleResult() != null) {
+		if (query.getSingleResult() != null) {
 			product = (PcProduct) query.getSingleResult();
 		}
 		return product;
