@@ -2,14 +2,16 @@ package org.product.service.impl.product;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.transaction.Transactional;
 
-import org.product.entity.PcAlbum;
+import org.product.entity.PcPicture;
 import org.product.entity.product.PcProduct;
 import org.product.entity.product.PcProductAttribute;
 import org.product.entity.product.PcProductSpecification;
@@ -18,7 +20,6 @@ import org.product.query.product.PcProductQuery;
 import org.product.repository.product.PcProductAttributeRepository;
 import org.product.repository.product.PcProductRepository;
 import org.product.repository.product.PcProductSpecificationRepository;
-import org.product.service.IPcAlbumService;
 import org.product.service.product.IPcProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,8 +49,6 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	@Autowired
 	private PcProductRepository repository;
 	@Autowired
-	private IPcAlbumService albumService;
-	@Autowired
 	private PcProductQuery query;
 	@Autowired
 	private PcProductSpecificationRepository ppsRepository;
@@ -60,19 +59,6 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	@Override
 	@Transactional
 	public EntityResult<PcProduct> save(PcProduct entity) {
-		EntityResult<PcProduct> result = new EntityResult<PcProduct>();
-		if (entity.getAlbum() != null) {
-			int total = entity.getAlbum().getPics().size();
-			entity.getAlbum().setTotal(BigDecimal.valueOf(total));
-			entity.setCode(CodeHelper.getCode(PcAlbum.class));
-			EntityResult<PcAlbum> _result = albumService.save(entity.getAlbum());
-			if (_result.getCode() != ResultType.SUCCESS) {
-				result.setCode(_result.getCode());
-				result.setMessage(_result.getMessage());
-				return result;
-			}
-			entity.setAlbum(_result.getEntity());
-		}
 		List<PcProductAttribute> productAttributes = new ArrayList<PcProductAttribute>();
 		if (entity.getAttributeList() != null && !entity.getAttributeList().isEmpty()) {
 			for (PcProductAttribute ppa : entity.getAttributeList()) {
@@ -87,7 +73,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				}
 			}
 		}
-		entity.setAttributeList(productAttributes);
+		entity.setAttributeList(new HashSet<PcProductAttribute>(productAttributes));
 
 		List<PcProductSpecification> productSpecifications = new ArrayList<PcProductSpecification>();
 		if (entity.getSpecList() != null && !entity.getSpecList().isEmpty()) {
@@ -95,6 +81,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				String[] values = ppa.getValue().split(",");
 				for (String value : values) {
 					PcProductSpecification spec = new PcProductSpecification();
+					spec.setUid(CodeHelper.getUUID());
 					spec.setCode(CodeHelper.getCode(PcProductSpecification.class));
 					spec.setName(ppa.getName());
 					spec.setValue(value);
@@ -108,22 +95,9 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		BigDecimal maxSellPrice = new BigDecimal(0.00);
 		// 整理属性
 		if (!entity.getSkuList().isEmpty() && entity.getSkuList().size() > 0) {
-			minSellPrice = entity.getSkuList().get(0).getSellPrice();
-			maxSellPrice = entity.getSkuList().get(0).getSellPrice();
-			for (PcSku sku : entity.getSkuList()) {
+			while (entity.getSkuList().iterator().hasNext()) {
+				PcSku sku = entity.getSkuList().iterator().next();
 				// sku相册
-				if (sku.getAlbum() != null) {
-					int total = entity.getAlbum().getPics().size();
-					sku.setCode(CodeHelper.getCode(PcAlbum.class));
-					sku.getAlbum().setTotal(BigDecimal.valueOf(total));
-					EntityResult<PcAlbum> _result = albumService.save(sku.getAlbum());
-					if (_result.getCode() != ResultType.SUCCESS) {
-						result.setCode(_result.getCode());
-						result.setMessage(_result.getMessage());
-						return result;
-					}
-					sku.setAlbum(_result.getEntity());
-				}
 				// sku属性
 				List<PcProductAttribute> skuAttributes = new ArrayList<PcProductAttribute>();
 				for (PcProductAttribute attribute : sku.getAttributes()) {
@@ -136,7 +110,8 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 						}
 					}
 				}
-				sku.setAttributes(skuAttributes);
+				Set<PcProductAttribute> _skuAttributes = new HashSet<PcProductAttribute>(skuAttributes);
+				sku.setAttributes(_skuAttributes);
 				sku.setCreateUser(entity.getCreateUser());
 				if (sku.getSellPrice().compareTo(minSellPrice) == -1) {
 					minSellPrice = sku.getSellPrice();
@@ -192,6 +167,8 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				result.setMessage("商品不存在");
 				return result;
 			}
+			Set<PcPicture> pics = repository.findProductPics(code);
+			product.setPics(pics);
 			result.setCode(ResultType.SUCCESS);
 			result.setEntity(product);
 			result.setMessage("查询成功");
@@ -210,16 +187,35 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		try {
 			List<PcProductSpecification> array = new ArrayList<PcProductSpecification>();
 			List<Object> list = ppsRepository.findProductSpecification(code);
-			if (list != null && !list.isEmpty()) {
-				for (Object object : list) {
-					Object[] data = (Object[]) object;
-					PcProductSpecification entity = new PcProductSpecification();
-					entity.setCode(data[0].toString());
-					entity.setName(data[1].toString());
-					entity.setValue(data[2].toString());
-					entity.setSort(Integer.valueOf(data[3].toString()));
-					array.add(entity);
+			Map<String, String> values = new TreeMap<String, String>();
+			Map<String, Integer> sorts = new TreeMap<String, Integer>();
+			for (Object object : list) {
+				Object[] data = (Object[]) object;
+				String name = data[1].toString();
+				String value = data[2].toString();
+				Integer sort = Integer.valueOf(data[3].toString());
+				if (values.containsKey(name)) {
+					value = values.get(name) + "," + value;
+					values.replace(name, value);
+				} else {
+					values.put(name, value);
 				}
+				if (sorts.containsKey(name)) {
+					int _sort = sorts.get(name);
+					if (sort < _sort) {
+						sorts.replace(name, sort);
+					}
+				} else {
+					sorts.put(name, sort);
+				}
+			}
+			List<PcProductSpecification> data = new ArrayList<PcProductSpecification>();
+			for (Entry<String, String> entry : values.entrySet()) {
+				PcProductSpecification attribute = new PcProductSpecification();
+				attribute.setName(entry.getKey());
+				attribute.setValue(entry.getValue());
+				attribute.setSort(sorts.get(entry.getKey()));
+				data.add(attribute);
 			}
 			result.setCode(ResultType.SUCCESS);
 			result.setData(array);
@@ -243,7 +239,6 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				result.setCode(ResultType.NULL);
 				result.setMessage("查询为空");
 			}
-			System.out.println(JSON.toJSONString(list));
 			Map<String, String> values = new TreeMap<String, String>();
 			Map<String, Integer> sorts = new TreeMap<String, Integer>();
 			for (Object object : list) {
@@ -290,14 +285,15 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	public DataResult<PcSku> getSkuList(String code) {
 		DataResult<PcSku> result = new DataResult<PcSku>();
 		try {
-			List<PcSku> list = repository.findSkuList(code);
+			Set<PcSku> list = repository.findSkuList(code);
 			if (list == null || list.isEmpty()) {
 				result.setCode(ResultType.NULL);
 				result.setMessage("查询为空");
 			}
 			result.setCode(ResultType.SUCCESS);
 			result.setMessage("查询成功");
-			result.setData(list);
+			List<PcSku> skuList = new ArrayList<>(list);
+			result.setData(skuList);
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.setCode(ResultType.ERROR);

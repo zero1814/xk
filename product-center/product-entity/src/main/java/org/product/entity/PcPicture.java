@@ -15,9 +15,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_album_pic")
+@Table(name = "pc_photograph")
 @ApiModel(value = "相册图集")
-public class PcAlbumPic extends BaseEntity {
+public class PcPicture extends BaseEntity {
 
 	private static final long serialVersionUID = -4517833807136641322L;
 
@@ -32,23 +32,21 @@ public class PcAlbumPic extends BaseEntity {
 
 	/**
 	 * 标题: 构造器 <br>
-	 * 描述: TODO <br>
 	 * 作者: zhy<br>
 	 * 时间: 2019年6月17日 下午2:41:34
 	 */
-	public PcAlbumPic() {
+	public PcPicture() {
 	}
 
 	/**
 	 * 标题: 构造器 <br>
-	 * 描述: TODO <br>
 	 * 作者: zhy<br>
 	 * 时间: 2019年6月17日 下午2:41:44
 	 * 
 	 * @param code
 	 * @param picUrl
 	 */
-	public PcAlbumPic(String code, String picUrl) {
+	public PcPicture(String code, String picUrl) {
 		this.code = code;
 		this.picUrl = picUrl;
 	}

@@ -3,6 +3,7 @@ package org.product.entity.product;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,14 +15,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.product.entity.PcAlbum;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.product.entity.PcBrand;
 import org.product.entity.PcKeyword;
 import org.product.entity.PcLabel;
+import org.product.entity.PcPicture;
 import org.product.entity.category.PcCategory;
 import org.product.entity.store.PcStore;
 import org.zero.spring.jpa.BaseEntity;
@@ -43,7 +45,7 @@ public class PcProduct extends BaseEntity {
 	public PcProduct() {
 	}
 
-	public PcProduct(List<PcSku> skuList) {
+	public PcProduct(Set<PcSku> skuList) {
 		this.skuList = skuList;
 	}
 
@@ -52,36 +54,18 @@ public class PcProduct extends BaseEntity {
 		this.store = store;
 	}
 
-	public PcProduct(String code, String name, String enName, String mainPic, PcStore store, PcBrand brand,
-			PcCategory category, BigDecimal minSellPrice, BigDecimal maxSellPrice, PcAlbum album,
-			PcProductStatus status) {
+
+	public PcProduct(String code, String name, String mainPic, PcStore store, PcBrand brand, PcCategory category,
+			BigDecimal minSellPrice, BigDecimal maxSellPrice, PcProductStatus status) {
 		this.code = code;
 		this.name = name;
-		this.enName = enName;
 		this.mainPic = mainPic;
 		this.store = store;
 		this.brand = brand;
 		this.category = category;
 		this.minSellPrice = minSellPrice;
 		this.maxSellPrice = maxSellPrice;
-		this.album = album;
 		this.status = status;
-	}
-
-	public PcProduct(String code, String name, String enName, String mainPic, String storeCode, String storeName,
-			String brandCode, String brandName, String categoryCode, String categoryName, BigDecimal minSellPrice,
-			BigDecimal maxSellPrice, PcAlbum album, String statusCode, String statusName) {
-		this.code = code;
-		this.name = name;
-		this.enName = enName;
-		this.mainPic = mainPic;
-		this.store = new PcStore(storeCode, storeName);
-		this.brand = new PcBrand(brandCode, brandName);
-		this.category = new PcCategory(categoryCode, categoryName);
-		this.minSellPrice = minSellPrice;
-		this.maxSellPrice = maxSellPrice;
-		this.album = album;
-		this.status = new PcProductStatus(statusCode, statusName);
 	}
 
 	@ApiModelProperty("编码")
@@ -92,10 +76,6 @@ public class PcProduct extends BaseEntity {
 	@ApiModelProperty("名称")
 	@Column(name = "name", length = 100, nullable = false, unique = true)
 	private String name;
-
-	@ApiModelProperty("英文名称")
-	@Column(name = "en_name", length = 100, unique = true)
-	private String enName;
 
 	@ApiModelProperty("商品主图")
 	@Column(name = "main_pic", length = 500, nullable = false)
@@ -124,11 +104,6 @@ public class PcProduct extends BaseEntity {
 	@Column(name = "max_sell_price")
 	private BigDecimal maxSellPrice;
 
-	@ApiModelProperty("商品相册")
-	@OneToOne
-	@JoinColumn(name = "album")
-	private PcAlbum album;
-
 	@ApiModelProperty("状态")
 	@ManyToOne
 	@JoinColumn(name = "status")
@@ -155,38 +130,52 @@ public class PcProduct extends BaseEntity {
 	private Date updateTime;
 
 	@ApiModelProperty("商品标签")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "pc_product_label", joinColumns = {
 			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "label", unique = false) }, uniqueConstraints = {
 							@UniqueConstraint(columnNames = { "product", "label" }) })
-	private List<PcLabel> labels;
+	private Set<PcLabel> labels;
 
 	@ApiModelProperty("商品关键字")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "pc_product_keyword", joinColumns = {
 			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "keyword", unique = false) }, uniqueConstraints = {
 							@UniqueConstraint(columnNames = { "product", "keyword" }) })
-	private List<PcKeyword> keywords;
+	private Set<PcKeyword> keywords;
 
 	@ApiModelProperty("商品规格")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinColumn(name = "product")
 	private List<PcProductSpecification> specList;
 
 	@ApiModelProperty("商品属性")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, orphanRemoval = true)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinColumn(name = "product")
-	private List<PcProductAttribute> attributeList;
+	private Set<PcProductAttribute> attributeList;
+
+	@ApiModelProperty("商品相册")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinTable(name = "pc_product_picture", joinColumns = {
+			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "picture", unique = false) }, uniqueConstraints = {
+							@UniqueConstraint(columnNames = { "product", "picture" }) })
+	private Set<PcPicture> pics;
 
 	@ApiModelProperty("商品sku")
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.REFRESH }, orphanRemoval = true)
 	@JoinColumn(name = "product")
-	private List<PcSku> skuList;
+	private Set<PcSku> skuList;
 
 	@ApiModelProperty("商品评价")
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.DETACH })
 	@JoinColumn(name = "product")
-	private List<PcProductComment> commentList;
+	private Set<PcProductComment> commentList;
+
 }

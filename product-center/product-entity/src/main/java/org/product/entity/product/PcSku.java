@@ -2,7 +2,7 @@ package org.product.entity.product;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,15 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import org.product.entity.PcAlbum;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.product.entity.PcPicture;
 import org.zero.spring.jpa.BaseEntity;
-
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -110,15 +110,20 @@ public class PcSku extends BaseEntity {
 	private Date updateTime;
 
 	@ApiModelProperty("sku属性")
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "pc_sku_attribute", joinColumns = {
 			@JoinColumn(name = "sku", unique = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "attribute", unique = false) }, uniqueConstraints = {
 							@UniqueConstraint(columnNames = { "sku", "attribute" }) })
-	private List<PcProductAttribute> attributes;
+	private Set<PcProductAttribute> attributes;
 
-	@ApiModelProperty("商品相册")
-	@OneToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
-	@JoinColumn(name = "album")
-	private PcAlbum album;
+	@ApiModelProperty("sku相册")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@Fetch(FetchMode.SUBSELECT)
+	@JoinTable(name = "pc_sku_picture", joinColumns = {
+			@JoinColumn(name = "sku", unique = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "picture", unique = false) }, uniqueConstraints = {
+							@UniqueConstraint(columnNames = { "sku", "picture" }) })
+	private Set<PcPicture> pics;
 }

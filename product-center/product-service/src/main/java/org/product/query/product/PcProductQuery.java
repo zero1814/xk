@@ -11,14 +11,11 @@ import javax.persistence.Query;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.query.internal.NativeQueryImpl;
 import org.hibernate.transform.Transformers;
-import org.product.entity.PcAlbum;
-import org.product.entity.PcAlbumPic;
 import org.product.entity.PcBrand;
 import org.product.entity.category.PcCategory;
 import org.product.entity.product.PcProduct;
 import org.product.entity.product.PcProductStatus;
 import org.product.entity.store.PcStore;
-import org.product.repository.PcAlbumPicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.zero.spring.jpa.QueryType;
@@ -31,8 +28,6 @@ import zero.commons.basics.DateUtil;
 public class PcProductQuery {
 	@Autowired
 	private EntityManager em;
-	@Autowired
-	private PcAlbumPicRepository albumPicRepository;
 
 	public PcProduct getEntityByCode(String code) {
 		PcProduct product = null;
@@ -53,14 +48,7 @@ public class PcProductQuery {
 		PcProduct product = new PcProduct();
 		product.setCode(list[0].toString());
 		product.setName(list[1].toString());
-		product.setEnName(list[2].toString());
 		product.setMainPic(list[3].toString());
-		// 商品相册
-		PcAlbum album = new PcAlbum();
-		album.setCode(list[4].toString());
-		List<PcAlbumPic> picList = albumPicRepository.all(album.getCode());
-		album.setPics(picList);
-		product.setAlbum(album);
 		// 品牌
 		PcBrand brand = new PcBrand();
 		brand.setCode(list[5].toString());
