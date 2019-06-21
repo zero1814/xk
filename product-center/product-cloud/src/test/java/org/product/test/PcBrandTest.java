@@ -25,6 +25,6 @@ public class PcBrandTest {
 		entity.setLogo(pic);
 		entity.setIcon(pic);
 		entity.setCreateUser("admin");
-		service.create(entity);
+		service.save(entity);
 	}
 }

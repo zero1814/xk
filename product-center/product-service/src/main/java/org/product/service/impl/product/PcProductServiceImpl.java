@@ -59,12 +59,13 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 
 	@Override
 	@Transactional
-	public EntityResult<PcProduct> create(PcProduct entity) {
+	public EntityResult<PcProduct> save(PcProduct entity) {
 		EntityResult<PcProduct> result = new EntityResult<PcProduct>();
 		if (entity.getAlbum() != null) {
 			int total = entity.getAlbum().getPics().size();
 			entity.getAlbum().setTotal(BigDecimal.valueOf(total));
-			EntityResult<PcAlbum> _result = albumService.create(entity.getAlbum());
+			entity.setCode(CodeHelper.getCode(PcAlbum.class));
+			EntityResult<PcAlbum> _result = albumService.save(entity.getAlbum());
 			if (_result.getCode() != ResultType.SUCCESS) {
 				result.setCode(_result.getCode());
 				result.setMessage(_result.getMessage());
@@ -87,6 +88,22 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 			}
 		}
 		entity.setAttributeList(productAttributes);
+
+		List<PcProductSpecification> productSpecifications = new ArrayList<PcProductSpecification>();
+		if (entity.getSpecList() != null && !entity.getSpecList().isEmpty()) {
+			for (PcProductSpecification ppa : entity.getSpecList()) {
+				String[] values = ppa.getValue().split(",");
+				for (String value : values) {
+					PcProductSpecification spec = new PcProductSpecification();
+					spec.setCode(CodeHelper.getCode(PcProductSpecification.class));
+					spec.setName(ppa.getName());
+					spec.setValue(value);
+					spec.setSort(ppa.getSort());
+					productSpecifications.add(spec);
+				}
+			}
+		}
+		entity.setSpecList(productSpecifications);
 		BigDecimal minSellPrice = new BigDecimal(0.00);
 		BigDecimal maxSellPrice = new BigDecimal(0.00);
 		// 整理属性
@@ -94,8 +111,22 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 			minSellPrice = entity.getSkuList().get(0).getSellPrice();
 			maxSellPrice = entity.getSkuList().get(0).getSellPrice();
 			for (PcSku sku : entity.getSkuList()) {
+				// sku相册
+				if (sku.getAlbum() != null) {
+					int total = entity.getAlbum().getPics().size();
+					sku.setCode(CodeHelper.getCode(PcAlbum.class));
+					sku.getAlbum().setTotal(BigDecimal.valueOf(total));
+					EntityResult<PcAlbum> _result = albumService.save(sku.getAlbum());
+					if (_result.getCode() != ResultType.SUCCESS) {
+						result.setCode(_result.getCode());
+						result.setMessage(_result.getMessage());
+						return result;
+					}
+					sku.setAlbum(_result.getEntity());
+				}
+				// sku属性
 				List<PcProductAttribute> skuAttributes = new ArrayList<PcProductAttribute>();
-				for (PcProductAttribute attribute : entity.getAttributeList()) {
+				for (PcProductAttribute attribute : sku.getAttributes()) {
 					for (PcProductAttribute productAttribute : productAttributes) {
 						if (StringUtils.equals(attribute.getName(), productAttribute.getName())
 								&& StringUtils.equals(attribute.getValue(), productAttribute.getValue())) {
@@ -117,8 +148,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		entity.setCode(CodeHelper.getCode(PcProduct.class));
 		entity.setMinSellPrice(minSellPrice);
 		entity.setMaxSellPrice(maxSellPrice);
-		System.out.println(JSON.toJSONString(entity));
-		return super.create(entity);
+		return super.save(entity);
 	}
 
 	@Transactional

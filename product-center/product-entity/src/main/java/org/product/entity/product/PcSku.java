@@ -110,7 +110,7 @@ public class PcSku extends BaseEntity {
 	private Date updateTime;
 
 	@ApiModelProperty("sku属性")
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH, CascadeType.MERGE })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinTable(name = "pc_sku_attribute", joinColumns = {
 			@JoinColumn(name = "sku", unique = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "attribute", unique = false) }, uniqueConstraints = {

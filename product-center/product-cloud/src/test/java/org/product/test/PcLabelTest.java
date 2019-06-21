@@ -34,7 +34,7 @@ public class PcLabelTest {
 			entity.setFlagEnabled(0);
 			entity.setSort(Long.valueOf(i));
 			entity.setCreateUser("admin");
-			service.create(entity);
+			service.save(entity);
 			i++;
 		}
 	}
