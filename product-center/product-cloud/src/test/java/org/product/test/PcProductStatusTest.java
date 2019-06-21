@@ -32,7 +32,7 @@ public class PcProductStatusTest {
 			entity.setName(val);
 			entity.setCreateUser("admin");
 			entity.setType(1);
-			service.save(entity);
+			service.create(entity);
 		}
 	}
 

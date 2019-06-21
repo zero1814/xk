@@ -56,9 +56,8 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	@Autowired
 	private PcProductAttributeRepository ppaRepository;
 
-	@Override
 	@Transactional
-	public EntityResult<PcProduct> save(PcProduct entity) {
+	public EntityResult<PcProduct> create(PcProduct entity) {
 		List<PcProductAttribute> productAttributes = new ArrayList<PcProductAttribute>();
 		if (entity.getAttributeList() != null && !entity.getAttributeList().isEmpty()) {
 			for (PcProductAttribute ppa : entity.getAttributeList()) {
@@ -123,7 +122,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		entity.setCode(CodeHelper.getCode(PcProduct.class));
 		entity.setMinSellPrice(minSellPrice);
 		entity.setMaxSellPrice(maxSellPrice);
-		return super.save(entity);
+		return super.create(entity);
 	}
 
 	@Transactional

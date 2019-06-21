@@ -58,7 +58,6 @@ public class PcCategoryServiceImpl extends BaseServiceImpl<PcCategory, String, P
 			}
 			String categoryCode = CodeHelper.getCode(entity.getClass());
 			Date date = new Date();
-			String user = entity.getCreateUser();
 			entity.setUid(CodeHelper.getUUID());
 			entity.setCode(categoryCode);
 			entity.setCreateTime(date);
@@ -77,20 +76,12 @@ public class PcCategoryServiceImpl extends BaseServiceImpl<PcCategory, String, P
 			for (PcCategorySpecification spec : specList) {
 				spec.setUid(CodeHelper.getUUID());
 				spec.setCode(CodeHelper.getCode(spec.getClass()));
-				spec.setCreateUser(user);
-				spec.setCreateTime(date);
-				spec.setUpdateUser(user);
-				spec.setUpdateTime(date);
 			}
 			entity.setSepcList(specList);
 			List<PcCategoryAttribute> attributeList = validateAtrribute(categoryCode, entity.getAttributeList());
 			for (PcCategoryAttribute attr : attributeList) {
 				attr.setUid(CodeHelper.getUUID());
 				attr.setCode(CodeHelper.getCode(attr.getClass()));
-				attr.setCreateUser(user);
-				attr.setCreateTime(date);
-				attr.setUpdateUser(user);
-				attr.setUpdateTime(date);
 			}
 			entity.setAttributeList(attributeList);
 			PcCategory category = repository.saveAndFlush(entity);
