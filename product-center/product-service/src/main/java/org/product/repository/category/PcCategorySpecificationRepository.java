@@ -9,6 +9,6 @@ import org.zero.spring.jpa.BaseRepository;
 
 public interface PcCategorySpecificationRepository extends BaseRepository<PcCategorySpecification, String> {
 
-	@Query("select new PcCategorySpecification(code,name,defaultValue,sort) from PcCategorySpecification where category=:category order by createTime desc")
+	@Query("select new PcCategorySpecification(code,name,defaultValue,sort) from PcCategorySpecification where category=:category order by sort desc")
 	List<PcCategorySpecification> getCategorySpecifications(@Param("category") String category);
 }

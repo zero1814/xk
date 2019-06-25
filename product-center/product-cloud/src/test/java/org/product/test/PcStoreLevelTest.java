@@ -19,12 +19,18 @@ public class PcStoreLevelTest {
 	private IPcStoreLevelService service;
 
 	@Test
+	public void create() {
+		PcStoreLevel entity = new PcStoreLevel();
+		entity.setName("普通");
+		entity.setFlagEnabled(0);
+		entity.setCreateUser("admin");
+		service.create(entity);
+	}
+
 	public void page() {
 		PcStoreLevel entity = new PcStoreLevel();
-		entity.setName("t");
-//		entity.setFlagEnabled(1);
-		entity.setPage(1);
-		entity.setSize(10);
+		entity.setName("普通");
+		entity.setFlagEnabled(1);
 		JSON.toJSONString(service.page(entity));
 	}
 }

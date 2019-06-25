@@ -37,4 +37,5 @@ public class PcProductSpecification extends BaseEntity {
 	@ApiModelProperty("排序")
 	@Column(name = "sort", length = 100, nullable = false)
 	private Integer sort;
+
 }

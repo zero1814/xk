@@ -2,6 +2,8 @@ package org.product.repository.product;
 
 import java.util.Set;
 
+import org.product.entity.PcKeyword;
+import org.product.entity.PcLabel;
 import org.product.entity.PcPicture;
 import org.product.entity.product.PcProduct;
 import org.product.entity.product.PcSku;
@@ -18,8 +20,14 @@ import org.zero.spring.jpa.BaseRepository;
  */
 public interface PcProductRepository extends BaseRepository<PcProduct, String> {
 
-	@Query("select pp.code, pp.name, pp.mainPic, pp.store, pp.brand, pp.category, pp.minSellPrice, pp.maxSellPrice, pp.status from PcProduct as pp where pp.code=:code")
+	@Query("select new PcProduct(pp.code, pp.name, pp.mainPic, pp.store.code as storeCode, pp.store.name as storeName, pp.brand.code as brandCode, pp.brand.name as brandName, pp.category.code as categoryCode, pp.category.name as categoryName,pp.minSellPrice, pp.maxSellPrice, pp.status.code as statusCode, pp.status.name as statusName) from PcProduct as pp where pp.code=:code")
 	PcProduct getProduct(@Param("code") String code);
+
+	@Query("select pp.labels from PcProduct as pp where pp.code=:code")
+	Set<PcLabel> findLabels(@Param("code") String code);
+
+	@Query("select pp.keywords from PcProduct as pp where pp.code=:code")
+	Set<PcKeyword> findkeywords(@Param("code") String code);
 
 	@Query("select pp.skuList from PcProduct as pp where pp.code=:code")
 	Set<PcSku> findSkuList(@Param("code") String code);

@@ -60,6 +60,7 @@ public class PcCategoryServiceImpl extends BaseServiceImpl<PcCategory, String, P
 			Date date = new Date();
 			entity.setUid(CodeHelper.getUUID());
 			entity.setCode(categoryCode);
+			entity.setUpdateUser(entity.getCreateUser());
 			entity.setCreateTime(date);
 			entity.setUpdateTime(date);
 			if (entity.getSepcList().isEmpty()) {

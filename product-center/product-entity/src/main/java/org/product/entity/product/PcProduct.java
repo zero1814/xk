@@ -54,7 +54,6 @@ public class PcProduct extends BaseEntity {
 		this.store = store;
 	}
 
-
 	public PcProduct(String code, String name, String mainPic, PcStore store, PcBrand brand, PcCategory category,
 			BigDecimal minSellPrice, BigDecimal maxSellPrice, PcProductStatus status) {
 		this.code = code;
@@ -66,6 +65,20 @@ public class PcProduct extends BaseEntity {
 		this.minSellPrice = minSellPrice;
 		this.maxSellPrice = maxSellPrice;
 		this.status = status;
+	}
+
+	public PcProduct(String code, String name, String mainPic, String storeCode, String storeName, String brandCode,
+			String brandName, String categoryCode, String categoryName, BigDecimal minSellPrice,
+			BigDecimal maxSellPrice, String statusCode, String statusName) {
+		this.code = code;
+		this.name = name;
+		this.mainPic = mainPic;
+		this.store = new PcStore(storeCode, storeName);
+		this.brand = new PcBrand(brandCode, brandName);
+		this.category = new PcCategory(categoryCode, categoryName);
+		this.minSellPrice = minSellPrice;
+		this.maxSellPrice = maxSellPrice;
+		this.status = new PcProductStatus(statusCode, statusName);
 	}
 
 	@ApiModelProperty("编码")
@@ -130,7 +143,7 @@ public class PcProduct extends BaseEntity {
 	private Date updateTime;
 
 	@ApiModelProperty("商品标签")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "pc_product_label", joinColumns = {
 			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
@@ -139,7 +152,7 @@ public class PcProduct extends BaseEntity {
 	private Set<PcLabel> labels;
 
 	@ApiModelProperty("商品关键字")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.REFRESH })
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "pc_product_keyword", joinColumns = {
 			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {
@@ -148,19 +161,19 @@ public class PcProduct extends BaseEntity {
 	private Set<PcKeyword> keywords;
 
 	@ApiModelProperty("商品规格")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinColumn(name = "product")
 	private List<PcProductSpecification> specList;
 
 	@ApiModelProperty("商品属性")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinColumn(name = "product")
 	private Set<PcProductAttribute> attributeList;
 
 	@ApiModelProperty("商品相册")
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name = "pc_product_picture", joinColumns = {
 			@JoinColumn(name = "product", unique = false) }, inverseJoinColumns = {

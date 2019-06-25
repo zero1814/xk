@@ -2,6 +2,7 @@ package org.product.service.impl.product;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,8 @@ import java.util.TreeMap;
 
 import javax.transaction.Transactional;
 
+import org.product.entity.PcKeyword;
+import org.product.entity.PcLabel;
 import org.product.entity.PcPicture;
 import org.product.entity.product.PcProduct;
 import org.product.entity.product.PcProductAttribute;
@@ -59,6 +62,8 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	@Transactional
 	public EntityResult<PcProduct> create(PcProduct entity) {
 		List<PcProductAttribute> productAttributes = new ArrayList<PcProductAttribute>();
+		String user = entity.getCreateUser();
+		Date date = new Date();
 		if (entity.getAttributeList() != null && !entity.getAttributeList().isEmpty()) {
 			for (PcProductAttribute ppa : entity.getAttributeList()) {
 				String[] values = ppa.getValue().split(",");
@@ -94,9 +99,9 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		BigDecimal maxSellPrice = new BigDecimal(0.00);
 		// 整理属性
 		if (!entity.getSkuList().isEmpty() && entity.getSkuList().size() > 0) {
-			while (entity.getSkuList().iterator().hasNext()) {
-				PcSku sku = entity.getSkuList().iterator().next();
-				// sku相册
+			for (PcSku sku : entity.getSkuList()) {
+				sku.setUid(CodeHelper.getUUID());
+				sku.setCode(CodeHelper.getCode(PcSku.class));
 				// sku属性
 				List<PcProductAttribute> skuAttributes = new ArrayList<PcProductAttribute>();
 				for (PcProductAttribute attribute : sku.getAttributes()) {
@@ -111,12 +116,16 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				}
 				Set<PcProductAttribute> _skuAttributes = new HashSet<PcProductAttribute>(skuAttributes);
 				sku.setAttributes(_skuAttributes);
-				sku.setCreateUser(entity.getCreateUser());
+				sku.setCreateUser(user);
+				sku.setCreateTime(date);
+				sku.setUpdateUser(user);
+				sku.setUpdateTime(date);
 				if (sku.getSellPrice().compareTo(minSellPrice) == -1) {
 					minSellPrice = sku.getSellPrice();
 				} else if (sku.getSellPrice().compareTo(maxSellPrice) == 1) {
 					maxSellPrice = sku.getSellPrice();
 				}
+
 			}
 		}
 		entity.setCode(CodeHelper.getCode(PcProduct.class));
@@ -166,6 +175,13 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				result.setMessage("商品不存在");
 				return result;
 			}
+			//标签
+			Set<PcLabel> labels = repository.findLabels(code);
+			product.setLabels(labels);
+			//关键字
+			Set<PcKeyword> keywords = repository.findkeywords(code);
+			product.setKeywords(keywords);
+			//图片
 			Set<PcPicture> pics = repository.findProductPics(code);
 			product.setPics(pics);
 			result.setCode(ResultType.SUCCESS);
