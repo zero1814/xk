@@ -9,6 +9,15 @@ import org.zero.spring.jpa.BaseRepository;
 
 public interface PcProductAttributeRepository extends BaseRepository<PcProductAttribute, String> {
 
-	@Query(nativeQuery=true,value="select code,name,value,sort from pc_product_attribute where product=:product")
+	@Query(nativeQuery = true, value = "select code,name,value,sort from pc_product_attribute where product=:product")
 	List<Object> findProductAttribute(@Param("product") String product);
+
+	@Query(nativeQuery = true, value = "select count(1) from pc_product_attribute where product=:product")
+	Long findProductAttributeTotal(@Param("product") String product);
+
+	@Query(nativeQuery = true, value = "delete from pc_product_attribute where product=:product")
+	int deleteAttributeByProduct(@Param("product") String product);
+
+	@Query(nativeQuery = true, value = "select count(1) from pc_sku_attribute where attribute=:attribute")
+	int skuConcatAttribute(@Param("attribute") String attribute);
 }

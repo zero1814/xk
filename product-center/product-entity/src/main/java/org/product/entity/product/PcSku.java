@@ -42,7 +42,8 @@ public class PcSku extends BaseEntity {
 	}
 
 	public PcSku(String code, String name, String mainPic, BigDecimal costPrice, BigDecimal marketPrice,
-			BigDecimal sellPrice, Long stock, Long warnStock, String statusCode, String statusName) {
+			BigDecimal sellPrice, Long stock, Long warnStock) {
+
 		this.code = code;
 		this.name = name;
 		this.mainPic = mainPic;
@@ -51,13 +52,17 @@ public class PcSku extends BaseEntity {
 		this.sellPrice = sellPrice;
 		this.stock = stock;
 		this.warnStock = warnStock;
-		this.status = new PcProductStatus(statusCode, statusName);
 	}
 
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50, updatable = false)
 	private String code;
+
+	@ApiModelProperty("商品")
+	@ManyToOne
+	@JoinColumn(name = "product")
+	private PcProduct product;
 
 	@ApiModelProperty("名称")
 	@Column(name = "name", length = 100, nullable = false, unique = true)
@@ -87,7 +92,12 @@ public class PcSku extends BaseEntity {
 	@Column(name = "warn_stock")
 	private Long warnStock;
 
+	@ApiModelProperty("是否已删除 0 未删除  1 已删除")
+	@Column(name = "flag_deleted",columnDefinition="int  default 0 ",nullable=false)
+	private Integer flagDeleted;
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH })
+	@Fetch(FetchMode.JOIN)
 	@JoinColumn(name = "status")
 	private PcProductStatus status;
 

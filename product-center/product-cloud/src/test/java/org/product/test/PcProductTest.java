@@ -30,15 +30,20 @@ public class PcProductTest {
 		System.out.println(JSON.toJSONString(product));
 	}
 
-	@Test
 	@Transactional
 	public void specification() {
 		System.out.println(JSON.toJSONString(service.getAttribute("PP1143060242133676032")));
 	}
 
-	@Test
 	@Transactional
 	public void attribute() {
 		System.out.println(JSON.toJSONString(service.getSpecification("PP1143060242133676032")));
+	}
+
+	@Test
+	@Transactional
+	public void sku() {
+		String code = "PP1143321214962364423";
+		System.out.println(JSON.toJSONString(service.getSkuList(code)));
 	}
 }

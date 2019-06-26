@@ -47,10 +47,17 @@ public class PcProductController extends BaseController<PcProduct, IPcProductSer
 		return WebResult.data(result);
 	}
 
+	@ApiOperation("查询商品属性是否绑定sku")
+	@GetMapping("attribute/concatsku/{attributeCode}")
+	public WebResult skuConcatAttribute(@PathVariable("attributeCode") String attributeCode) {
+		return WebResult.result(service.skuConcatAttribute(attributeCode));
+	}
+
 	@ApiOperation("查询商品的sku列表")
 	@GetMapping("sku/{code}")
 	public WebResult sku(@PathVariable("code") String code) {
 		DataResult<PcSku> result = service.getSkuList(code);
 		return WebResult.data(result);
 	}
+
 }

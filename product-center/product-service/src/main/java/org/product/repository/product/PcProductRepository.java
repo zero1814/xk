@@ -6,7 +6,6 @@ import org.product.entity.PcKeyword;
 import org.product.entity.PcLabel;
 import org.product.entity.PcPicture;
 import org.product.entity.product.PcProduct;
-import org.product.entity.product.PcSku;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zero.spring.jpa.BaseRepository;
@@ -28,9 +27,6 @@ public interface PcProductRepository extends BaseRepository<PcProduct, String> {
 
 	@Query("select pp.keywords from PcProduct as pp where pp.code=:code")
 	Set<PcKeyword> findkeywords(@Param("code") String code);
-
-	@Query("select pp.skuList from PcProduct as pp where pp.code=:code")
-	Set<PcSku> findSkuList(@Param("code") String code);
 
 	@Query("select pp.pics from PcProduct as pp where pp.code=:code")
 	Set<PcPicture> findProductPics(@Param("code") String code);

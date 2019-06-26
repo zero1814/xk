@@ -1,5 +1,7 @@
 package org.product.repository.product;
 
+import java.util.Set;
+
 import org.product.entity.product.PcSku;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +17,7 @@ import org.zero.spring.jpa.BaseRepository;
 public interface PcSkuRepository extends BaseRepository<PcSku, String> {
 	@Query("select ps from PcSku ps  where ps.code=:code")
 	PcSku findSku(@Param("code") String code);
+
+	@Query("select new PcSku(ps.code, ps.name, ps.mainPic, ps.costPrice, ps.marketPrice, ps.sellPrice, ps.stock, ps.warnStock) from PcSku as ps where ps.product.code=:product")
+	Set<PcSku> findProductSkuList(@Param("product") String code);
 }
