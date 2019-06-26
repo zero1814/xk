@@ -9,6 +9,7 @@ import org.product.service.product.IPcProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,12 +48,6 @@ public class PcProductController extends BaseController<PcProduct, IPcProductSer
 		return WebResult.data(result);
 	}
 
-	@ApiOperation("查询商品属性是否绑定sku")
-	@GetMapping("attribute/concatsku/{attributeCode}")
-	public WebResult skuConcatAttribute(@PathVariable("attributeCode") String attributeCode) {
-		return WebResult.result(service.skuConcatAttribute(attributeCode));
-	}
-
 	@ApiOperation("查询商品的sku列表")
 	@GetMapping("sku/{code}")
 	public WebResult sku(@PathVariable("code") String code) {
@@ -60,4 +55,9 @@ public class PcProductController extends BaseController<PcProduct, IPcProductSer
 		return WebResult.data(result);
 	}
 
+	@ApiOperation("整理商品信息")
+	@PostMapping("reorganize")
+	public WebResult reorganize(PcProduct product) {
+		return WebResult.obj(service.reorganize(product));
+	}
 }

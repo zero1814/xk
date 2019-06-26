@@ -6,7 +6,6 @@ import org.product.entity.product.PcProductSpecification;
 import org.product.entity.product.PcSku;
 import org.zero.spring.jpa.IBaseService;
 
-import zero.commons.basics.result.BaseResult;
 import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.EntityResult;
 
@@ -69,13 +68,13 @@ public interface IPcProductService extends IBaseService<PcProduct, String> {
 
 	/**
 	 * 
-	 * 方法: skuConcatAttribute <br>
-	 * 描述: 查询商品属性是否已经绑定sku商品 <br>
+	 * 方法: reorganize <br>
+	 * 描述: 整理商品对象 <br>
 	 * 作者: zhy<br>
-	 * 时间: 2019年6月25日 上午11:48:33
+	 * 时间: 2019年6月26日 下午2:18:30
 	 * 
-	 * @param attributeCode
+	 * @param product
 	 * @return
 	 */
-	BaseResult skuConcatAttribute(String attributeCode);
+	EntityResult<PcProduct> reorganize(PcProduct product);
 }

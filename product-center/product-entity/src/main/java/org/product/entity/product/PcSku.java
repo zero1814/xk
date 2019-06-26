@@ -93,7 +93,7 @@ public class PcSku extends BaseEntity {
 	private Long warnStock;
 
 	@ApiModelProperty("是否已删除 0 未删除  1 已删除")
-	@Column(name = "flag_deleted",columnDefinition="int  default 0 ",nullable=false)
+	@Column(name = "flag_deleted", columnDefinition = "int  default 0 ", nullable = false)
 	private Integer flagDeleted;
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH })
@@ -125,7 +125,15 @@ public class PcSku extends BaseEntity {
 			@JoinColumn(name = "sku", unique = false) }, inverseJoinColumns = {
 					@JoinColumn(name = "attribute", unique = false) }, uniqueConstraints = {
 							@UniqueConstraint(columnNames = { "sku", "attribute" }) })
-	private Set<PcProductAttribute> attributes;
+	private Set<PcProductAttributeValue> attributes;
+
+	@ApiModelProperty("sku属性")
+	@ManyToMany
+	@JoinTable(name = "pc_sku_specification", joinColumns = {
+			@JoinColumn(name = "sku", unique = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "specification", unique = false) }, uniqueConstraints = {
+							@UniqueConstraint(columnNames = { "sku", "specification" }) })
+	private Set<PcProductSpecificationValue> specifications;
 
 	@ApiModelProperty("sku相册")
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })

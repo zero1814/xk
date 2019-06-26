@@ -3,10 +3,11 @@ package org.product.service.product;
 import java.util.List;
 
 import org.product.entity.product.PcProductAttribute;
+import org.zero.spring.jpa.IBaseService;
 
 import zero.commons.basics.result.DataResult;
 
-public interface IPcProductAttributeService {
+public interface IPcProductAttributeService extends IBaseService<PcProductAttribute, String> {
 
 	/**
 	 * 
@@ -17,5 +18,5 @@ public interface IPcProductAttributeService {
 	 * 
 	 * @return
 	 */
-	DataResult<PcProductAttribute> arrange(List<PcProductAttribute> attributes);
+	DataResult<PcProductAttribute> reorganize(List<PcProductAttribute> attributes);
 }
