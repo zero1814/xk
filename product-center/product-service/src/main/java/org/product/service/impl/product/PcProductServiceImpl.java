@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.product.entity.PcKeyword;
@@ -37,6 +40,7 @@ import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.EntityResult;
 import zero.commons.basics.result.PageResult;
 import zero.commons.basics.result.ResultType;
+import zero.commons.basics.result.RootResult;
 
 /**
  * 
@@ -61,6 +65,8 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 
 	@Autowired
 	private PcSkuRepository skuRepository;
+	@Autowired
+	private EntityManager em;
 
 	@Transactional
 	public EntityResult<PcProduct> create(PcProduct entity) {
@@ -296,5 +302,127 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 			result.setMessage("整理失败");
 		}
 		return result;
+	}
+
+	/**
+	 * 
+	 * 方法: concatSpecification <br>
+	 * 
+	 * @param param
+	 * @return
+	 * @see org.product.service.product.IPcProductService#concatSpecification(java.util.Map)
+	 */
+	@Override
+	public RootResult concatSpecification(Map<String, String> param) {
+		RootResult result = new RootResult();
+		boolean isConcat = isConcatSpecification(param.get("code"), param.get("value"));
+		try {
+			result.setCode(ResultType.SUCCESS);
+			result.setObj(isConcat);
+			result.setMessage("判断商品规格参数sku是否包含成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setCode(ResultType.ERROR);
+			result.setMessage("判断商品规格参数sku是否包含报错");
+		}
+		return result;
+	}
+
+	/**
+	 * 
+	 * 方法: concatAttribute <br>
+	 * 
+	 * @param param
+	 * @return
+	 * @see org.product.service.product.IPcProductService#concatAttribute(java.util.Map)
+	 */
+	@Override
+	public RootResult concatAttribute(Map<String, String> param) {
+		RootResult result = new RootResult();
+		try {
+			boolean isConcat = isConcatAttributeValue(param.get("code"), param.get("value"));
+			result.setCode(ResultType.SUCCESS);
+			result.setObj(isConcat);
+			result.setMessage("判断商品属性参数sku是否包含成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			result.setCode(ResultType.ERROR);
+			result.setMessage("判断商品属性参数sku是否包含报错");
+		}
+		return result;
+	}
+
+	/**
+	 * 
+	 * 方法: isConcatSpecification <br>
+	 * 描述: 商品规格参数是否在sku中的规格参数有设置 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月27日 下午4:56:14
+	 * 
+	 * @param attributeName
+	 * @param attributeValue
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public boolean isConcatAttributeValue(String attributeCode, String attributeValue) {
+		boolean isConcat = false;
+		try {
+			StringBuffer sql = new StringBuffer("SELECT DISTINCT ppav.value as value FROM pc_sku_attribute AS psa");
+			sql.append(" LEFT JOIN pc_product_attribute_value AS ppav ON psa.attribute = ppav.code");
+			sql.append(" LEFT JOIN pc_product_attribute AS ppa ON ppav.attribute = ppa.code");
+			sql.append(" where ppa.code =:code");
+			Query query = em.createNativeQuery(sql.toString());
+			query.setParameter("code", attributeCode);
+			List<Object> list = query.getResultList();
+			if (list != null && list.size() > 0) {
+				for (Object object : list) {
+					String name = object.toString();
+					if (StringUtils.contains(name, attributeValue)) {
+						isConcat = true;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isConcat;
+	}
+
+	/**
+	 * 
+	 * 方法: isConcatAttributeValue <br>
+	 * 描述: 商品规格参数是否在sku中的属性参数有设置 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月27日 下午4:40:32
+	 * 
+	 * @param attributeName
+	 * @param attributeValue
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private boolean isConcatSpecification(String specificationCode, String specificationValue) {
+		boolean isConcat = false;
+		try {
+			StringBuffer sql = new StringBuffer("SELECT DISTINCT pps.value as value FROM pc_sku_specification AS pss");
+			sql.append(" LEFT JOIN pc_product_specification_value AS ppsv ON ppsv.code = pss.specification");
+			sql.append(" LEFT JOIN pc_product_specification AS pps ON ppsv.specification = pps.code");
+			sql.append(" where pps.code =:code");
+			Query query = em.createNativeQuery(sql.toString());
+			query.setParameter("code", specificationCode);
+			List<Object> list = query.getResultList();
+			if (list != null && list.size() > 0) {
+				for (Object object : list) {
+					String name = object.toString();
+					if (StringUtils.contains(name, specificationValue)) {
+						isConcat = true;
+						break;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isConcat;
 	}
 }

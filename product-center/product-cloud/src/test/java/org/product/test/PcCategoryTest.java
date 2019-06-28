@@ -31,13 +31,13 @@ public class PcCategoryTest {
 		List<PcCategorySpecification> specificationData = new ArrayList<PcCategorySpecification>();
 		PcCategorySpecification pcs = new PcCategorySpecification();
 		pcs.setName("内存");
-		pcs.setDefaultValue("4G,6G,8G");
+		pcs.setValue("4G,6G,8G");
 		pcs.setSort(0);
 		specificationData.add(pcs);
 		List<PcCategoryAttribute> attributeData = new ArrayList<PcCategoryAttribute>();
 		PcCategoryAttribute attribute = new PcCategoryAttribute();
 		attribute.setName("内存");
-		attribute.setDefaultValue("4G,6G,8G");
+		attribute.setValue("4G,6G,8G");
 		attribute.setSort(0);
 		attributeData.add(attribute);
 		String[] names = new String[] { "手机", "电脑", "平板" };

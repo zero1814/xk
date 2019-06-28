@@ -25,10 +25,10 @@ public class PcCategoryAttribute extends BaseEntity {
 	public PcCategoryAttribute() {
 	}
 
-	public PcCategoryAttribute(String code, String name, String defaultValue, Integer sort) {
+	public PcCategoryAttribute(String code, String name, String value, Integer sort) {
 		this.code = code;
 		this.name = name;
-		this.defaultValue = defaultValue;
+		this.value = value;
 		this.sort = sort;
 	}
 
@@ -42,8 +42,8 @@ public class PcCategoryAttribute extends BaseEntity {
 	private String name;
 
 	@ApiModelProperty("默认可选值，多选使用','隔开")
-	@Column(name = "default_value", length = 500)
-	private String defaultValue;
+	@Column(name = "value", length = 500)
+	private String value;
 
 	@ApiModelProperty("排序")
 	@Column(name = "sort")

@@ -1,5 +1,7 @@
 package org.product.service.product;
 
+import java.util.Map;
+
 import org.product.entity.product.PcProduct;
 import org.product.entity.product.PcProductAttribute;
 import org.product.entity.product.PcProductSpecification;
@@ -8,6 +10,7 @@ import org.zero.spring.jpa.IBaseService;
 
 import zero.commons.basics.result.DataResult;
 import zero.commons.basics.result.EntityResult;
+import zero.commons.basics.result.RootResult;
 
 /**
  * 
@@ -77,4 +80,28 @@ public interface IPcProductService extends IBaseService<PcProduct, String> {
 	 * @return
 	 */
 	EntityResult<PcProduct> reorganize(PcProduct product);
+
+	/**
+	 * 
+	 * 方法: concatSpecification <br>
+	 * 描述: 判断商品规格参数sku是否包含 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月27日 下午5:20:08
+	 * 
+	 * @param param
+	 * @return
+	 */
+	RootResult concatSpecification(Map<String, String> param);
+
+	/**
+	 * 
+	 * 方法: concatAttribute <br>
+	 * 描述: 判断商品属性参数sku是否包含 <br>
+	 * 作者: zhy<br>
+	 * 时间: 2019年6月27日 下午5:20:26
+	 * 
+	 * @param param
+	 * @return
+	 */
+	RootResult concatAttribute(Map<String, String> param);
 }

@@ -10,6 +10,6 @@ import org.zero.spring.jpa.IBaseService;
  * 作者: zhy<br>
  * 时间: 2019年4月29日 下午4:48:04
  */
-public interface IPcSkuService extends IBaseService<PcSku, String>{
+public interface IPcSkuService extends IBaseService<PcSku, String> {
 
 }

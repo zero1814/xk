@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.zero.spring.jpa.BaseEntity;
 
@@ -21,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "pc_product_attribute")
+@Table(name = "pc_product_attribute", uniqueConstraints = { @UniqueConstraint(columnNames = { "product", "name" }) })
 @ApiModel(value = "商品规格参数管理")
 public class PcProductAttribute extends BaseEntity {
 

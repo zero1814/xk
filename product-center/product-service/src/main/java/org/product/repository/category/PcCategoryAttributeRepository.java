@@ -9,6 +9,6 @@ import org.zero.spring.jpa.BaseRepository;
 
 public interface PcCategoryAttributeRepository extends BaseRepository<PcCategoryAttribute, String> {
 
-	@Query("select new PcCategoryAttribute(code,name,defaultValue,sort) from PcCategorySpecification where category=:category order by sort desc")
+	@Query("select new PcCategoryAttribute(code,name,value,sort) from PcCategorySpecification where category=:category order by sort desc")
 	List<PcCategoryAttribute> getCategoryAttributes(@Param("category") String category);
 }
