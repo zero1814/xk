@@ -30,6 +30,7 @@ public class PcProductAttributeValue extends BaseEntity {
 	@Column(name = "code", length = 50, updatable = false)
 	private String code;
 
+	@ApiModelProperty("商品属性编码")
 	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST})
 	@JoinColumn(name = "attribute")
 	private PcProductAttribute attribute;

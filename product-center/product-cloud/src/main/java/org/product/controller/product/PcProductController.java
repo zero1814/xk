@@ -61,7 +61,7 @@ public class PcProductController extends BaseController<PcProduct, IPcProductSer
 
 	@ApiOperation("整理商品信息")
 	@PostMapping("reorganize")
-	public WebResult reorganize(PcProduct product) {
+	public WebResult reorganize(@RequestBody PcProduct product) {
 		return WebResult.obj(service.reorganize(product));
 	}
 

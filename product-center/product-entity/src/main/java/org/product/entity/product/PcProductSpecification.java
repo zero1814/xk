@@ -42,6 +42,7 @@ public class PcProductSpecification extends BaseEntity {
 	@Column(name = "sort", length = 100, nullable = false)
 	private Integer sort;
 
+	@ApiModelProperty("商品规格参数值列表")
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	@JoinColumn(name = "specification")
 	private List<PcProductSpecificationValue> values;

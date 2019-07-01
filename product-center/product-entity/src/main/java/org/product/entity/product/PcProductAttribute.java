@@ -51,6 +51,7 @@ public class PcProductAttribute extends BaseEntity {
 	@Column(name = "sort", columnDefinition = "int default 0 comment '排序'", nullable = false)
 	private Integer sort;
 
+	@ApiModelProperty("商品属性值列表")
 	@OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
 	@JoinColumn(name = "attribute")
 	private List<PcProductAttributeValue> values;

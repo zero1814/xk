@@ -2,7 +2,6 @@ package org.product.entity.product;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -164,7 +163,7 @@ public class PcProduct extends BaseEntity {
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinColumn(name = "product")
-	private List<PcProductSpecification> specList;
+	private Set<PcProductSpecification> specList;
 
 	@ApiModelProperty("商品属性")
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
