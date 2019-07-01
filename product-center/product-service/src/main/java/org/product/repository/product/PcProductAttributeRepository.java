@@ -9,7 +9,7 @@ import org.zero.spring.jpa.BaseRepository;
 
 public interface PcProductAttributeRepository extends BaseRepository<PcProductAttribute, String> {
 
-	@Query(nativeQuery = true, value = "select code,name,value,sort from pc_product_attribute where product=:product")
+	@Query("from pc_product_attribute as ppa where ppa.product.code=:product")
 	List<Object> findProductAttribute(@Param("product") String product);
 
 	@Query(nativeQuery = true, value = "select count(1) from pc_product_attribute where product=:product")

@@ -105,7 +105,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 		List<PcProductSpecification> specifications = new ArrayList<PcProductSpecification>();
 		if (entity.getSpecList() != null && !entity.getSpecList().isEmpty()) {
 			for (PcProductSpecification ppa : entity.getSpecList()) {
-				List<PcProductSpecificationValue> values = ppa.getValues();
+				List<PcProductSpecificationValue> values = ppa.getSpecValues();
 				ppsVRepository.saveAll(values);
 				ppsVRepository.flush();
 				specifications.add(ppa);
@@ -243,7 +243,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	public DataResult<PcProductSpecification> getSpecification(String code) {
 		DataResult<PcProductSpecification> result = new DataResult<PcProductSpecification>();
 		try {
-			List<PcProductSpecification> list = ppsRepository.findAll();
+			List<PcProductSpecification> list = ppsRepository.findProductSpecification(code);
 			result.setCode(ResultType.SUCCESS);
 			result.setData(list);
 			result.setMessage("查询成功");
@@ -303,7 +303,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				// 整理商品参数列表
 				for (PcProductSpecification spec : product.getSpecList()) {
 					spec.setCode(CodeHelper.getCode(PcProductSpecification.class));
-					List<PcProductSpecificationValue> values = spec.getValues();
+					List<PcProductSpecificationValue> values = spec.getSpecValues();
 					for (PcProductSpecificationValue value : values) {
 						value.setCode(CodeHelper.getCode(PcProductSpecificationValue.class));
 					}
@@ -399,7 +399,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public boolean isConcatAttributeValue(String attributeCode, String attributeValue) {
+	private boolean isConcatAttributeValue(String attributeCode, String attributeValue) {
 		boolean isConcat = false;
 		try {
 			StringBuffer sql = new StringBuffer("SELECT DISTINCT ppav.value as value FROM pc_sku_attribute AS psa");

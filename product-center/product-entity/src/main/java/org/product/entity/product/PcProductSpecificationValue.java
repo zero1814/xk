@@ -1,12 +1,8 @@
 package org.product.entity.product;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.zero.spring.jpa.BaseEntity;
@@ -29,11 +25,6 @@ public class PcProductSpecificationValue extends BaseEntity {
 	@Id
 	@Column(name = "code", length = 50, updatable = false)
 	private String code;
-
-	@ApiModelProperty("商品规格参数编码")
-	@ManyToOne(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST })
-	@JoinColumn(name = "specification")
-	private PcProductSpecification specification;
 
 	@ApiModelProperty("属性值")
 	@Column(name = "value", length = 100, nullable = false)
