@@ -77,19 +77,25 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 
 	@Transactional
 	public EntityResult<PcProduct> create(PcProduct entity) {
+		String user = entity.getCreateUser();
+		Date date = new Date();
+		entity.setUid(CodeHelper.getUUID());
+		entity.setCode(CodeHelper.getCode(PcProduct.class));
+		entity.setCreateUser(user);
+		entity.setCreateTime(date);
 		// 商品相册
 		if (entity.getPics() != null && !entity.getPics().isEmpty()) {
 			List<PcPicture> pictures = new ArrayList<PcPicture>(entity.getPics());
 			for (PcPicture pic : pictures) {
-				pic.setCode(CodeHelper.getCode(PcPicture.class));
+				if (StringUtils.isBlank(pic.getCode())) {
+					pic.setCode(CodeHelper.getCode(PcPicture.class));
+				}
 			}
 			picRepository.saveAll(pictures);
 			picRepository.flush();
 		}
 		// 商品属性
 		List<PcProductAttribute> attributes = new ArrayList<PcProductAttribute>();
-		String user = entity.getCreateUser();
-		Date date = new Date();
 		if (entity.getAttributeList() != null && !entity.getAttributeList().isEmpty()) {
 			for (PcProductAttribute ppa : entity.getAttributeList()) {
 				List<PcProductAttributeValue> values = ppa.getValues();
@@ -134,46 +140,79 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 				}
 			}
 		}
-		entity.setUid(CodeHelper.getUUID());
-		entity.setCode(CodeHelper.getCode(PcProduct.class));
 		entity.setMinSellPrice(minSellPrice);
 		entity.setMaxSellPrice(maxSellPrice);
-		entity.setCreateUser(user);
-		entity.setCreateTime(date);
 		return super.create(entity);
 	}
 
 	@Override
 	public EntityResult<PcProduct> update(PcProduct entity) {
-		EntityResult<PcProduct> result = new EntityResult<PcProduct>();
-		try {
-			boolean flag = isExistsEntityById(entity);
-			if (!flag) {
-				result.setCode(ResultType.NULL);
-				result.setMessage("对象不存在");
-				return result;
-			}
-			BigDecimal minSellPrice = new BigDecimal(0.00);
-			BigDecimal maxSellPrice = new BigDecimal(0.00);
-			// 整理SKU
-			if (!entity.getSkuList().isEmpty() && entity.getSkuList().size() > 0) {
-				for (PcSku sku : entity.getSkuList()) {
-					if (StringUtils.isBlank(sku.getUid())) {
-						sku.setUid(CodeHelper.getUUID());
-					}
-					if (StringUtils.isBlank(sku.getCode())) {
-						sku.setCode(CodeHelper.getCode(PcSku.class));
-					}
-					if (sku.getSellPrice().compareTo(minSellPrice) == -1) {
-						minSellPrice = sku.getSellPrice();
-					} else if (sku.getSellPrice().compareTo(maxSellPrice) == 1) {
-						maxSellPrice = sku.getSellPrice();
-					}
+		String user = entity.getCreateUser();
+		// 商品相册
+		if (entity.getPics() != null && !entity.getPics().isEmpty()) {
+			List<PcPicture> pictures = new ArrayList<PcPicture>(entity.getPics());
+			for (PcPicture pic : pictures) {
+				if (StringUtils.isBlank(pic.getCode())) {
+					pic.setCode(CodeHelper.getCode(PcPicture.class));
+				} else if (StringUtils.isBlank(pic.getUid())) {
+					pic.setUid(CodeHelper.getUUID());
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			picRepository.saveAll(pictures);
+			picRepository.flush();
 		}
+		// 商品属性
+		List<PcProductAttribute> attributes = new ArrayList<PcProductAttribute>();
+		Date date = new Date();
+		if (entity.getAttributeList() != null && !entity.getAttributeList().isEmpty()) {
+			for (PcProductAttribute ppa : entity.getAttributeList()) {
+				List<PcProductAttributeValue> values = ppa.getValues();
+				ppaVRepository.saveAll(values);
+				ppaVRepository.flush();
+				attributes.add(ppa);
+			}
+		}
+		ppaRepository.saveAll(attributes);
+		ppaRepository.flush();
+		entity.setAttributeList(new HashSet<PcProductAttribute>(attributes));
+		// 商品规格参数
+		List<PcProductSpecification> specifications = new ArrayList<PcProductSpecification>();
+		if (entity.getSpecList() != null && !entity.getSpecList().isEmpty()) {
+			for (PcProductSpecification ppa : entity.getSpecList()) {
+				List<PcProductSpecificationValue> values = ppa.getSpecValues();
+				ppsVRepository.saveAll(values);
+				ppsVRepository.flush();
+				specifications.add(ppa);
+			}
+		}
+		ppsRepository.saveAll(specifications);
+		ppsRepository.flush();
+		entity.setSpecList(new HashSet<PcProductSpecification>(specifications));
+		BigDecimal minSellPrice = new BigDecimal(0.00);
+		BigDecimal maxSellPrice = new BigDecimal(0.00);
+		// 整理SKU
+		if (!entity.getSkuList().isEmpty() && entity.getSkuList().size() > 0) {
+			for (PcSku sku : entity.getSkuList()) {
+				if (StringUtils.isBlank(sku.getUid())) {
+					sku.setUid(CodeHelper.getUUID());
+				} else if (StringUtils.isBlank(sku.getCode())) {
+					sku.setCode(CodeHelper.getCode(PcSku.class));
+				}
+				sku.setProduct(entity);
+				sku.setUpdateUser(user);
+				sku.setUpdateTime(date);
+				sku.setFlagDeleted(0);
+				if (sku.getSellPrice().compareTo(minSellPrice) == -1) {
+					minSellPrice = sku.getSellPrice();
+				} else if (sku.getSellPrice().compareTo(maxSellPrice) == 1) {
+					maxSellPrice = sku.getSellPrice();
+				}
+			}
+		}
+		entity.setMinSellPrice(minSellPrice);
+		entity.setMaxSellPrice(maxSellPrice);
+		entity.setUpdateUser(user);
+		entity.setUpdateTime(date);
 		return super.update(entity);
 	}
 
@@ -243,9 +282,9 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	public DataResult<PcProductSpecification> getSpecification(String code) {
 		DataResult<PcProductSpecification> result = new DataResult<PcProductSpecification>();
 		try {
-			List<PcProductSpecification> list = ppsRepository.findProductSpecification(code);
+			List<PcProductSpecification> specData = repository.findProductSpecificationData(code);
+			result.setData(specData);
 			result.setCode(ResultType.SUCCESS);
-			result.setData(list);
 			result.setMessage("查询成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -260,8 +299,7 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 	public DataResult<PcProductAttribute> getAttribute(String code) {
 		DataResult<PcProductAttribute> result = new DataResult<PcProductAttribute>();
 		try {
-
-			List<PcProductAttribute> list = ppaRepository.findAll();
+			List<PcProductAttribute> list = repository.findProductAttibuteData(code);
 			result.setCode(ResultType.SUCCESS);
 			result.setData(list);
 			result.setMessage("查询成功");
@@ -302,20 +340,34 @@ public class PcProductServiceImpl extends BaseServiceImpl<PcProduct, String, PcP
 			if (product.getSpecList() != null && !product.getSpecList().isEmpty()) {
 				// 整理商品参数列表
 				for (PcProductSpecification spec : product.getSpecList()) {
-					spec.setCode(CodeHelper.getCode(PcProductSpecification.class));
+					if (StringUtils.isBlank(spec.getCode())) {
+						spec.setCode(CodeHelper.getCode(PcProductSpecification.class));
+					}else if(StringUtils.isBlank(spec.getUid())) {
+						spec.setUid(CodeHelper.getUUID());
+					}
 					List<PcProductSpecificationValue> values = spec.getSpecValues();
 					for (PcProductSpecificationValue value : values) {
-						value.setCode(CodeHelper.getCode(PcProductSpecificationValue.class));
+						if (StringUtils.isBlank(value.getCode())) {
+							value.setCode(CodeHelper.getCode(PcProductSpecificationValue.class));
+						} else if (StringUtils.isBlank(value.getUid())) {
+							value.setUid(CodeHelper.getUUID());
+						}
 					}
 				}
 			}
 			if (product.getAttributeList() != null && !product.getAttributeList().isEmpty()) {
 				// 整理商品属性列表
 				for (PcProductAttribute attribute : product.getAttributeList()) {
-					attribute.setCode(CodeHelper.getCode(PcProductAttribute.class));
+					if (StringUtils.isBlank(attribute.getCode())) {
+						attribute.setCode(CodeHelper.getCode(PcProductAttribute.class));
+					}
 					List<PcProductAttributeValue> values = attribute.getValues();
 					for (PcProductAttributeValue value : values) {
-						value.setCode(CodeHelper.getCode(PcProductAttributeValue.class));
+						if (StringUtils.isBlank(value.getCode())) {
+							value.setCode(CodeHelper.getCode(PcProductAttributeValue.class));
+						} else if (StringUtils.isBlank(value.getUid())) {
+							value.setUid(CodeHelper.getUUID());
+						}
 					}
 				}
 			}

@@ -1,11 +1,14 @@
 package org.product.repository.product;
 
+import java.util.List;
 import java.util.Set;
 
 import org.product.entity.PcKeyword;
 import org.product.entity.PcLabel;
 import org.product.entity.PcPicture;
 import org.product.entity.product.PcProduct;
+import org.product.entity.product.PcProductAttribute;
+import org.product.entity.product.PcProductSpecification;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zero.spring.jpa.BaseRepository;
@@ -31,4 +34,9 @@ public interface PcProductRepository extends BaseRepository<PcProduct, String> {
 	@Query("select pp.pics from PcProduct as pp where pp.code=:code")
 	Set<PcPicture> findProductPics(@Param("code") String code);
 
+	@Query("select pp.specList from PcProduct as pp where pp.code=:code")
+	List<PcProductSpecification> findProductSpecificationData(@Param("code") String code);
+	
+	@Query("select pp.attributeList from PcProduct as pp where pp.code=:code")
+	List<PcProductAttribute> findProductAttibuteData(@Param("code") String code);
 }

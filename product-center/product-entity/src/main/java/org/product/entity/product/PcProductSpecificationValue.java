@@ -21,6 +21,15 @@ public class PcProductSpecificationValue extends BaseEntity {
 
 	private static final long serialVersionUID = -9222133232207117060L;
 
+	public PcProductSpecificationValue() {
+	}
+
+	public PcProductSpecificationValue(String code, String value, Integer sort) {
+		this.code = code;
+		this.value = value;
+		this.sort = sort;
+	}
+
 	@ApiModelProperty("编码")
 	@Id
 	@Column(name = "code", length = 50, updatable = false)

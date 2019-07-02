@@ -1,7 +1,5 @@
 package org.product.repository.product;
 
-import java.util.List;
-
 import org.product.entity.product.PcProductSpecification;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +10,4 @@ public interface PcProductSpecificationRepository extends BaseRepository<PcProdu
 	@Query(nativeQuery = true, value = "delete from pc_product_specification where product=:product")
 	int deleteSpecificationByProduct(@Param("product") String product);
 
-	@Query("from PcProductSpecification as pps where pps.product.code =:product")
-	List<PcProductSpecification> findProductSpecification(@Param("product") String product);
 }
