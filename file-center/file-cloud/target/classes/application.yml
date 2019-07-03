@@ -1,0 +1,11 @@
+server:
+  port: 8030
+spring:
+  application:
+    name: file-cloud
+  profiles:
+    active: beta
+logging:
+  level: 
+    root: info
+  config: classpath:logback.xml

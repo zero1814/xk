@@ -1,0 +1,27 @@
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.itmuch.youran.persistence: ERROR
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    # 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，
+    # 请登录 https://ram.console.aliyun.com 创建RAM账号
+    accessKeyId: LTAIb5HLChMHbnkK
+    accessKeySecret: meBe3ranucLYvIGPQVKo950bo93W4A
+    bucketName: xk-mall
+    policy:
+      expire: 300
+    maxSize: 10
+    callback: http://192.168.99.100:8180/file-cloud/aliyun/oss/callback
+    dir:
+      prefix: xk-mall
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://192.168.99.100:8010/eureka/
