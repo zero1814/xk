@@ -27,21 +27,16 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
 
 		// 配置两个客户端，一个用于password认证一个用于client认证
-		clients.inMemory().withClient("client_1")
-				// .resourceIds(Utils.RESOURCEIDS.ORDER)
-				.authorizedGrantTypes("client_credentials", "refresh_token").scopes("select").authorities("oauth2")
-				.secret(finalSecret).and().withClient("client_2")
-				// .resourceIds(Utils.RESOURCEIDS.ORDER)
+		clients.inMemory().withClient("client_1").authorizedGrantTypes("client_credentials", "refresh_token")
+				.scopes("select").authorities("oauth2").secret(finalSecret).and().withClient("client_2")
 				.authorizedGrantTypes("password", "refresh_token").scopes("server").authorities("oauth2")
 				.secret(finalSecret);
 	}
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.authenticationManager(authenticationManager)
-				// 指定token存储位置
-				.tokenStore(new CustomRedisTokenStore(redisConnectionFactory))
-				// 允许 GET、POST 请求获取 token，即访问端点：oauth/token
+		endpoints.tokenStore(new CustomRedisTokenStore(redisConnectionFactory))
+				.authenticationManager(authenticationManager)
 				.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 	}
 

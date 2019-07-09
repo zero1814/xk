@@ -1,7 +1,8 @@
 package org.oauth.customer.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,13 +14,19 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import feign.RequestInterceptor;
 
 @EnableOAuth2Client
-@EnableConfigurationProperties
 @Configuration
 public class OAuth2ClientConfig {
 	@Bean
-	@ConfigurationProperties(prefix = "security.oauth2.client")
 	public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
-		return new ClientCredentialsResourceDetails();
+		ClientCredentialsResourceDetails detail = new ClientCredentialsResourceDetails();
+		detail.setAccessTokenUri("http://192.168.99.100:9098/oauth/token");
+		detail.setClientId("client_2");
+		detail.setClientSecret("123456");
+		detail.setGrantType("password");
+		List<String> scopes = new ArrayList<>();
+		scopes.add("server");
+		detail.setScope(scopes);
+		return detail;
 	}
 
 	@Bean
