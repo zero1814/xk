@@ -46,4 +46,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 		security.allowFormAuthenticationForClients().tokenKeyAccess("permitAll()")
 				.checkTokenAccess("isAuthenticated()");
 	}
+	
+	public static void main(String[] args) {
+		
+		String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
+		System.out.println(finalSecret);
+	}
 }

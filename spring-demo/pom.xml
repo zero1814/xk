@@ -64,6 +64,10 @@
 	<modules>
 		<module>springcloud-eureka-server</module>
 		<module>springcloud-security-oauth2</module>
-    <module>springcloud-oauth-customer</module>
+		<module>springcloud-oauth-customer</module>
+		<module>springcloud-security-oauth2-mysql</module>
+		<module>springcloud-security-oauth-customer-mysql</module>
+		<module>springcloud-security-oauth2-jwt</module>
+    <module>springcloud-security-oauth-customer-jwt</module>
   </modules>
 </project>

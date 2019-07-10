@@ -1,0 +1,50 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.99.100:8010/eureka/
+server:
+  port: 8765
+spring:
+  application:
+    name: service-hi
+  datasource:
+    name: product
+    url: jdbc:mysql://localhost:3306/cloud_oauth?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    initialSize: 1
+    maxWait: 60000
+    maxActive: 20
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+security:
+  oauth2:
+    client:
+      id: client_2
+      client-secret: 123456
+      access-token-uri: http://192.168.99.100:9098/oauth/token
+      user-authorization-uri: http://192.168.99.100:9098/oauth/authorize
+      grant-type: password
+      scope: server
+    resource:
+      jwt:
+        key-uri: http://192.168.99.100:9098/oauth/token_key
+      token-info-uri: http://192.168.99.100:9098/oauth/check_token
+      user-info-uri: http://192.168.99.100:9098/user/current
+    authorization:
+      check-token-access: http://192.168.99.100:9098/oauth/check_token

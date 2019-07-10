@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: cloud-oauth-demo
+  datasource:
+    name: cloud-oauth
+    url: jdbc:mysql://192.168.99.100:3306/cloud_oauth?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    initialSize: 1
+    maxWait: 60000
+    maxActive: 20
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  redis:
+    host: 192.168.99.100
+    port: 6379
+    database: 1
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.99.100:8010/eureka/
