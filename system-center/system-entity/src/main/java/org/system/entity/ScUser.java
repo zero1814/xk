@@ -10,14 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.zero.spring.jpa.BaseEntity;
 
 import io.swagger.annotations.ApiModel;
@@ -28,11 +26,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "sc_role")
-@ApiModel(value = "系统角色")
-public class ScRole extends BaseEntity {
+@Table(name = "sc_user")
+@ApiModel(value = "系统用户")
+public class ScUser extends BaseEntity {
 
-	private static final long serialVersionUID = 7881198167651082012L;
+	private static final long serialVersionUID = 8695264187581823945L;
 
 	@ApiModelProperty("编码")
 	@Id
@@ -40,16 +38,20 @@ public class ScRole extends BaseEntity {
 	private String code;
 
 	@ApiModelProperty("名称")
-	@Column(name = "name", length = 100, nullable = false)
-	private String name;
+	@Column(name = "nick_name", length = 100, nullable = false)
+	private String nickName;
 
-	@ApiModelProperty("是否可用 0 可用 1 不可用")
-	@Column(name = "flag_enabled", columnDefinition = "int default 0 ", nullable = false)
-	private Integer flagEnabled;
+	@ApiModelProperty("用户名")
+	@Column(name = "user_name", length = 100, nullable = false, unique = true)
+	private String userName;
 
-	@ApiModelProperty("是否已删除 0 未删除 1 已删除")
-	@Column(name = "flag_deleted", columnDefinition = "int default 0 ", nullable = false)
-	private Integer flagDeleted;
+	@ApiModelProperty("密码")
+	@Column(name = "password", length = 100, nullable = false)
+	private String password;
+
+	@ApiModelProperty("电子邮件")
+	@Column(name = "e_mail", length = 200, nullable = false)
+	private String eMail;
 
 	@ApiModelProperty("创建人")
 	@Column(name = "create_user", length = 50, insertable = true, updatable = false, nullable = false)
@@ -69,12 +71,10 @@ public class ScRole extends BaseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updateTime;
 
-	@ApiModelProperty("角色权限")
-	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
-	@Fetch(FetchMode.SUBSELECT)
-	@JoinTable(name = "sc_role_permission", joinColumns = {
-			@JoinColumn(name = "role", unique = false) }, inverseJoinColumns = {
-					@JoinColumn(name = "permission", unique = false) }, uniqueConstraints = {
-							@UniqueConstraint(columnNames = { "role", "permission" }) })
-	private Set<ScPermission> permissions;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(name = "sc_user_role", joinColumns = {
+			@JoinColumn(name = "user", unique = false) }, inverseJoinColumns = {
+					@JoinColumn(name = "role", unique = false) }, uniqueConstraints = {
+							@UniqueConstraint(columnNames = { "user", "role" }) })
+	private Set<ScRole> roles;
 }

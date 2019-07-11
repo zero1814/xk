@@ -27,3 +27,20 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+security:
+  oauth2:
+    client:
+      id: client_2
+      client-secret: 123456
+      access-token-uri: http://192.168.99.100:9098/oauth/token
+      user-authorization-uri: http://192.168.99.100:9098/oauth/authorize
+      token-endpoint-url: http://192.168.99.100:9098/oauth/check_token
+      grant-type: password
+      scope: server
+    resource:
+      jwt:
+        key-uri: http://192.168.99.100:9098/oauth/token_key
+      token-info-uri: http://192.168.99.100:9098/oauth/check_token
+      user-info-uri: http://192.168.99.100:9098/user/principal
+    authorization:
+      check-token-access: http://192.168.99.100:9098/oauth/check_token
