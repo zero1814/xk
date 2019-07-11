@@ -1,3 +1,7 @@
 RemoteSystemsTempFiles
 .metadata
 .recommenders
+*
+*.classpath
+*.gitignore
+*.project
