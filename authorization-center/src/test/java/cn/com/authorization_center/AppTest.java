@@ -1,4 +1,4 @@
-package org.springcloud.security.oauth2.jwt;
+package cn.com.authorization_center;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

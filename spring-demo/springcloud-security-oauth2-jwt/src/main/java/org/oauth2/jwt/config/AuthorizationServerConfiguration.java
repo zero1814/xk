@@ -4,11 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.oauth2.jwt.component.UserServiceDetail;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -31,8 +29,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Autowired
 	AuthenticationManager authenticationManager;
 	@Autowired
-	RedisConnectionFactory redisConnectionFactory;
-	@Autowired
 	private DruidDataSource dataSource;
 
 	@Autowired
@@ -41,11 +37,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 	@Autowired
 	private UserServiceDetail userDetailsService;
 
-	@Value("jwt.tokentKey.fileName")
-	private String jwtTokenKeyFileName;
-	@Value("jwt.tokentKey.password")
-	private String jwtTokenKeyPassowrd;
-
 	@Bean
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(jwtAccessTokenConverter());
@@ -53,8 +44,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
-		KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource(jwtTokenKeyFileName),
-				jwtTokenKeyPassowrd.toCharArray());
+		KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("test-jwt.jks"),
+				"test123".toCharArray());
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
 		converter.setKeyPair(keyStoreKeyFactory.getKeyPair("test-jwt"));
 		return converter;
